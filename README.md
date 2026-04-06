@@ -1,6 +1,6 @@
 # Beehiiv CLI
 
-A simple command-line app for interacting with the [Beehiiv V2 API](https://developers.beehiiv.com/welcome/getting-started). Use it (with AI?) to extract data and work with your publications, subscribers, posts, and webhooks from your terminal.
+A simple command-line app for interacting with the [Beehiiv V2 API](https://developers.beehiiv.com/welcome/getting-started). Use it (with AI! 🤖) to extract data and work with your publications, subscribers, posts, and webhooks from your terminal.
 
 ## Project Status
 
