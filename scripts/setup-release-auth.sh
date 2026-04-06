@@ -9,7 +9,7 @@ Usage:
 
 Required environment:
   HOMEBREW_TAP_TOKEN     Fine-grained PAT for the Homebrew tap repository
-  WINGET_PUBLISH_TOKEN   Fine-grained PAT for the winget-pkgs fork
+  WINGET_PUBLISH_TOKEN   Classic PAT with public_repo for winget PR creation
 
 Examples:
   HOMEBREW_TAP_TOKEN=... WINGET_PUBLISH_TOKEN=... \

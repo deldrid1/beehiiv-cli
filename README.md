@@ -16,7 +16,7 @@ brew install beehiiv
 3. Run `beehiiv auth login`.
 4. Try `beehiiv publications list` or `beehiiv --help`.
 
-If you're setting up release publishing with an agent, start with [docs/release-auth-setup.md](docs/release-auth-setup.md).
+If you're setting up release publishing with an agent, start with [docs/release-auth-setup.md](docs/release-auth-setup.md). It includes the current token requirements, including the classic PAT requirement for winget publication.
 
 ## Features
 

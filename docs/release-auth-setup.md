@@ -11,7 +11,11 @@ Replace these two GitHub Actions secrets in `deldrid1/beehiiv-cli`:
 - `HOMEBREW_TAP_TOKEN`
 - `WINGET_PUBLISH_TOKEN`
 
-Use separate fine-grained personal access tokens instead of one broad token.
+Use separate tokens for each publication path:
+
+- a fine-grained PAT for the Homebrew tap
+- a classic PAT for winget publication
+
 GitHub personal access tokens are created in the GitHub web UI, then stored into this repository's Actions secrets with `gh`.
 
 ## Token 1: Homebrew
@@ -34,14 +38,16 @@ Suggested creation link:
 
 ## Token 2: winget
 
-Use a fine-grained PAT with:
+Use a classic PAT with:
 
-- Resource owner: `deldrid1`
-- Repository access: `Only select repositories`
-  Select `deldrid1/winget-pkgs`
-- Repository permissions:
-  `Contents: Read and write`
-  `Pull requests: Read and write`
+- Scope:
+  `public_repo`
+
+Why classic here:
+
+- the release flow pushes to your fork and then opens a PR against `microsoft/winget-pkgs`
+- GitHub rejected the fine-grained fork-scoped token for the upstream PR creation step with `403 Resource not accessible by personal access token`
+- the current automation therefore needs a classic PAT for this one integration point
 
 Suggested name:
 
@@ -49,7 +55,7 @@ Suggested name:
 
 Suggested creation link:
 
-- [Create winget PAT](https://github.com/settings/personal-access-tokens/new?name=beehiiv-cli-winget-publish&description=Push+winget+manifests+and+open+PRs+for+beehiiv-cli&target_name=deldrid1&contents=write&pull_requests=write)
+- [Create classic PAT](https://github.com/settings/tokens/new?scopes=public_repo&description=beehiiv-cli-winget-publish)
 
 ## Apply the tokens
 
@@ -78,6 +84,7 @@ After rotating the tokens:
    - the Homebrew tap updates
    - a branch is pushed to `deldrid1/winget-pkgs`
    - a PR opens against `microsoft/winget-pkgs`
+   - older superseded Beehiiv CLI winget PRs are closed automatically
 
 ## Why this file exists
 

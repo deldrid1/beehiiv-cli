@@ -7,7 +7,7 @@ This repo uses GoReleaser's `winget` publisher to generate manifests after a tag
 Set these repository secrets before enabling public publication:
 
 - `WINGET_PUBLISH_TOKEN`
-  Fine-grained personal access token with `Contents: Read and write` and `Pull requests: Read and write` on your `winget-pkgs` fork.
+  Classic personal access token with the `public_repo` scope. This flow needs to push to your fork and then create a PR against `microsoft/winget-pkgs`, which is not reliably covered by a fork-scoped fine-grained PAT.
 
 ## Maintainer flow
 
@@ -16,7 +16,8 @@ Set these repository secrets before enabling public publication:
 3. Push a semver tag such as `v1.2.3`.
 4. Let the `Release` workflow publish the GitHub Release and let GoReleaser generate the winget manifest PR.
 5. Review the resulting PR in your fork and the PR opened against `microsoft/winget-pkgs`.
-6. Run the `Package Install` workflow to validate the local-manifest install path against the published release assets if you need an extra manual confirmation.
+6. The release automation will close older open Beehiiv CLI winget PRs once the newer one is created successfully.
+7. Run the `Package Install` workflow to validate the local-manifest install path against the published release assets if you need an extra manual confirmation.
 
 The current package identifier is `Deldrid1.BeehiivCLI`. If you ever need to change it, update [`.goreleaser.yaml`](../../.goreleaser.yaml) and [`.github/workflows/package-install.yml`](../../.github/workflows/package-install.yml) together.
 

@@ -71,11 +71,23 @@ tap_token="${HOMEBREW_TAP_TOKEN:-}"
 api_token="${GITHUB_TOKEN:-${tap_token}}"
 
 api_url="https://api.github.com/repos/${release_repository}/releases/tags/${release_tag}"
-if [[ -n "${api_token}" ]]; then
-  release_json="$(curl -fsSL -H "Authorization: Bearer ${api_token}" -H "Accept: application/vnd.github+json" "${api_url}")"
-else
-  release_json="$(curl -fsSL -H "Accept: application/vnd.github+json" "${api_url}")"
-fi
+release_json=""
+for attempt in 1 2 3 4 5 6 7 8 9 10 11 12; do
+  if [[ -n "${api_token}" ]]; then
+    if release_json="$(curl -fsSL -H "Authorization: Bearer ${api_token}" -H "Accept: application/vnd.github+json" "${api_url}" 2>/dev/null)"; then
+      break
+    fi
+  else
+    if release_json="$(curl -fsSL -H "Accept: application/vnd.github+json" "${api_url}" 2>/dev/null)"; then
+      break
+    fi
+  fi
+  if [[ "${attempt}" -eq 12 ]]; then
+    echo "GitHub release ${release_tag} was not available in time." >&2
+    exit 1
+  fi
+  sleep 10
+done
 
 release_json_file="$(mktemp)"
 printf '%s' "${release_json}" > "${release_json_file}"
