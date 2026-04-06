@@ -70,10 +70,13 @@ case "${command_name}" in
       exit 1
     fi
 
-    formula_path="$(mktemp "${TMPDIR:-/tmp}/beehiiv-formula.XXXXXX.rb")"
+    tap_name="local/beehiiv-cli-test"
+    tap_dir="$(mktemp -d "${TMPDIR:-/tmp}/beehiiv-homebrew-tap.XXXXXX")"
+    formula_path="${tap_dir}/Formula/beehiiv.rb"
     cleanup() {
       brew uninstall --formula beehiiv >/dev/null 2>&1 || true
-      rm -f "${formula_path}"
+      brew untap --force "${tap_name}" >/dev/null 2>&1 || true
+      rm -rf "${tap_dir}"
     }
     trap cleanup EXIT
 
@@ -82,9 +85,17 @@ case "${command_name}" in
       --release-repository "${release_repository}" \
       --render-only "${formula_path}"
 
-    brew install --formula "${formula_path}"
+    git init -q "${tap_dir}"
+    git -C "${tap_dir}" config user.name "install-test"
+    git -C "${tap_dir}" config user.email "install-test@example.com"
+    git -C "${tap_dir}" add "Formula/beehiiv.rb"
+    git -C "${tap_dir}" commit -q -m "Add beehiiv formula"
+
+    HOMEBREW_NO_AUTO_UPDATE=1 brew tap --custom-remote "${tap_name}" "${tap_dir}"
+    HOMEBREW_NO_AUTO_UPDATE=1 brew install --formula "${tap_name}/beehiiv"
     beehiiv version
     beehiiv completion bash >/dev/null
+    HOMEBREW_NO_AUTO_UPDATE=1 brew test "${tap_name}/beehiiv"
     ;;
   *)
     echo "unknown install-test command: ${command_name}" >&2
