@@ -4,21 +4,15 @@ This repo uses GoReleaser's `winget` publisher to generate manifests after a tag
 
 ## Required repository configuration
 
-Set these repository variables and secrets before enabling public publication:
+Set these repository secrets before enabling public publication:
 
-- `WINGET_REPOSITORY_OWNER`
-  Use the GitHub account or organization that owns your fork of `microsoft/winget-pkgs`.
-- `WINGET_REPOSITORY_NAME`
-  Usually `winget-pkgs`.
-- `WINGET_REPOSITORY_BRANCH`
-  Optional. If omitted, GoReleaser uses a version-specific branch name.
 - `WINGET_PUBLISH_TOKEN`
-  Personal access token with permission to push to the fork and open pull requests.
+  Fine-grained personal access token with `Contents: Read and write` and `Pull requests: Read and write` on your `winget-pkgs` fork.
 
 ## Maintainer flow
 
 1. Fork `microsoft/winget-pkgs`.
-2. Configure the repository variables and secret above.
+2. Configure the repository secret above.
 3. Push a semver tag such as `v1.2.3`.
 4. Let the `Release` workflow publish the GitHub Release and let GoReleaser generate the winget manifest PR.
 5. Review the resulting PR in your fork and the PR opened against `microsoft/winget-pkgs`.
@@ -31,6 +25,8 @@ The current package identifier is `Deldrid1.BeehiivCLI`. If you ever need to cha
 The `Package Install` workflow validates the generated manifest with `winget validate`, then installs Beehiiv through a local manifest via `winget install --manifest <path>`, following Microsoft's local-manifest guidance. It enables `LocalManifestFiles` first because that feature is disabled by default on Windows runners.
 
 The current release flow publishes Windows ZIP artifacts, and both the local validation workflow and the GoReleaser publisher treat them as ZIP-based portable manifests. Microsoft's current WinGet docs list both `portable` and `zip` as supported installer types, so this is a valid starting point for public publication. It is still worth dry-running against your `winget-pkgs` fork before the first public release so any schema or policy drift is caught early.
+
+For token rotation and agent-friendly setup, see [docs/release-auth-setup.md](../../docs/release-auth-setup.md).
 
 ## References
 

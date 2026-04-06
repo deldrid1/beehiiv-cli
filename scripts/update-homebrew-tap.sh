@@ -13,7 +13,7 @@ Environment:
   HOMEBREW_TAP_REPOSITORY      Tap repository, e.g. owner/homebrew-tap
   HOMEBREW_TAP_BRANCH          Tap branch, default: main
   HOMEBREW_TAP_FORMULA_PATH    Formula path in the tap, default: Formula/beehiiv.rb
-  HOMEBREW_TAP_TOKEN           Personal access token with contents:write on the tap repo
+  HOMEBREW_TAP_TOKEN           Fine-grained PAT with contents:write on the tap repo
 
 Examples:
   RELEASE_TAG=v1.2.3 RELEASE_REPOSITORY=deldrid1/beehiiv-cli \

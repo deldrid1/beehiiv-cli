@@ -111,7 +111,7 @@ Winget has been submitted upstream in [microsoft/winget-pkgs#355725](https://git
 winget install Deldrid1.BeehiivCLI
 ```
 
-Until then, install from the GitHub release assets or build from source on Windows. Maintainer setup and publication notes live in [packaging/winget/README.md](packaging/winget/README.md) and [packaging/homebrew/README.md](packaging/homebrew/README.md).
+Until then, install from the GitHub release assets or build from source on Windows. Maintainer setup and publication notes live in [packaging/winget/README.md](packaging/winget/README.md), [packaging/homebrew/README.md](packaging/homebrew/README.md), and [docs/release-auth-setup.md](docs/release-auth-setup.md).
 
 ## Authentication
 

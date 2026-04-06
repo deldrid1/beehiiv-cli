@@ -13,7 +13,7 @@ Set these repository variables and secrets before enabling tap publication:
 - `HOMEBREW_TAP_FORMULA_PATH`
   Optional. Defaults to `Formula/beehiiv.rb`.
 - `HOMEBREW_TAP_TOKEN`
-  Personal access token with `contents:write` on the tap repository.
+  Fine-grained personal access token with `Contents: Read and write` on the tap repository.
 
 ## Maintainer flow
 
@@ -29,3 +29,5 @@ Set these repository variables and secrets before enabling tap publication:
 The Homebrew formula template lives at `packaging/homebrew/beehiiv.rb.tmpl`, and the renderer/updater lives at `scripts/update-homebrew-tap.sh`.
 
 The current workflow pushes directly to the configured tap branch. If you want a PR-based tap flow instead, keep the rendering logic and change the script or workflow to commit on a topic branch and open a pull request from there.
+
+For token rotation and agent-friendly setup, see [docs/release-auth-setup.md](../../docs/release-auth-setup.md).
