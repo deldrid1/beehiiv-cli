@@ -78,10 +78,10 @@ winget:
       - golang
     release_notes: "{{ .Changelog }}"
     repository:
-      owner: "{{ with index .Env \"WINGET_REPOSITORY_OWNER\" }}{{ . }}{{ else }}microsoft{{ end }}"
-      name: "{{ with index .Env \"WINGET_REPOSITORY_NAME\" }}{{ . }}{{ else }}winget-pkgs{{ end }}"
-      branch: "{{ with index .Env \"WINGET_REPOSITORY_BRANCH\" }}{{ . }}{{ else }}beehiiv-{{ $.Version }}{{ end }}"
-      token: "{{ index .Env \"WINGET_PUBLISH_TOKEN\" }}"
+      owner: deldrid1
+      name: winget-pkgs
+      branch: "beehiiv-{{ .Version }}"
+      token: "{{ .Env.WINGET_PUBLISH_TOKEN }}"
       pull_request:
         enabled: true
         draft: false
@@ -89,4 +89,3 @@ winget:
           owner: microsoft
           name: winget-pkgs
           branch: master
-    skip_upload: "{{ if index .Env \"WINGET_PUBLISH_TOKEN\" }}false{{ else }}true{{ end }}"
