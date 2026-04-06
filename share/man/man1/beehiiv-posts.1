@@ -1,0 +1,80 @@
+.nh
+.TH "BEEHIIV-POSTS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
+
+.SH NAME
+beehiiv-posts - Create and inspect Beehiiv posts
+
+
+.SH SYNOPSIS
+\fBbeehiiv posts [flags]\fP
+
+
+.SH DESCRIPTION
+Work with publication posts, including listing, reading, creating, deleting, and retrieving aggregate post statistics.
+
+
+.SH OPTIONS
+\fB-h\fP, \fB--help\fP[=false]
+	help for posts
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+\fB--api-key\fP=""
+	Override the Beehiiv API key
+
+.PP
+\fB--base-url\fP=""
+	Override the API base URL
+
+.PP
+\fB--compact\fP[=false]
+	Print compact JSON
+
+.PP
+\fB--config\fP=""
+	Override the settings file location
+
+.PP
+\fB--debug\fP[=false]
+	Print request URLs to stderr
+
+.PP
+\fB--output\fP=""
+	Choose the output format (json, table, raw)
+
+.PP
+\fB--publication-id\fP=""
+	Override the Beehiiv publication ID
+
+.PP
+\fB--rate-limit-rpm\fP=0
+	Override the internal rate limit
+
+.PP
+\fB--raw\fP[=false]
+	Shorthand for --output raw
+
+.PP
+\fB--table\fP[=false]
+	Shorthand for --output table
+
+.PP
+\fB--timeout\fP=""
+	Override the request timeout, e.g. 45s
+
+.PP
+\fB--verbose\fP[=false]
+	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv posts list --query limit=25
+beehiiv posts show post_123
+beehiiv posts stats
+beehiiv posts create --body @post.json
+.EE
+
+
+.SH SEE ALSO
+\fBbeehiiv(1)\fP, \fBbeehiiv-posts-aggregate-stats(1)\fP, \fBbeehiiv-posts-create(1)\fP, \fBbeehiiv-posts-delete(1)\fP, \fBbeehiiv-posts-get(1)\fP, \fBbeehiiv-posts-list(1)\fP

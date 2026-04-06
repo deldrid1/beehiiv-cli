@@ -1,0 +1,152 @@
+name: Package Install
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to validate through Homebrew and winget
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: package-install-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  homebrew:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Resolve release tag
+        id: tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            echo "value=${{ inputs.tag }}" >> "${GITHUB_OUTPUT}"
+          else
+            echo "value=${{ github.event.release.tag_name }}" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Install via Homebrew formula
+        env:
+          RELEASE_TAG: ${{ steps.tag.outputs.value }}
+          RELEASE_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: ./scripts/install-test.sh homebrew
+
+  winget:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Resolve release tag
+        id: tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            echo "value=${{ inputs.tag }}" >> "${GITHUB_OUTPUT}"
+          else
+            echo "value=${{ github.event.release.tag_name }}" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Validate winget install from local manifest
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ steps.tag.outputs.value }}
+          RELEASE_REPOSITORY: ${{ github.repository }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          winget --info
+          winget settings --enable LocalManifestFiles
+
+          $tag = $env:RELEASE_TAG
+          $repository = $env:RELEASE_REPOSITORY
+          $packageIdentifier = 'Deldrid1.BeehiivCLI'
+          $version = $tag.TrimStart('v')
+          $releaseApi = "https://api.github.com/repos/$repository/releases/tags/$tag"
+          $headers = @{
+            Accept = 'application/vnd.github+json'
+          }
+          $release = Invoke-RestMethod -Uri $releaseApi -Headers $headers
+
+          $windowsAssetName = "beehiiv_${tag}_windows_x86_64.zip"
+          $checksumsAsset = $release.assets | Where-Object { $_.name -eq 'checksums.txt' } | Select-Object -First 1
+          if (-not $checksumsAsset) {
+            throw "checksums.txt asset not found for $tag"
+          }
+
+          $windowsAsset = $release.assets | Where-Object { $_.name -eq $windowsAssetName } | Select-Object -First 1
+          if (-not $windowsAsset) {
+            throw "Windows x86_64 asset $windowsAssetName not found for $tag"
+          }
+
+          $checksumsPath = Join-Path $env:RUNNER_TEMP 'checksums.txt'
+          Invoke-WebRequest -Uri $checksumsAsset.browser_download_url -OutFile $checksumsPath
+          $checksumLine = Select-String -Path $checksumsPath -Pattern " $([regex]::Escape($windowsAssetName))$" | Select-Object -First 1
+          if (-not $checksumLine) {
+            throw "Checksum for $windowsAssetName not found"
+          }
+          $checksum = ($checksumLine.Line -split '\s+')[0].ToUpperInvariant()
+
+          $manifestDir = Join-Path $env:RUNNER_TEMP 'winget-manifest'
+          New-Item -ItemType Directory -Path $manifestDir -Force | Out-Null
+          $versionFile = Join-Path $manifestDir "$packageIdentifier.yaml"
+          $localeFile = Join-Path $manifestDir "$packageIdentifier.locale.en-US.yaml"
+          $installerFile = Join-Path $manifestDir "$packageIdentifier.installer.yaml"
+
+          @"
+          PackageIdentifier: $packageIdentifier
+          PackageVersion: $version
+          DefaultLocale: en-US
+          ManifestType: version
+          ManifestVersion: 1.12.0
+          "@ | Set-Content -Path $versionFile -Encoding utf8NoBOM
+
+          @"
+          PackageIdentifier: $packageIdentifier
+          PackageVersion: $version
+          PackageLocale: en-US
+          Publisher: Deldrid1
+          PublisherUrl: https://github.com/$repository
+          PackageName: Beehiiv CLI
+          PackageUrl: https://github.com/$repository
+          License: MIT
+          ShortDescription: Cross-platform Beehiiv API CLI
+          Tags:
+          - beehiiv
+          - cli
+          - golang
+          ManifestType: defaultLocale
+          ManifestVersion: 1.12.0
+          "@ | Set-Content -Path $localeFile -Encoding utf8NoBOM
+
+          @"
+          PackageIdentifier: $packageIdentifier
+          PackageVersion: $version
+          InstallerType: zip
+          NestedInstallerType: portable
+          NestedInstallerFiles:
+          - RelativeFilePath: beehiiv.exe
+            PortableCommandAlias: beehiiv
+          Installers:
+          - Architecture: x64
+            InstallerUrl: $($windowsAsset.browser_download_url)
+            InstallerSha256: $checksum
+          ManifestType: installer
+          ManifestVersion: 1.12.0
+          "@ | Set-Content -Path $installerFile -Encoding utf8NoBOM
+
+          winget validate $manifestDir
+          winget install --manifest $manifestDir --accept-source-agreements --accept-package-agreements --disable-interactivity
+          beehiiv version

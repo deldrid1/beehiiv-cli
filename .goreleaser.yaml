@@ -1,0 +1,92 @@
+version: 2
+
+project_name: beehiiv
+
+before:
+  hooks:
+    - ./scripts/check-generated.sh
+
+builds:
+  - id: beehiiv
+    main: ./cmd/beehiiv
+    binary: beehiiv
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X github.com/deldrid1/beehiiv-cli/internal/buildinfo.Version={{ .Version }} -X github.com/deldrid1/beehiiv-cli/internal/buildinfo.Commit={{ .Commit }} -X github.com/deldrid1/beehiiv-cli/internal/buildinfo.Date={{ .Date }}
+
+archives:
+  - id: beehiiv
+    ids:
+      - beehiiv
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ if eq .Arch "amd64" }}x86_64{{ else }}{{ .Arch }}{{ end }}
+    files:
+      - LICENSE
+      - README.md
+      - share/man/man1/*
+      - share/completions/*
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+
+checksum:
+  name_template: checksums.txt
+
+snapshot:
+  version_template: "{{ .Version }}-snapshot"
+
+release:
+  draft: false
+  prerelease: auto
+  make_latest: true
+  include_meta: true
+  extra_files:
+    - glob: docs/reference/cli/*.md
+    - glob: share/man/man1/*.1
+    - glob: share/completions/*
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+
+winget:
+  - name: beehiiv
+    license: MIT
+    homepage: https://github.com/deldrid1/beehiiv-cli
+    package_name: Beehiiv CLI
+    publisher: Deldrid1
+    short_description: Cross-platform Beehiiv API CLI
+    publisher_url: https://github.com/deldrid1/beehiiv-cli
+    publisher_support_url: https://github.com/deldrid1/beehiiv-cli/issues/new/choose
+    package_identifier: Deldrid1.BeehiivCLI
+    tags:
+      - beehiiv
+      - cli
+      - golang
+    release_notes: "{{ .Changelog }}"
+    repository:
+      owner: "{{ with index .Env \"WINGET_REPOSITORY_OWNER\" }}{{ . }}{{ else }}microsoft{{ end }}"
+      name: "{{ with index .Env \"WINGET_REPOSITORY_NAME\" }}{{ . }}{{ else }}winget-pkgs{{ end }}"
+      branch: "{{ with index .Env \"WINGET_REPOSITORY_BRANCH\" }}{{ . }}{{ else }}beehiiv-{{ $.Version }}{{ end }}"
+      token: "{{ index .Env \"WINGET_PUBLISH_TOKEN\" }}"
+      pull_request:
+        enabled: true
+        draft: false
+        base:
+          owner: microsoft
+          name: winget-pkgs
+          branch: master
+    skip_upload: "{{ if index .Env \"WINGET_PUBLISH_TOKEN\" }}false{{ else }}true{{ end }}"

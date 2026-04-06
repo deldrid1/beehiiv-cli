@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+  artifact-metadata: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+
+      - name: Verify generated artifacts
+        run: ./scripts/check-generated.sh
+
+      - name: Lint
+        run: make lint
+
+      - name: Test
+        run: go test ./...
+
+      - name: Render release summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          sed \
+            -e "s|__TAG__|${GITHUB_REF_NAME}|g" \
+            -e "s|__REPOSITORY__|${GITHUB_REPOSITORY}|g" \
+            scripts/release-notes.md.tmpl >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v7
+        with:
+          version: '~> v2'
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Smoke check release artifacts
+        run: ./scripts/release-smoke.sh dist
+
+      - name: Attest published artifacts
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-checksums: dist/checksums.txt

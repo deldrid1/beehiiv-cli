@@ -1,0 +1,95 @@
+.nh
+.TH "BEEHIIV-AUTH-OAUTH-LOGIN" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
+
+.SH NAME
+beehiiv-auth-oauth-login - Run the Beehiiv OAuth authorization-code flow with PKCE
+
+
+.SH SYNOPSIS
+\fBbeehiiv auth oauth login [flags]\fP
+
+
+.SH DESCRIPTION
+Run the Beehiiv OAuth authorization-code flow with PKCE
+
+
+.SH OPTIONS
+\fB--client-id\fP=""
+	Beehiiv OAuth client ID
+
+.PP
+\fB--client-secret\fP=""
+	Beehiiv OAuth client secret for confidential clients
+
+.PP
+\fB-h\fP, \fB--help\fP[=false]
+	help for login
+
+.PP
+\fB--manual\fP[=false]
+	Skip the local callback listener and paste the callback URL manually
+
+.PP
+\fB--no-browser\fP[=false]
+	Print the authorization URL without opening a browser
+
+.PP
+\fB--redirect-uri\fP="http://localhost:3008/callback"
+	Registered OAuth redirect URI
+
+.PP
+\fB--scope\fP=[default]
+	Requested OAuth scope; repeat or use 'all'
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+\fB--api-key\fP=""
+	Override the Beehiiv API key
+
+.PP
+\fB--base-url\fP=""
+	Override the API base URL
+
+.PP
+\fB--compact\fP[=false]
+	Print compact JSON
+
+.PP
+\fB--config\fP=""
+	Override the settings file location
+
+.PP
+\fB--debug\fP[=false]
+	Print request URLs to stderr
+
+.PP
+\fB--output\fP=""
+	Choose the output format (json, table, raw)
+
+.PP
+\fB--publication-id\fP=""
+	Override the Beehiiv publication ID
+
+.PP
+\fB--rate-limit-rpm\fP=0
+	Override the internal rate limit
+
+.PP
+\fB--raw\fP[=false]
+	Shorthand for --output raw
+
+.PP
+\fB--table\fP[=false]
+	Shorthand for --output table
+
+.PP
+\fB--timeout\fP=""
+	Override the request timeout, e.g. 45s
+
+.PP
+\fB--verbose\fP[=false]
+	Print request and response details to stderr
+
+
+.SH SEE ALSO
+\fBbeehiiv-auth-oauth(1)\fP

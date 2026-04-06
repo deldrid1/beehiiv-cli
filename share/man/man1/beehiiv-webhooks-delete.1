@@ -1,0 +1,88 @@
+.nh
+.TH "BEEHIIV-WEBHOOKS-DELETE" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
+
+.SH NAME
+beehiiv-webhooks-delete - Delete a webhook by endpoint ID
+
+
+.SH SYNOPSIS
+\fBbeehiiv webhooks delete  [flags]\fP
+
+
+.SH DESCRIPTION
+Delete a webhook
+
+.PP
+Delete a webhook subscription from a publication.
+
+.PP
+API path: /publications/{publicationId}/webhooks/{endpointId}
+
+
+.SH OPTIONS
+\fB-h\fP, \fB--help\fP[=false]
+	help for delete
+
+.PP
+\fB--query\fP=[]
+	Add a repeatable query parameter in key=value form
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+\fB--api-key\fP=""
+	Override the Beehiiv API key
+
+.PP
+\fB--base-url\fP=""
+	Override the API base URL
+
+.PP
+\fB--compact\fP[=false]
+	Print compact JSON
+
+.PP
+\fB--config\fP=""
+	Override the settings file location
+
+.PP
+\fB--debug\fP[=false]
+	Print request URLs to stderr
+
+.PP
+\fB--output\fP=""
+	Choose the output format (json, table, raw)
+
+.PP
+\fB--publication-id\fP=""
+	Override the Beehiiv publication ID
+
+.PP
+\fB--rate-limit-rpm\fP=0
+	Override the internal rate limit
+
+.PP
+\fB--raw\fP[=false]
+	Shorthand for --output raw
+
+.PP
+\fB--table\fP[=false]
+	Shorthand for --output table
+
+.PP
+\fB--timeout\fP=""
+	Override the request timeout, e.g. 45s
+
+.PP
+\fB--verbose\fP[=false]
+	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv webhooks delete endpoint_123
+beehiiv webhooks remove endpoint_123
+.EE
+
+
+.SH SEE ALSO
+\fBbeehiiv-webhooks(1)\fP

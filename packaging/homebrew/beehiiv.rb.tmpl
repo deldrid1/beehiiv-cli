@@ -1,0 +1,38 @@
+class __CLASS_NAME__ < Formula
+  desc "__DESC__"
+  homepage "__HOMEPAGE__"
+  version "__VERSION__"
+  license "__LICENSE__"
+
+  on_macos do
+    if Hardware::CPU.arm?
+      url "__URL_DARWIN_ARM64__"
+      sha256 "__SHA_DARWIN_ARM64__"
+    else
+      url "__URL_DARWIN_AMD64__"
+      sha256 "__SHA_DARWIN_AMD64__"
+    end
+  end
+
+  on_linux do
+    if Hardware::CPU.arm?
+      url "__URL_LINUX_ARM64__"
+      sha256 "__SHA_LINUX_ARM64__"
+    else
+      url "__URL_LINUX_AMD64__"
+      sha256 "__SHA_LINUX_AMD64__"
+    end
+  end
+
+  def install
+    bin.install "beehiiv"
+    man1.install Dir["share/man/man1/*.1"]
+    bash_completion.install "share/completions/beehiiv.bash" => "beehiiv"
+    fish_completion.install "share/completions/beehiiv.fish"
+    zsh_completion.install "share/completions/_beehiiv"
+  end
+
+  test do
+    assert_match "beehiiv version", shell_output("#{bin}/beehiiv version")
+  end
+end

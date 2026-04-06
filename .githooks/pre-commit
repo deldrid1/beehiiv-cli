@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Running format check..."
+make fmt-check
+
+echo "Running tests..."
+make test
+
+echo "Pre-commit checks passed."

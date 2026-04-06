@@ -1,0 +1,12 @@
+/dist/
+/dist-smoke/
+/.DS_Store
+
+# Editor state
+/.idea/
+/.vscode/
+
+# Go build and test leftovers
+*.out
+*.test
+

@@ -1,0 +1,36 @@
+name: Bug report
+description: Report unexpected Beehiiv CLI behavior
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include CLI commands, flags, and any relevant setup.
+      placeholder: |
+        1. Run `beehiiv ...`
+        2. Observe ...
+        3. Expected ...
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: Affected version
+      description: Paste the output of `beehiiv version`.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or output
+      description: Paste relevant stdout/stderr. Redact secrets if needed.

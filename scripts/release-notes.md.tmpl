@@ -1,0 +1,23 @@
+## Release Summary
+
+Tag: __TAG__
+Repository: __REPOSITORY__
+
+This release publishes:
+
+- GitHub Release archives for macOS, Linux, and Windows
+- `checksums.txt` for every uploaded artifact
+- generated CLI reference docs, manpages, and shell completions
+- GitHub artifact attestations for the published assets
+
+Verification example:
+
+```bash
+gh attestation verify PATH_TO_ARTIFACT -R __REPOSITORY__
+```
+
+Local checksums example:
+
+```bash
+shasum -a 256 --check checksums.txt
+```
