@@ -80,7 +80,7 @@ jobs:
           }
           $release = Invoke-RestMethod -Uri $releaseApi -Headers $headers
 
-          $windowsAssetName = "beehiiv_${tag}_windows_x86_64.zip"
+          $windowsAssetName = "beehiiv_${version}_windows_x86_64.zip"
           $checksumsAsset = $release.assets | Where-Object { $_.name -eq 'checksums.txt' } | Select-Object -First 1
           if (-not $checksumsAsset) {
             throw "checksums.txt asset not found for $tag"

@@ -61,6 +61,8 @@ done
 [[ -n "${release_tag}" ]] || { echo "RELEASE_TAG or --tag is required" >&2; exit 1; }
 [[ -n "${release_repository}" ]] || { echo "RELEASE_REPOSITORY or --release-repository is required" >&2; exit 1; }
 
+release_version="${release_tag#v}"
+
 template_path="${repo_root}/packaging/homebrew/beehiiv.rb.tmpl"
 formula_path="${HOMEBREW_TAP_FORMULA_PATH:-Formula/beehiiv.rb}"
 tap_repository="${HOMEBREW_TAP_REPOSITORY:-}"
@@ -68,12 +70,11 @@ tap_branch="${HOMEBREW_TAP_BRANCH:-main}"
 tap_token="${HOMEBREW_TAP_TOKEN:-}"
 
 api_url="https://api.github.com/repos/${release_repository}/releases/tags/${release_tag}"
-auth_header=()
 if [[ -n "${tap_token}" ]]; then
-  auth_header=(-H "Authorization: Bearer ${tap_token}")
+  release_json="$(curl -fsSL -H "Authorization: Bearer ${tap_token}" -H "Accept: application/vnd.github+json" "${api_url}")"
+else
+  release_json="$(curl -fsSL -H "Accept: application/vnd.github+json" "${api_url}")"
 fi
-
-release_json="$(curl -fsSL "${auth_header[@]}" -H "Accept: application/vnd.github+json" "${api_url}")"
 
 checksums_url="$(python3 - <<'PY' "${release_json}"
 import json
@@ -92,17 +93,17 @@ checksums_file="$(mktemp)"
 trap 'rm -f "${checksums_file}"' EXIT
 curl -fsSL -o "${checksums_file}" "${checksums_url}"
 
-asset_info="$(python3 - <<'PY' "${release_json}" "${release_tag}"
+asset_info="$(python3 - <<'PY' "${release_json}" "${release_version}"
 import json
 import sys
 
 release = json.loads(sys.argv[1])
-tag = sys.argv[2]
+version = sys.argv[2]
 targets = [
-    ("darwin_amd64", f"beehiiv_{tag}_darwin_x86_64.tar.gz"),
-    ("darwin_arm64", f"beehiiv_{tag}_darwin_arm64.tar.gz"),
-    ("linux_amd64", f"beehiiv_{tag}_linux_x86_64.tar.gz"),
-    ("linux_arm64", f"beehiiv_{tag}_linux_arm64.tar.gz"),
+    ("darwin_amd64", f"beehiiv_{version}_darwin_x86_64.tar.gz"),
+    ("darwin_arm64", f"beehiiv_{version}_darwin_arm64.tar.gz"),
+    ("linux_amd64", f"beehiiv_{version}_linux_x86_64.tar.gz"),
+    ("linux_arm64", f"beehiiv_{version}_linux_arm64.tar.gz"),
 ]
 
 assets = {asset["name"]: asset["browser_download_url"] for asset in release["assets"]}
