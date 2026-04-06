@@ -8,11 +8,11 @@ This project is ready for early public use and feedback across all major Operati
 
 ## Quick Start
 
-1. Download the latest release for your computer from the [GitHub releases page](https://github.com/deldrid1/beehiiv-cli/releases) or via your favorite package manager.
-   - ```bash
+1. Download the latest release for your computer from the [GitHub releases page](https://github.com/deldrid1/beehiiv-cli/releases) or via your favorite package manager:
+```bash
 brew tap deldrid1/homebrew-tap
 brew install beehiiv
-     ``` 
+``` 
 3. Run `beehiiv auth login`.
 4. Try `beehiiv publications list` or `beehiiv --help`.
 
