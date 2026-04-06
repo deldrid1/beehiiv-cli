@@ -223,7 +223,7 @@ render_formula "${tap_dir}/${formula_path}"
 
 cd "${tap_dir}"
 
-if git diff --quiet -- "${formula_path}"; then
+if [[ -z "$(git status --porcelain -- "${formula_path}")" ]]; then
   echo "Homebrew formula already up to date."
   exit 0
 fi
