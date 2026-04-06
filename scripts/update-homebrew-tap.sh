@@ -77,11 +77,15 @@ else
   release_json="$(curl -fsSL -H "Accept: application/vnd.github+json" "${api_url}")"
 fi
 
-checksums_url="$(python3 - <<'PY' "${release_json}"
+release_json_file="$(mktemp)"
+printf '%s' "${release_json}" > "${release_json_file}"
+
+checksums_url="$(python3 - <<'PY' "${release_json_file}"
 import json
 import sys
 
-release = json.loads(sys.argv[1])
+with open(sys.argv[1], "r", encoding="utf-8") as handle:
+    release = json.load(handle)
 for asset in release["assets"]:
     if asset["name"] == "checksums.txt":
         print(asset["browser_download_url"])
@@ -91,14 +95,15 @@ PY
 
 [[ -n "${checksums_url}" ]] || { echo "checksums.txt asset not found for ${release_tag}" >&2; exit 1; }
 checksums_file="$(mktemp)"
-trap 'rm -f "${checksums_file}"' EXIT
+trap 'rm -f "${checksums_file}" "${release_json_file}"' EXIT
 curl -fsSL -o "${checksums_file}" "${checksums_url}"
 
-asset_info="$(python3 - <<'PY' "${release_json}" "${release_version}"
+asset_info="$(python3 - <<'PY' "${release_json_file}" "${release_version}"
 import json
 import sys
 
-release = json.loads(sys.argv[1])
+with open(sys.argv[1], "r", encoding="utf-8") as handle:
+    release = json.load(handle)
 version = sys.argv[2]
 targets = [
     ("darwin_amd64", f"beehiiv_{version}_darwin_x86_64.tar.gz"),
@@ -211,7 +216,7 @@ fi
 [[ -n "${tap_token}" ]] || { echo "HOMEBREW_TAP_TOKEN is required when not using --render-only" >&2; exit 1; }
 
 tap_dir="$(mktemp -d)"
-trap 'rm -rf "${tap_dir}" "${checksums_file}"' EXIT
+trap 'rm -rf "${tap_dir}" "${checksums_file}" "${release_json_file}"' EXIT
 
 git clone --branch "${tap_branch}" "https://x-access-token:${tap_token}@github.com/${tap_repository}.git" "${tap_dir}" >/dev/null 2>&1
 render_formula "${tap_dir}/${formula_path}"
