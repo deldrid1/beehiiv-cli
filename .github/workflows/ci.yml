@@ -94,7 +94,7 @@ jobs:
         run: ./scripts/release-smoke.sh dist
 
       - name: Upload release-smoke artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: goreleaser-dist
           path: dist/*
