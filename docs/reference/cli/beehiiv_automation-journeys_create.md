@@ -2,7 +2,7 @@
 
 ## beehiiv automation-journeys create
 
-Add subscription to an automation
+Enroll an existing subscriber into an automation
 
 ### Synopsis
 
@@ -14,6 +14,14 @@ API path: /publications/{publicationId}/automations/{automationId}/journeys
 
 ```
 beehiiv automation-journeys create <automationId> [flags]
+```
+
+### Examples
+
+```
+beehiiv automation-journeys create aut_123 --body '{"email":"person@example.com"}'
+beehiiv automation-journeys enroll aut_123 --body '{"subscription_id":"sub_123"}'
+beehiiv automations enroll aut_123 --body @journey.json
 ```
 
 ### Options
@@ -43,5 +51,5 @@ beehiiv automation-journeys create <automationId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - automation journeys commands
+* [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - Inspect and manage automation journeys
 

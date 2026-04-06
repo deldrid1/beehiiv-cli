@@ -2,10 +2,25 @@
 
 ## beehiiv automations
 
-automations commands
+Inspect Beehiiv automations and related workflow activity
+
+### Synopsis
+
+List automation definitions, inspect a single automation with optional stats, and jump into the emails and journeys that belong to a specific automation.
 
 ```
 beehiiv automations [flags]
+```
+
+### Examples
+
+```
+beehiiv automations list
+beehiiv automations list --query expand=stats
+beehiiv automations show aut_123 --query expand=stats
+beehiiv automations emails aut_123
+beehiiv automations journeys aut_123
+beehiiv automations enroll aut_123 --body '{"email":"person@example.com"}'
 ```
 
 ### Options
@@ -34,6 +49,10 @@ beehiiv automations [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv automations get](beehiiv_automations_get.md)	 - Get automation
-* [beehiiv automations list](beehiiv_automations_list.md)	 - List automations
+* [beehiiv automations emails](beehiiv_automations_emails.md)	 - List the emails inside an automation
+* [beehiiv automations enroll](beehiiv_automations_enroll.md)	 - Enroll an existing subscriber into an automation
+* [beehiiv automations get](beehiiv_automations_get.md)	 - Show a single automation by ID
+* [beehiiv automations journey](beehiiv_automations_journey.md)	 - Show a single automation journey
+* [beehiiv automations journeys](beehiiv_automations_journeys.md)	 - List journeys that occurred inside an automation
+* [beehiiv automations list](beehiiv_automations_list.md)	 - List automations for the active publication
 

@@ -2,7 +2,7 @@
 
 ## beehiiv automation-journeys list
 
-List automation journeys
+List journeys that occurred inside an automation
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/automations/{automationId}/journeys
 
 ```
 beehiiv automation-journeys list <automationId> [flags]
+```
+
+### Examples
+
+```
+beehiiv automation-journeys list aut_123
+beehiiv automations journeys aut_123 --all
 ```
 
 ### Options
@@ -43,5 +50,5 @@ beehiiv automation-journeys list <automationId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - automation journeys commands
+* [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - Inspect and manage automation journeys
 

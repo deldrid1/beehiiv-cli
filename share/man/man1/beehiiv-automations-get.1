@@ -2,7 +2,7 @@
 .TH "BEEHIIV-AUTOMATIONS-GET" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-automations-get - Get automation
+beehiiv-automations-get - Show a single automation by ID
 
 
 .SH SYNOPSIS
@@ -72,6 +72,13 @@ API path: /publications/{publicationId}/automations/{automationId}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv automations get aut_123
+beehiiv automations show aut_123 --query expand=stats
+.EE
 
 
 .SH SEE ALSO

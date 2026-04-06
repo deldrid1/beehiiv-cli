@@ -2,7 +2,7 @@
 
 ## beehiiv automations list
 
-List automations
+List automations for the active publication
 
 ### Synopsis
 
@@ -12,6 +12,13 @@ API path: /publications/{publicationId}/automations
 
 ```
 beehiiv automations list [flags]
+```
+
+### Examples
+
+```
+beehiiv automations list
+beehiiv automations list --query expand=stats --output table
 ```
 
 ### Options
@@ -41,5 +48,5 @@ beehiiv automations list [flags]
 
 ### SEE ALSO
 
-* [beehiiv automations](beehiiv_automations.md)	 - automations commands
+* [beehiiv automations](beehiiv_automations.md)	 - Inspect Beehiiv automations and related workflow activity
 

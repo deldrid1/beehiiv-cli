@@ -244,6 +244,14 @@ Show a subscriber by ID:
 beehiiv subscriptions show sub_123
 ```
 
+Inspect automations and their related email activity:
+
+```bash
+beehiiv automations list --query expand=stats
+beehiiv automations show aut_123 --query expand=stats
+beehiiv automations emails aut_123
+```
+
 Look up a subscriber by email:
 
 ```bash

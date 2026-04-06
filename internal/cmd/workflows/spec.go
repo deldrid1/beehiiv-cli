@@ -17,6 +17,12 @@ type GroupSpec struct {
 
 func Lookup(group string) (GroupSpec, bool) {
 	switch group {
+	case "automations":
+		return automationsSpec(), true
+	case "automation-emails":
+		return automationEmailsSpec(), true
+	case "automation-journeys":
+		return automationJourneysSpec(), true
 	case "publications":
 		return publicationsSpec(), true
 	case "subscriptions":

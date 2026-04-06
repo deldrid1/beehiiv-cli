@@ -2,7 +2,7 @@
 
 ## beehiiv automation-emails list
 
-List automation emails
+List the emails inside an automation
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/automations/{automationId}/emails
 
 ```
 beehiiv automation-emails list <automationId> [flags]
+```
+
+### Examples
+
+```
+beehiiv automation-emails list aut_123
+beehiiv automations emails aut_123 --all
 ```
 
 ### Options
@@ -43,5 +50,5 @@ beehiiv automation-emails list <automationId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv automation-emails](beehiiv_automation-emails.md)	 - automation emails commands
+* [beehiiv automation-emails](beehiiv_automation-emails.md)	 - List the emails that belong to a Beehiiv automation
 

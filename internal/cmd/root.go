@@ -176,6 +176,8 @@ func registerOperationGroups(root *cobra.Command, executor *cliruntime.Executor)
 			groupCommand.AddCommand(actionCommand)
 		}
 
+		registerWorkflowHelpers(groupCommand, group, executor)
+
 		root.AddCommand(groupCommand)
 	}
 }

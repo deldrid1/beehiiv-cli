@@ -35,9 +35,9 @@ beehiiv [flags]
 * [beehiiv advertisement-opportunities](beehiiv_advertisement-opportunities.md)	 - advertisement opportunities commands
 * [beehiiv auth](beehiiv_auth.md)	 - Authentication and config commands
 * [beehiiv authors](beehiiv_authors.md)	 - authors commands
-* [beehiiv automation-emails](beehiiv_automation-emails.md)	 - automation emails commands
-* [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - automation journeys commands
-* [beehiiv automations](beehiiv_automations.md)	 - automations commands
+* [beehiiv automation-emails](beehiiv_automation-emails.md)	 - List the emails that belong to a Beehiiv automation
+* [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - Inspect and manage automation journeys
+* [beehiiv automations](beehiiv_automations.md)	 - Inspect Beehiiv automations and related workflow activity
 * [beehiiv bulk-subscription-updates](beehiiv_bulk-subscription-updates.md)	 - bulk subscription updates commands
 * [beehiiv bulk-subscriptions](beehiiv_bulk-subscriptions.md)	 - bulk subscriptions commands
 * [beehiiv completion](beehiiv_completion.md)	 - Generate the autocompletion script for the specified shell

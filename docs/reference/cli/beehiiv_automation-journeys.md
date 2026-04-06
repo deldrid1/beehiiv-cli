@@ -2,10 +2,24 @@
 
 ## beehiiv automation-journeys
 
-automation journeys commands
+Inspect and manage automation journeys
+
+### Synopsis
+
+List journeys inside an automation, inspect a specific journey, or enroll an existing subscriber when the automation has an active Add by API trigger.
 
 ```
 beehiiv automation-journeys [flags]
+```
+
+### Examples
+
+```
+beehiiv automation-journeys list aut_123
+beehiiv automation-journeys get aut_123 journey_123
+beehiiv automation-journeys create aut_123 --body '{"email":"person@example.com"}'
+beehiiv automations journeys aut_123
+beehiiv automations enroll aut_123 --body '{"subscription_id":"sub_123"}'
 ```
 
 ### Options
@@ -34,7 +48,7 @@ beehiiv automation-journeys [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv automation-journeys create](beehiiv_automation-journeys_create.md)	 - Add subscription to an automation
-* [beehiiv automation-journeys get](beehiiv_automation-journeys_get.md)	 - Get automation journey
-* [beehiiv automation-journeys list](beehiiv_automation-journeys_list.md)	 - List automation journeys
+* [beehiiv automation-journeys create](beehiiv_automation-journeys_create.md)	 - Enroll an existing subscriber into an automation
+* [beehiiv automation-journeys get](beehiiv_automation-journeys_get.md)	 - Show a single automation journey by ID
+* [beehiiv automation-journeys list](beehiiv_automation-journeys_list.md)	 - List journeys that occurred inside an automation
 

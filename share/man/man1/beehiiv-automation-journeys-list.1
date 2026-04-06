@@ -2,7 +2,7 @@
 .TH "BEEHIIV-AUTOMATION-JOURNEYS-LIST" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-automation-journeys-list - List automation journeys
+beehiiv-automation-journeys-list - List journeys that occurred inside an automation
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/automations/{automationId}/journeys
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv automation-journeys list aut_123
+beehiiv automations journeys aut_123 --all
+.EE
 
 
 .SH SEE ALSO

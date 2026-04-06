@@ -2,7 +2,7 @@
 .TH "BEEHIIV-AUTOMATIONS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-automations - automations commands
+beehiiv-automations - Inspect Beehiiv automations and related workflow activity
 
 
 .SH SYNOPSIS
@@ -10,7 +10,7 @@ beehiiv-automations - automations commands
 
 
 .SH DESCRIPTION
-automations commands
+List automation definitions, inspect a single automation with optional stats, and jump into the emails and journeys that belong to a specific automation.
 
 
 .SH OPTIONS
@@ -67,5 +67,16 @@ automations commands
 	Print request and response details to stderr
 
 
+.SH EXAMPLE
+.EX
+beehiiv automations list
+beehiiv automations list --query expand=stats
+beehiiv automations show aut_123 --query expand=stats
+beehiiv automations emails aut_123
+beehiiv automations journeys aut_123
+beehiiv automations enroll aut_123 --body '{"email":"person@example.com"}'
+.EE
+
+
 .SH SEE ALSO
-\fBbeehiiv(1)\fP, \fBbeehiiv-automations-get(1)\fP, \fBbeehiiv-automations-list(1)\fP
+\fBbeehiiv(1)\fP, \fBbeehiiv-automations-emails(1)\fP, \fBbeehiiv-automations-enroll(1)\fP, \fBbeehiiv-automations-get(1)\fP, \fBbeehiiv-automations-journey(1)\fP, \fBbeehiiv-automations-journeys(1)\fP, \fBbeehiiv-automations-list(1)\fP

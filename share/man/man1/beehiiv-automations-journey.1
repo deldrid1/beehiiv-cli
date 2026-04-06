@@ -1,19 +1,16 @@
 .nh
-.TH "BEEHIIV-AUTOMATION-JOURNEYS-GET" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
+.TH "BEEHIIV-AUTOMATIONS-JOURNEY" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-automation-journeys-get - Show a single automation journey by ID
+beehiiv-automations-journey - Show a single automation journey
 
 
 .SH SYNOPSIS
-\fBbeehiiv automation-journeys get   [flags]\fP
+\fBbeehiiv automations journey   [flags]\fP
 
 
 .SH DESCRIPTION
-Get automation journey
-
-.PP
-Retrieve a single automation journey by ID.
+Show a single automation journey by automation ID and journey ID.
 
 .PP
 API path: /publications/{publicationId}/automations/{automationId}/journeys/{automationJourneyId}
@@ -21,7 +18,7 @@ API path: /publications/{publicationId}/automations/{automationId}/journeys/{aut
 
 .SH OPTIONS
 \fB-h\fP, \fB--help\fP[=false]
-	help for get
+	help for journey
 
 .PP
 \fB--query\fP=[]
@@ -79,11 +76,9 @@ API path: /publications/{publicationId}/automations/{automationId}/journeys/{aut
 
 .SH EXAMPLE
 .EX
-beehiiv automation-journeys get aut_123 journey_123
-beehiiv automation-journeys show aut_123 journey_123
 beehiiv automations journey aut_123 journey_123
 .EE
 
 
 .SH SEE ALSO
-\fBbeehiiv-automation-journeys(1)\fP
+\fBbeehiiv-automations(1)\fP

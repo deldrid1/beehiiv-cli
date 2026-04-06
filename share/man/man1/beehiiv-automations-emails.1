@@ -1,27 +1,28 @@
 .nh
-.TH "BEEHIIV-AUTOMATION-JOURNEYS-GET" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
+.TH "BEEHIIV-AUTOMATIONS-EMAILS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-automation-journeys-get - Show a single automation journey by ID
+beehiiv-automations-emails - List the emails inside an automation
 
 
 .SH SYNOPSIS
-\fBbeehiiv automation-journeys get   [flags]\fP
+\fBbeehiiv automations emails  [flags]\fP
 
 
 .SH DESCRIPTION
-Get automation journey
+List the emails belonging to a specific automation, including the engagement statistics Beehiiv returns for each automation email.
 
 .PP
-Retrieve a single automation journey by ID.
-
-.PP
-API path: /publications/{publicationId}/automations/{automationId}/journeys/{automationJourneyId}
+API path: /publications/{publicationId}/automations/{automationId}/emails
 
 
 .SH OPTIONS
+\fB--all\fP[=false]
+	Fetch every page and aggregate the results
+
+.PP
 \fB-h\fP, \fB--help\fP[=false]
-	help for get
+	help for emails
 
 .PP
 \fB--query\fP=[]
@@ -79,11 +80,10 @@ API path: /publications/{publicationId}/automations/{automationId}/journeys/{aut
 
 .SH EXAMPLE
 .EX
-beehiiv automation-journeys get aut_123 journey_123
-beehiiv automation-journeys show aut_123 journey_123
-beehiiv automations journey aut_123 journey_123
+beehiiv automations emails aut_123
+beehiiv automations emails aut_123 --all
 .EE
 
 
 .SH SEE ALSO
-\fBbeehiiv-automation-journeys(1)\fP
+\fBbeehiiv-automations(1)\fP

@@ -2,10 +2,21 @@
 
 ## beehiiv automation-emails
 
-automation emails commands
+List the emails that belong to a Beehiiv automation
+
+### Synopsis
+
+Inspect the emails attached to a specific automation, including the per-email engagement statistics Beehiiv returns for that automation.
 
 ```
 beehiiv automation-emails [flags]
+```
+
+### Examples
+
+```
+beehiiv automation-emails list aut_123
+beehiiv automations emails aut_123
 ```
 
 ### Options
@@ -34,5 +45,5 @@ beehiiv automation-emails [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv automation-emails list](beehiiv_automation-emails_list.md)	 - List automation emails
+* [beehiiv automation-emails list](beehiiv_automation-emails_list.md)	 - List the emails inside an automation
 

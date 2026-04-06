@@ -91,6 +91,13 @@
     "path_params": [],
     "query_params": [
       {
+        "name": "expand[]",
+        "type": "array",
+        "multiple": true,
+        "required": false,
+        "description": "Optional list of expandable objects.<br>`stats` - Returns automation statistics."
+      },
+      {
         "name": "limit",
         "type": "integer",
         "multiple": false,
@@ -123,7 +130,15 @@
     "path_params": [
       "automationId"
     ],
-    "query_params": [],
+    "query_params": [
+      {
+        "name": "expand[]",
+        "type": "array",
+        "multiple": true,
+        "required": false,
+        "description": "Optional list of expandable objects.<br>`stats` - Returns automation statistics."
+      }
+    ],
     "body": false,
     "list": false,
     "pagination": "none",

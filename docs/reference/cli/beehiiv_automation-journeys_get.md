@@ -2,7 +2,7 @@
 
 ## beehiiv automation-journeys get
 
-Get automation journey
+Show a single automation journey by ID
 
 ### Synopsis
 
@@ -14,6 +14,14 @@ API path: /publications/{publicationId}/automations/{automationId}/journeys/{aut
 
 ```
 beehiiv automation-journeys get <automationId> <automationJourneyId> [flags]
+```
+
+### Examples
+
+```
+beehiiv automation-journeys get aut_123 journey_123
+beehiiv automation-journeys show aut_123 journey_123
+beehiiv automations journey aut_123 journey_123
 ```
 
 ### Options
@@ -42,5 +50,5 @@ beehiiv automation-journeys get <automationId> <automationJourneyId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - automation journeys commands
+* [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - Inspect and manage automation journeys
 
