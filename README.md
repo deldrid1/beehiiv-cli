@@ -4,7 +4,7 @@ A simple command-line app for Beehiiv. Use it to sign in once, then work with pu
 
 ## Project Status
 
-This project is ready for early public use on GitHub. GitHub releases are live today, and Homebrew plus winget support are prepared but still need the public package-manager repos configured before those install commands will work for everyone.
+This project is ready for early public use on GitHub. GitHub releases and Homebrew installs are live today, and winget publication has been submitted upstream.
 
 ## Quick Start
 
@@ -98,18 +98,20 @@ Secrets are stored in the Windows Credential Manager by default.
 
 ## Package Managers
 
-Package-manager publication is scaffolded but not live until the Homebrew tap and winget submission flow are configured. Once that maintainer setup is done, installs will look like:
+Homebrew is live now:
 
 ```bash
-brew tap <owner>/<tap>
+brew tap deldrid1/homebrew-tap
 brew install beehiiv
 ```
+
+Winget has been submitted upstream in [microsoft/winget-pkgs#355725](https://github.com/microsoft/winget-pkgs/pull/355725). Once that PR is merged, installs will work like this:
 
 ```powershell
 winget install Deldrid1.BeehiivCLI
 ```
 
-Until then, install from the GitHub release assets or build from source. Maintainer setup and publication notes live in [packaging/winget/README.md](packaging/winget/README.md) and [packaging/homebrew/README.md](packaging/homebrew/README.md).
+Until then, install from the GitHub release assets or build from source on Windows. Maintainer setup and publication notes live in [packaging/winget/README.md](packaging/winget/README.md) and [packaging/homebrew/README.md](packaging/homebrew/README.md).
 
 ## Authentication
 
