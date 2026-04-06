@@ -48,11 +48,7 @@ release:
   draft: false
   prerelease: auto
   make_latest: true
-  include_meta: true
-  extra_files:
-    - glob: docs/reference/cli/*.md
-    - glob: share/man/man1/*.1
-    - glob: share/completions/*
+  include_meta: false
 
 changelog:
   sort: asc

@@ -12,6 +12,8 @@ This project is ready for early public use on GitHub. GitHub releases and Homebr
 2. Run `beehiiv auth login`.
 3. Try `beehiiv publications list` or `beehiiv --help`.
 
+If you're setting up release publishing with an agent, start with [docs/release-auth-setup.md](docs/release-auth-setup.md).
+
 ## Features
 
 - Friendly `--help` output on every command
@@ -50,17 +52,18 @@ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ./dist/beehiiv-windows-amd64
 
 ### macOS
 
-1. Download the correct binary for your machine from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest), for example `beehiiv-darwin-arm64` on Apple Silicon or `beehiiv-darwin-amd64` on Intel.
-2. Make it executable:
+1. Download the correct archive for your machine from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest):
+   `beehiiv_VERSION_darwin_arm64.tar.gz` on Apple Silicon or `beehiiv_VERSION_darwin_x86_64.tar.gz` on Intel.
+2. Extract it:
 
 ```bash
-chmod +x ./beehiiv-darwin-arm64
+tar -xzf beehiiv_VERSION_darwin_arm64.tar.gz
 ```
 
-3. Move it somewhere on your `PATH`, for example:
+3. Move `beehiiv` somewhere on your `PATH`, for example:
 
 ```bash
-mv ./beehiiv-darwin-arm64 /usr/local/bin/beehiiv
+mv ./beehiiv /usr/local/bin/beehiiv
 ```
 
 4. Run:
@@ -79,8 +82,8 @@ Secrets are stored in the macOS Keychain by default.
 
 ### Windows
 
-1. Download `beehiiv-windows-amd64.exe` from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest).
-2. Place it in a stable folder such as `C:\Tools\beehiiv\`.
+1. Download the correct archive from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest), for example `beehiiv_VERSION_windows_x86_64.zip`.
+2. Extract it into a stable folder such as `C:\Tools\beehiiv\`.
 3. Add that folder to your `PATH`.
 4. Run:
 
@@ -95,6 +98,21 @@ The CLI stores its config at:
 ```
 
 Secrets are stored in the Windows Credential Manager by default.
+
+### Linux
+
+1. Download the correct archive from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest), for example `beehiiv_VERSION_linux_x86_64.tar.gz`.
+2. Extract it:
+
+```bash
+tar -xzf beehiiv_VERSION_linux_x86_64.tar.gz
+```
+
+3. Move `beehiiv` somewhere on your `PATH`, for example:
+
+```bash
+sudo mv ./beehiiv /usr/local/bin/beehiiv
+```
 
 ## Package Managers
 
