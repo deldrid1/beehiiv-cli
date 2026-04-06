@@ -55,4 +55,3 @@ beehiiv automations enroll aut_123 --body '{"email":"person@example.com"}'
 * [beehiiv automations journey](beehiiv_automations_journey.md)	 - Show a single automation journey
 * [beehiiv automations journeys](beehiiv_automations_journeys.md)	 - List journeys that occurred inside an automation
 * [beehiiv automations list](beehiiv_automations_list.md)	 - List automations for the active publication
-

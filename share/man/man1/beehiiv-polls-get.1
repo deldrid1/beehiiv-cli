@@ -2,7 +2,7 @@
 .TH "BEEHIIV-POLLS-GET" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-polls-get - Get poll OAuth Scope: polls:read
+beehiiv-polls-get - Show a poll by ID
 
 
 .SH SYNOPSIS
@@ -75,6 +75,13 @@ API path: /publications/{publicationId}/polls/{pollId}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv polls get poll_123
+beehiiv polls show poll_123 --query expand=stats,poll_responses
+.EE
 
 
 .SH SEE ALSO

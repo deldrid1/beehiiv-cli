@@ -50,4 +50,3 @@ beehiiv subscriptions remove sub_123
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

@@ -34,4 +34,3 @@ beehiiv auth login [flags]
 ### SEE ALSO
 
 * [beehiiv auth](beehiiv_auth.md)	 - Authentication and config commands
-

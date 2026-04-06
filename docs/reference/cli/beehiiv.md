@@ -32,35 +32,34 @@ beehiiv [flags]
 
 ### SEE ALSO
 
-* [beehiiv advertisement-opportunities](beehiiv_advertisement-opportunities.md)	 - advertisement opportunities commands
+* [beehiiv advertisement-opportunities](beehiiv_advertisement-opportunities.md)	 - List Beehiiv advertisement opportunities
 * [beehiiv auth](beehiiv_auth.md)	 - Authentication and config commands
-* [beehiiv authors](beehiiv_authors.md)	 - authors commands
+* [beehiiv authors](beehiiv_authors.md)	 - Inspect publication authors
 * [beehiiv automation-emails](beehiiv_automation-emails.md)	 - List the emails that belong to a Beehiiv automation
 * [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - Inspect and manage automation journeys
 * [beehiiv automations](beehiiv_automations.md)	 - Inspect Beehiiv automations and related workflow activity
-* [beehiiv bulk-subscription-updates](beehiiv_bulk-subscription-updates.md)	 - bulk subscription updates commands
-* [beehiiv bulk-subscriptions](beehiiv_bulk-subscriptions.md)	 - bulk subscriptions commands
+* [beehiiv bulk-subscription-updates](beehiiv_bulk-subscription-updates.md)	 - Inspect bulk subscription update jobs
+* [beehiiv bulk-subscriptions](beehiiv_bulk-subscriptions.md)	 - Import subscribers in bulk
 * [beehiiv completion](beehiiv_completion.md)	 - Generate the autocompletion script for the specified shell
-* [beehiiv condition-sets](beehiiv_condition-sets.md)	 - condition sets commands
-* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - custom fields commands
-* [beehiiv email-blasts](beehiiv_email-blasts.md)	 - email blasts commands
-* [beehiiv engagements](beehiiv_engagements.md)	 - engagements commands
+* [beehiiv condition-sets](beehiiv_condition-sets.md)	 - Inspect condition sets
+* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - Manage publication custom fields
+* [beehiiv email-blasts](beehiiv_email-blasts.md)	 - Inspect email blasts
+* [beehiiv engagements](beehiiv_engagements.md)	 - Inspect publication engagement events
 * [beehiiv login](beehiiv_login.md)	 - Alias for auth login
-* [beehiiv newsletter-lists](beehiiv_newsletter-lists.md)	 - newsletter lists commands
-* [beehiiv poll-responses](beehiiv_poll-responses.md)	 - poll responses commands
-* [beehiiv polls](beehiiv_polls.md)	 - polls commands
-* [beehiiv post-templates](beehiiv_post-templates.md)	 - post templates commands
+* [beehiiv newsletter-lists](beehiiv_newsletter-lists.md)	 - Inspect newsletter lists
+* [beehiiv poll-responses](beehiiv_poll-responses.md)	 - List individual responses for a Beehiiv poll
+* [beehiiv polls](beehiiv_polls.md)	 - Inspect publication polls
+* [beehiiv post-templates](beehiiv_post-templates.md)	 - List post templates
 * [beehiiv posts](beehiiv_posts.md)	 - Create and inspect Beehiiv posts
 * [beehiiv publications](beehiiv_publications.md)	 - Work with Beehiiv publications
-* [beehiiv referral-program](beehiiv_referral-program.md)	 - referral program commands
-* [beehiiv segment-members](beehiiv_segment-members.md)	 - segment members commands
-* [beehiiv segment-results](beehiiv_segment-results.md)	 - segment results commands
-* [beehiiv segments](beehiiv_segments.md)	 - segments commands
-* [beehiiv subscription-bulk-actions](beehiiv_subscription-bulk-actions.md)	 - subscription bulk actions commands
-* [beehiiv subscription-tags](beehiiv_subscription-tags.md)	 - subscription tags commands
+* [beehiiv referral-program](beehiiv_referral-program.md)	 - Inspect the publication referral program
+* [beehiiv segment-members](beehiiv_segment-members.md)	 - List full subscriber records for a segment
+* [beehiiv segment-results](beehiiv_segment-results.md)	 - List lightweight segment results
+* [beehiiv segments](beehiiv_segments.md)	 - Inspect and manage publication segments
+* [beehiiv subscription-bulk-actions](beehiiv_subscription-bulk-actions.md)	 - Update subscription bulk-action settings
+* [beehiiv subscription-tags](beehiiv_subscription-tags.md)	 - Create subscription tags
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-* [beehiiv tiers](beehiiv_tiers.md)	 - tiers commands
+* [beehiiv tiers](beehiiv_tiers.md)	 - Manage premium tiers
 * [beehiiv version](beehiiv_version.md)	 - Print version information
 * [beehiiv webhooks](beehiiv_webhooks.md)	 - Manage publication webhooks
-* [beehiiv workspaces](beehiiv_workspaces.md)	 - workspaces commands
-
+* [beehiiv workspaces](beehiiv_workspaces.md)	 - Inspect workspace-level data

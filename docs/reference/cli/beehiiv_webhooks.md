@@ -51,5 +51,4 @@ beehiiv webhooks ping endpoint_123
 * [beehiiv webhooks get](beehiiv_webhooks_get.md)	 - Show a webhook by endpoint ID
 * [beehiiv webhooks list](beehiiv_webhooks_list.md)	 - List webhooks for the active publication
 * [beehiiv webhooks test](beehiiv_webhooks_test.md)	 - Send a test request to a webhook
-* [beehiiv webhooks update](beehiiv_webhooks_update.md)	 - Update webhook
-
+* [beehiiv webhooks update](beehiiv_webhooks_update.md)	 - Update a webhook by endpoint ID

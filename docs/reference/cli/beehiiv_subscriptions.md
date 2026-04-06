@@ -51,12 +51,11 @@ beehiiv subscriptions create --body '{"email":"person@example.com","reactivate_e
 * [beehiiv subscriptions delete](beehiiv_subscriptions_delete.md)	 - Delete a subscription by ID
 * [beehiiv subscriptions get](beehiiv_subscriptions_get.md)	 - Show a subscription by ID
 * [beehiiv subscriptions get-by-email](beehiiv_subscriptions_get-by-email.md)	 - Find a subscription by email address
-* [beehiiv subscriptions get-by-subscriber-id](beehiiv_subscriptions_get-by-subscriber-id.md)	 - Get subscription by subscriber ID
-* [beehiiv subscriptions jwt-token](beehiiv_subscriptions_jwt-token.md)	 - Get subscription JWT token
+* [beehiiv subscriptions get-by-subscriber-id](beehiiv_subscriptions_get-by-subscriber-id.md)	 - Find a subscription by subscriber ID
+* [beehiiv subscriptions jwt-token](beehiiv_subscriptions_jwt-token.md)	 - Fetch a JWT token for a subscription
 * [beehiiv subscriptions list](beehiiv_subscriptions_list.md)	 - List subscriptions for the active publication
-* [beehiiv subscriptions replace](beehiiv_subscriptions_replace.md)	 - Update subscription by ID
-* [beehiiv subscriptions replace-status](beehiiv_subscriptions_replace-status.md)	 - Update subscriptions' status
-* [beehiiv subscriptions update](beehiiv_subscriptions_update.md)	 - Update subscription by ID
-* [beehiiv subscriptions update-by-email](beehiiv_subscriptions_update-by-email.md)	 - Update subscription by email
-* [beehiiv subscriptions update-status](beehiiv_subscriptions_update-status.md)	 - Update subscriptions' status
-
+* [beehiiv subscriptions replace](beehiiv_subscriptions_replace.md)	 - Replace a subscription by ID
+* [beehiiv subscriptions replace-status](beehiiv_subscriptions_replace-status.md)	 - Replace the status of a subscription
+* [beehiiv subscriptions update](beehiiv_subscriptions_update.md)	 - Update a subscription by ID
+* [beehiiv subscriptions update-by-email](beehiiv_subscriptions_update-by-email.md)	 - Update a subscription by email address
+* [beehiiv subscriptions update-status](beehiiv_subscriptions_update-status.md)	 - Update the status of a subscription

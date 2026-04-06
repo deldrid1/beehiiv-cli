@@ -2,7 +2,7 @@
 .TH "BEEHIIV-POLLS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-polls - polls commands
+beehiiv-polls - Inspect publication polls
 
 
 .SH SYNOPSIS
@@ -10,7 +10,7 @@ beehiiv-polls - polls commands
 
 
 .SH DESCRIPTION
-polls commands
+List polls, inspect a specific poll, and jump straight into the responses for that poll.
 
 
 .SH OPTIONS
@@ -67,5 +67,13 @@ polls commands
 	Print request and response details to stderr
 
 
+.SH EXAMPLE
+.EX
+beehiiv polls list --query expand=stats
+beehiiv polls show poll_123 --query expand=stats
+beehiiv polls responses poll_123
+.EE
+
+
 .SH SEE ALSO
-\fBbeehiiv(1)\fP, \fBbeehiiv-polls-get(1)\fP, \fBbeehiiv-polls-list(1)\fP
+\fBbeehiiv(1)\fP, \fBbeehiiv-polls-get(1)\fP, \fBbeehiiv-polls-list(1)\fP, \fBbeehiiv-polls-responses(1)\fP

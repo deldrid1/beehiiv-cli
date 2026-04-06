@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SUBSCRIPTION-TAGS-CREATE" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-subscription-tags-create - Add subscription tag
+beehiiv-subscription-tags-create - Create a subscription tag
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/subscriptions/{subscriptionId}/tags
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv subscription-tags create --body '{"name":"vip"}'
+beehiiv tags add --body '{"name":"vip"}'
+.EE
 
 
 .SH SEE ALSO

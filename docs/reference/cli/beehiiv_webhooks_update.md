@@ -2,7 +2,7 @@
 
 ## beehiiv webhooks update
 
-Update webhook
+Update a webhook by endpoint ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/webhooks/{endpointId}
 
 ```
 beehiiv webhooks update <endpointId> [flags]
+```
+
+### Examples
+
+```
+beehiiv webhooks update endpoint_123 --body @webhook.json
+beehiiv hooks edit endpoint_123 --body @webhook.json
 ```
 
 ### Options
@@ -44,4 +51,3 @@ beehiiv webhooks update <endpointId> [flags]
 ### SEE ALSO
 
 * [beehiiv webhooks](beehiiv_webhooks.md)	 - Manage publication webhooks
-

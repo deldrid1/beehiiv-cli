@@ -2,7 +2,7 @@
 
 ## beehiiv segments recalculate
 
-Recalculate segment
+Recalculate a segment
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/segments/{segmentId}/recalculate
 
 ```
 beehiiv segments recalculate <segmentId> [flags]
+```
+
+### Examples
+
+```
+beehiiv segments recalculate segment_123
+beehiiv segments refresh segment_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv segments recalculate <segmentId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv segments](beehiiv_segments.md)	 - segments commands
-
+* [beehiiv segments](beehiiv_segments.md)	 - Inspect and manage publication segments

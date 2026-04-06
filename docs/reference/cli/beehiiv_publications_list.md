@@ -51,4 +51,3 @@ beehiiv pubs list --output table
 ### SEE ALSO
 
 * [beehiiv publications](beehiiv_publications.md)	 - Work with Beehiiv publications
-

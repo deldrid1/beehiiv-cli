@@ -2,7 +2,7 @@
 
 ## beehiiv tiers update
 
-Update a tier
+Update a premium tier
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/tiers/{tierId}
 
 ```
 beehiiv tiers update <tierId> [flags]
+```
+
+### Examples
+
+```
+beehiiv tiers update tier_123 --body @tier.json
+beehiiv tier edit tier_123 --body @tier.json
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv tiers update <tierId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv tiers](beehiiv_tiers.md)	 - tiers commands
-
+* [beehiiv tiers](beehiiv_tiers.md)	 - Manage premium tiers

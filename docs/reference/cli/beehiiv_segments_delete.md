@@ -2,7 +2,7 @@
 
 ## beehiiv segments delete
 
-Delete segment
+Delete a segment
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/segments/{segmentId}
 
 ```
 beehiiv segments delete <segmentId> [flags]
+```
+
+### Examples
+
+```
+beehiiv segments delete segment_123
+beehiiv segments remove segment_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv segments delete <segmentId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv segments](beehiiv_segments.md)	 - segments commands
-
+* [beehiiv segments](beehiiv_segments.md)	 - Inspect and manage publication segments

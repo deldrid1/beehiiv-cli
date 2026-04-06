@@ -2,7 +2,7 @@
 .TH "BEEHIIV-BULK-SUBSCRIPTIONS-CREATE" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-bulk-subscriptions-create - Bulk create subscription
+beehiiv-bulk-subscriptions-create - Create subscriptions in bulk
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/bulk_subscriptions
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv bulk-subscriptions create --body @bulk-subscriptions.json
+beehiiv bulk-imports import --body @bulk-subscriptions.json
+.EE
 
 
 .SH SEE ALSO

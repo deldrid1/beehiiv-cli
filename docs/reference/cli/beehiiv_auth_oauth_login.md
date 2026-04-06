@@ -40,4 +40,3 @@ beehiiv auth oauth login [flags]
 ### SEE ALSO
 
 * [beehiiv auth oauth](beehiiv_auth_oauth.md)	 - OAuth authentication flows
-

@@ -2,10 +2,21 @@
 
 ## beehiiv condition-sets
 
-condition sets commands
+Inspect condition sets
+
+### Synopsis
+
+List condition sets for the active publication and inspect an individual set by ID.
 
 ```
 beehiiv condition-sets [flags]
+```
+
+### Examples
+
+```
+beehiiv condition-sets list
+beehiiv condition-sets show cond_123
 ```
 
 ### Options
@@ -34,6 +45,5 @@ beehiiv condition-sets [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv condition-sets get](beehiiv_condition-sets_get.md)	 - Get condition set <Badge intent="info" minimal outlined>OAuth Scope: condition_sets:read</Badge>
-* [beehiiv condition-sets list](beehiiv_condition-sets_list.md)	 - List condition sets <Badge intent="info" minimal outlined>OAuth Scope: condition_sets:read</Badge>
-
+* [beehiiv condition-sets get](beehiiv_condition-sets_get.md)	 - Show a condition set by ID
+* [beehiiv condition-sets list](beehiiv_condition-sets_list.md)	 - List condition sets

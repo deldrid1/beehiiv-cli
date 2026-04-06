@@ -2,7 +2,7 @@
 
 ## beehiiv custom-fields get
 
-Get custom field
+Show a custom field by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/custom_fields/{id}
 
 ```
 beehiiv custom-fields get <id> [flags]
+```
+
+### Examples
+
+```
+beehiiv custom-fields get custom_field_123
+beehiiv fields show custom_field_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv custom-fields get <id> [flags]
 
 ### SEE ALSO
 
-* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - custom fields commands
-
+* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - Manage publication custom fields

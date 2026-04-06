@@ -2,7 +2,7 @@
 .TH "BEEHIIV-CUSTOM-FIELDS-UPDATE" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-custom-fields-update - Update custom field
+beehiiv-custom-fields-update - Update a custom field
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/custom_fields/{id}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv custom-fields update custom_field_123 --body @custom-field.json
+beehiiv fields edit custom_field_123 --body '{"display":"Favorite Airport"}'
+.EE
 
 
 .SH SEE ALSO

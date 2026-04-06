@@ -2,7 +2,7 @@
 .TH "BEEHIIV-POST-TEMPLATES" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-post-templates - post templates commands
+beehiiv-post-templates - List post templates
 
 
 .SH SYNOPSIS
@@ -10,7 +10,7 @@ beehiiv-post-templates - post templates commands
 
 
 .SH DESCRIPTION
-post templates commands
+Inspect post templates available to the active publication.
 
 
 .SH OPTIONS
@@ -65,6 +65,13 @@ post templates commands
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv post-templates list
+beehiiv templates list --output table
+.EE
 
 
 .SH SEE ALSO

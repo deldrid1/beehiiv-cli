@@ -2,10 +2,22 @@
 
 ## beehiiv polls
 
-polls commands
+Inspect publication polls
+
+### Synopsis
+
+List polls, inspect a specific poll, and jump straight into the responses for that poll.
 
 ```
 beehiiv polls [flags]
+```
+
+### Examples
+
+```
+beehiiv polls list --query expand=stats
+beehiiv polls show poll_123 --query expand=stats
+beehiiv polls responses poll_123
 ```
 
 ### Options
@@ -34,6 +46,6 @@ beehiiv polls [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv polls get](beehiiv_polls_get.md)	 - Get poll <Badge intent="info" minimal outlined>OAuth Scope: polls:read</Badge>
-* [beehiiv polls list](beehiiv_polls_list.md)	 - List polls <Badge intent="info" minimal outlined>OAuth Scope: polls:read</Badge>
-
+* [beehiiv polls get](beehiiv_polls_get.md)	 - Show a poll by ID
+* [beehiiv polls list](beehiiv_polls_list.md)	 - List polls for the active publication
+* [beehiiv polls responses](beehiiv_polls_responses.md)	 - List the responses for a poll

@@ -2,7 +2,7 @@
 
 ## beehiiv newsletter-lists get
 
-Get newsletter list <Badge intent="warning" minimal outlined>Beta</Badge> <Badge intent="info" minimal outlined>OAuth Scope: newsletter_lists:read</Badge>
+Show a newsletter list by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/newsletter_lists/{newsletterListId}
 
 ```
 beehiiv newsletter-lists get <newsletterListId> [flags]
+```
+
+### Examples
+
+```
+beehiiv newsletter-lists get list_123
+beehiiv nlists show list_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv newsletter-lists get <newsletterListId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv newsletter-lists](beehiiv_newsletter-lists.md)	 - newsletter lists commands
-
+* [beehiiv newsletter-lists](beehiiv_newsletter-lists.md)	 - Inspect newsletter lists

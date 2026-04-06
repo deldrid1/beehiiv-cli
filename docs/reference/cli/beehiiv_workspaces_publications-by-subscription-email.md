@@ -2,7 +2,7 @@
 
 ## beehiiv workspaces publications-by-subscription-email
 
-Get publications by subscription email <Badge intent="info" minimal outlined>OAuth Scope: publications:read</Badge>
+Find workspace publications by subscriber email
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /workspaces/publications/by_subscription_email/{email}
 
 ```
 beehiiv workspaces publications-by-subscription-email <email> [flags]
+```
+
+### Examples
+
+```
+beehiiv workspaces publications person@example.com
+beehiiv workspaces lookup person@example.com --query expand=publication,subscription
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv workspaces publications-by-subscription-email <email> [flags]
 
 ### SEE ALSO
 
-* [beehiiv workspaces](beehiiv_workspaces.md)	 - workspaces commands
-
+* [beehiiv workspaces](beehiiv_workspaces.md)	 - Inspect workspace-level data

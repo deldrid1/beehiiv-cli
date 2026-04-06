@@ -2,7 +2,7 @@
 
 ## beehiiv custom-fields delete
 
-Delete custom field
+Delete a custom field
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/custom_fields/{id}
 
 ```
 beehiiv custom-fields delete <id> [flags]
+```
+
+### Examples
+
+```
+beehiiv custom-fields delete custom_field_123
+beehiiv fields remove custom_field_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv custom-fields delete <id> [flags]
 
 ### SEE ALSO
 
-* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - custom fields commands
-
+* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - Manage publication custom fields

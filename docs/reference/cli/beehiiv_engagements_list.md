@@ -2,7 +2,7 @@
 
 ## beehiiv engagements list
 
-Get publication engagements <Badge intent="info" minimal outlined>OAuth Scope: publications:read</Badge>
+List engagement events
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/engagements
 
 ```
 beehiiv engagements list [flags]
+```
+
+### Examples
+
+```
+beehiiv engagements list
+beehiiv engagement list --query limit=50
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv engagements list [flags]
 
 ### SEE ALSO
 
-* [beehiiv engagements](beehiiv_engagements.md)	 - engagements commands
-
+* [beehiiv engagements](beehiiv_engagements.md)	 - Inspect publication engagement events

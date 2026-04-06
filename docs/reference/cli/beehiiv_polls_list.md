@@ -2,7 +2,7 @@
 
 ## beehiiv polls list
 
-List polls <Badge intent="info" minimal outlined>OAuth Scope: polls:read</Badge>
+List polls for the active publication
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/polls
 
 ```
 beehiiv polls list [flags]
+```
+
+### Examples
+
+```
+beehiiv polls list
+beehiiv polls list --query expand=stats
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv polls list [flags]
 
 ### SEE ALSO
 
-* [beehiiv polls](beehiiv_polls.md)	 - polls commands
-
+* [beehiiv polls](beehiiv_polls.md)	 - Inspect publication polls

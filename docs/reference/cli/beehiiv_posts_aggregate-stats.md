@@ -50,4 +50,3 @@ beehiiv posts stats
 ### SEE ALSO
 
 * [beehiiv posts](beehiiv_posts.md)	 - Create and inspect Beehiiv posts
-

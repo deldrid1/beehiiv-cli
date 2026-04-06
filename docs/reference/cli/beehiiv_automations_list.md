@@ -49,4 +49,3 @@ beehiiv automations list --query expand=stats --output table
 ### SEE ALSO
 
 * [beehiiv automations](beehiiv_automations.md)	 - Inspect Beehiiv automations and related workflow activity
-

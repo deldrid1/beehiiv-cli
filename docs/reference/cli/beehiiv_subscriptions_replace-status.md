@@ -2,7 +2,7 @@
 
 ## beehiiv subscriptions replace-status
 
-Update subscriptions' status
+Replace the status of a subscription
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions
 
 ```
 beehiiv subscriptions replace-status [flags]
+```
+
+### Examples
+
+```
+beehiiv subscriptions replace-status sub_123 --body '{"status":"inactive"}'
+beehiiv subscriptions set-status sub_123 --body '{"status":"active"}'
 ```
 
 ### Options
@@ -44,4 +51,3 @@ beehiiv subscriptions replace-status [flags]
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

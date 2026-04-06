@@ -48,4 +48,3 @@ beehiiv automations show aut_123 --query expand=stats
 ### SEE ALSO
 
 * [beehiiv automations](beehiiv_automations.md)	 - Inspect Beehiiv automations and related workflow activity
-

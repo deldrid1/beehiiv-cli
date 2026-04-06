@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SUBSCRIPTIONS-REPLACE" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-subscriptions-replace - Update subscription by ID
+beehiiv-subscriptions-replace - Replace a subscription by ID
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/subscriptions/{subscriptionId}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv subscriptions replace sub_123 --body @subscription.json
+beehiiv subs set sub_123 --body @subscription.json
+.EE
 
 
 .SH SEE ALSO

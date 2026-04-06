@@ -2,7 +2,7 @@
 .TH "BEEHIIV-WEBHOOKS-UPDATE" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-webhooks-update - Update webhook
+beehiiv-webhooks-update - Update a webhook by endpoint ID
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/webhooks/{endpointId}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv webhooks update endpoint_123 --body @webhook.json
+beehiiv hooks edit endpoint_123 --body @webhook.json
+.EE
 
 
 .SH SEE ALSO

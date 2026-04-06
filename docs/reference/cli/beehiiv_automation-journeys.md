@@ -51,4 +51,3 @@ beehiiv automations enroll aut_123 --body '{"subscription_id":"sub_123"}'
 * [beehiiv automation-journeys create](beehiiv_automation-journeys_create.md)	 - Enroll an existing subscriber into an automation
 * [beehiiv automation-journeys get](beehiiv_automation-journeys_get.md)	 - Show a single automation journey by ID
 * [beehiiv automation-journeys list](beehiiv_automation-journeys_list.md)	 - List journeys that occurred inside an automation
-

@@ -2,7 +2,7 @@
 
 ## beehiiv bulk-subscriptions create
 
-Bulk create subscription
+Create subscriptions in bulk
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/bulk_subscriptions
 
 ```
 beehiiv bulk-subscriptions create [flags]
+```
+
+### Examples
+
+```
+beehiiv bulk-subscriptions create --body @bulk-subscriptions.json
+beehiiv bulk-imports import --body @bulk-subscriptions.json
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv bulk-subscriptions create [flags]
 
 ### SEE ALSO
 
-* [beehiiv bulk-subscriptions](beehiiv_bulk-subscriptions.md)	 - bulk subscriptions commands
-
+* [beehiiv bulk-subscriptions](beehiiv_bulk-subscriptions.md)	 - Import subscribers in bulk

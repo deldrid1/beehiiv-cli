@@ -47,4 +47,3 @@ beehiiv automations journey aut_123 journey_123
 ### SEE ALSO
 
 * [beehiiv automations](beehiiv_automations.md)	 - Inspect Beehiiv automations and related workflow activity
-

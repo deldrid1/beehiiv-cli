@@ -2,7 +2,7 @@
 
 ## beehiiv segments list
 
-List segments
+List segments for the active publication
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/segments
 
 ```
 beehiiv segments list [flags]
+```
+
+### Examples
+
+```
+beehiiv segments list
+beehiiv segment list --output table
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv segments list [flags]
 
 ### SEE ALSO
 
-* [beehiiv segments](beehiiv_segments.md)	 - segments commands
-
+* [beehiiv segments](beehiiv_segments.md)	 - Inspect and manage publication segments

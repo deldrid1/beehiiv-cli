@@ -2,10 +2,21 @@
 
 ## beehiiv referral-program
 
-referral program commands
+Inspect the publication referral program
+
+### Synopsis
+
+Show referral program configuration and rewards for the active publication.
 
 ```
 beehiiv referral-program [flags]
+```
+
+### Examples
+
+```
+beehiiv referral-program show
+beehiiv referrals show
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv referral-program [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv referral-program get](beehiiv_referral-program_get.md)	 - Get referral program
-
+* [beehiiv referral-program get](beehiiv_referral-program_get.md)	 - Show the referral program

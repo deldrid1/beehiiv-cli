@@ -51,4 +51,3 @@ beehiiv hooks list --output table
 ### SEE ALSO
 
 * [beehiiv webhooks](beehiiv_webhooks.md)	 - Manage publication webhooks
-

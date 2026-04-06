@@ -2,7 +2,7 @@
 .TH "BEEHIIV-AUTHORS-GET" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-authors-get - Get author
+beehiiv-authors-get - Show an author by ID
 
 
 .SH SYNOPSIS
@@ -75,6 +75,13 @@ API path: /publications/{publicationId}/authors/{authorId}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv authors get author_123
+beehiiv authors show author_123
+.EE
 
 
 .SH SEE ALSO

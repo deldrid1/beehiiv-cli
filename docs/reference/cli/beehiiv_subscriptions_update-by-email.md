@@ -2,7 +2,7 @@
 
 ## beehiiv subscriptions update-by-email
 
-Update subscription by email
+Update a subscription by email address
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions/by_email/{email}
 
 ```
 beehiiv subscriptions update-by-email <email> [flags]
+```
+
+### Examples
+
+```
+beehiiv subscriptions update-by-email person@example.com --body @subscription.json
+beehiiv subscriptions edit-by-email person@example.com --body @subscription.json
 ```
 
 ### Options
@@ -44,4 +51,3 @@ beehiiv subscriptions update-by-email <email> [flags]
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

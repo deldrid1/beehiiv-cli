@@ -2,10 +2,21 @@
 
 ## beehiiv segment-results
 
-segment results commands
+List lightweight segment results
+
+### Synopsis
+
+List lightweight segment results when you only need IDs or a lighter-weight response than full segment members.
 
 ```
 beehiiv segment-results [flags]
+```
+
+### Examples
+
+```
+beehiiv segment-results list segment_123
+beehiiv segments results segment_123
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv segment-results [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv segment-results list](beehiiv_segment-results_list.md)	 - List segment subscriber IDs
-
+* [beehiiv segment-results list](beehiiv_segment-results_list.md)	 - List lightweight results for a segment

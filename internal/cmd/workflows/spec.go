@@ -1,5 +1,35 @@
 package workflows
 
+var specLoaders = map[string]func() GroupSpec{
+	"advertisement-opportunities": advertisementOpportunitiesSpec,
+	"authors":                     authorsSpec,
+	"automation-emails":           automationEmailsSpec,
+	"automation-journeys":         automationJourneysSpec,
+	"automations":                 automationsSpec,
+	"bulk-subscription-updates":   bulkSubscriptionUpdatesSpec,
+	"bulk-subscriptions":          bulkSubscriptionsSpec,
+	"condition-sets":              conditionSetsSpec,
+	"custom-fields":               customFieldsSpec,
+	"email-blasts":                emailBlastsSpec,
+	"engagements":                 engagementsSpec,
+	"newsletter-lists":            newsletterListsSpec,
+	"poll-responses":              pollResponsesSpec,
+	"polls":                       pollsSpec,
+	"post-templates":              postTemplatesSpec,
+	"posts":                       postsSpec,
+	"publications":                publicationsSpec,
+	"referral-program":            referralProgramSpec,
+	"segment-members":             segmentMembersSpec,
+	"segment-results":             segmentResultsSpec,
+	"segments":                    segmentsSpec,
+	"subscription-bulk-actions":   subscriptionBulkActionsSpec,
+	"subscription-tags":           subscriptionTagsSpec,
+	"subscriptions":               subscriptionsSpec,
+	"tiers":                       tiersSpec,
+	"webhooks":                    webhooksSpec,
+	"workspaces":                  workspacesSpec,
+}
+
 type ActionSpec struct {
 	Aliases []string
 	Short   string
@@ -16,24 +46,11 @@ type GroupSpec struct {
 }
 
 func Lookup(group string) (GroupSpec, bool) {
-	switch group {
-	case "automations":
-		return automationsSpec(), true
-	case "automation-emails":
-		return automationEmailsSpec(), true
-	case "automation-journeys":
-		return automationJourneysSpec(), true
-	case "publications":
-		return publicationsSpec(), true
-	case "subscriptions":
-		return subscriptionsSpec(), true
-	case "posts":
-		return postsSpec(), true
-	case "webhooks":
-		return webhooksSpec(), true
-	default:
+	loader, ok := specLoaders[group]
+	if !ok {
 		return GroupSpec{}, false
 	}
+	return loader(), true
 }
 
 func ActionFor(group, action string) (ActionSpec, bool) {

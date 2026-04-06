@@ -2,10 +2,23 @@
 
 ## beehiiv segments
 
-segments commands
+Inspect and manage publication segments
+
+### Synopsis
+
+List segments, inspect a single segment, recalculate it, and jump into segment members or lightweight results.
 
 ```
 beehiiv segments [flags]
+```
+
+### Examples
+
+```
+beehiiv segments list
+beehiiv segments show segment_123
+beehiiv segments members segment_123 --query expand=stats,custom_fields
+beehiiv segments results segment_123
 ```
 
 ### Options
@@ -34,8 +47,9 @@ beehiiv segments [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv segments delete](beehiiv_segments_delete.md)	 - Delete segment
-* [beehiiv segments get](beehiiv_segments_get.md)	 - Get segment
-* [beehiiv segments list](beehiiv_segments_list.md)	 - List segments
-* [beehiiv segments recalculate](beehiiv_segments_recalculate.md)	 - Recalculate segment
-
+* [beehiiv segments delete](beehiiv_segments_delete.md)	 - Delete a segment
+* [beehiiv segments get](beehiiv_segments_get.md)	 - Show a segment by ID
+* [beehiiv segments list](beehiiv_segments_list.md)	 - List segments for the active publication
+* [beehiiv segments members](beehiiv_segments_members.md)	 - List the full subscriber records for a segment
+* [beehiiv segments recalculate](beehiiv_segments_recalculate.md)	 - Recalculate a segment
+* [beehiiv segments results](beehiiv_segments_results.md)	 - List the lightweight result set for a segment

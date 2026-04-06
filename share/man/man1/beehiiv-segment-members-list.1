@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SEGMENT-MEMBERS-LIST" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-segment-members-list - List segment subscribers
+beehiiv-segment-members-list - List full subscriber records for a segment
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/segments/{segmentId}/members
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv segment-members list segment_123
+beehiiv segments members segment_123 --query expand=stats,custom_fields
+.EE
 
 
 .SH SEE ALSO

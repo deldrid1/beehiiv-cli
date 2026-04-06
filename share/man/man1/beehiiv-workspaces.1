@@ -2,7 +2,7 @@
 .TH "BEEHIIV-WORKSPACES" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-workspaces - workspaces commands
+beehiiv-workspaces - Inspect workspace-level data
 
 
 .SH SYNOPSIS
@@ -10,7 +10,7 @@ beehiiv-workspaces - workspaces commands
 
 
 .SH DESCRIPTION
-workspaces commands
+Inspect workspace identity and look up publications by subscriber email across the workspace tied to your API key.
 
 
 .SH OPTIONS
@@ -67,5 +67,12 @@ workspaces commands
 	Print request and response details to stderr
 
 
+.SH EXAMPLE
+.EX
+beehiiv workspaces identify
+beehiiv workspaces publications person@example.com --query expand=publication,subscription
+.EE
+
+
 .SH SEE ALSO
-\fBbeehiiv(1)\fP, \fBbeehiiv-workspaces-identify(1)\fP, \fBbeehiiv-workspaces-publications-by-subscription-email(1)\fP
+\fBbeehiiv(1)\fP, \fBbeehiiv-workspaces-identify(1)\fP, \fBbeehiiv-workspaces-publications(1)\fP, \fBbeehiiv-workspaces-publications-by-subscription-email(1)\fP

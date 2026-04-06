@@ -2,7 +2,7 @@
 
 ## beehiiv tiers get
 
-Get tier
+Show a premium tier by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/tiers/{tierId}
 
 ```
 beehiiv tiers get <tierId> [flags]
+```
+
+### Examples
+
+```
+beehiiv tiers get tier_123
+beehiiv tiers show tier_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv tiers get <tierId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv tiers](beehiiv_tiers.md)	 - tiers commands
-
+* [beehiiv tiers](beehiiv_tiers.md)	 - Manage premium tiers

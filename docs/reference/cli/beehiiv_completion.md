@@ -39,4 +39,3 @@ See each sub-command's help for details on how to use the generated script.
 * [beehiiv completion fish](beehiiv_completion_fish.md)	 - Generate the autocompletion script for fish
 * [beehiiv completion powershell](beehiiv_completion_powershell.md)	 - Generate the autocompletion script for powershell
 * [beehiiv completion zsh](beehiiv_completion_zsh.md)	 - Generate the autocompletion script for zsh
-

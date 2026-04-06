@@ -2,7 +2,7 @@
 
 ## beehiiv polls get
 
-Get poll <Badge intent="info" minimal outlined>OAuth Scope: polls:read</Badge>
+Show a poll by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/polls/{pollId}
 
 ```
 beehiiv polls get <pollId> [flags]
+```
+
+### Examples
+
+```
+beehiiv polls get poll_123
+beehiiv polls show poll_123 --query expand=stats,poll_responses
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv polls get <pollId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv polls](beehiiv_polls.md)	 - polls commands
-
+* [beehiiv polls](beehiiv_polls.md)	 - Inspect publication polls

@@ -52,4 +52,3 @@ beehiiv subscriptions list --all
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

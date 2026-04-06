@@ -2,10 +2,21 @@
 
 ## beehiiv bulk-subscription-updates
 
-bulk subscription updates commands
+Inspect bulk subscription update jobs
+
+### Synopsis
+
+Track bulk subscription update jobs after you submit a bulk change request.
 
 ```
 beehiiv bulk-subscription-updates [flags]
+```
+
+### Examples
+
+```
+beehiiv bulk-subscription-updates list
+beehiiv bulk-subscription-updates show bulk_subscription_update_123
 ```
 
 ### Options
@@ -34,6 +45,5 @@ beehiiv bulk-subscription-updates [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv bulk-subscription-updates get](beehiiv_bulk-subscription-updates_get.md)	 - Get subscription update
-* [beehiiv bulk-subscription-updates list](beehiiv_bulk-subscription-updates_list.md)	 - List subscription updates
-
+* [beehiiv bulk-subscription-updates get](beehiiv_bulk-subscription-updates_get.md)	 - Show a bulk subscription update job
+* [beehiiv bulk-subscription-updates list](beehiiv_bulk-subscription-updates_list.md)	 - List bulk subscription update jobs

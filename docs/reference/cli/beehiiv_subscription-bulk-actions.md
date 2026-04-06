@@ -2,10 +2,21 @@
 
 ## beehiiv subscription-bulk-actions
 
-subscription bulk actions commands
+Update subscription bulk-action settings
+
+### Synopsis
+
+Update or replace bulk-action settings for subscriptions in the active publication.
 
 ```
 beehiiv subscription-bulk-actions [flags]
+```
+
+### Examples
+
+```
+beehiiv subscription-bulk-actions update --body @bulk-action.json
+beehiiv subscription-bulk-actions set --body @bulk-action.json
 ```
 
 ### Options
@@ -34,6 +45,5 @@ beehiiv subscription-bulk-actions [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv subscription-bulk-actions replace](beehiiv_subscription-bulk-actions_replace.md)	 - Update subscriptions
-* [beehiiv subscription-bulk-actions update](beehiiv_subscription-bulk-actions_update.md)	 - Update subscriptions
-
+* [beehiiv subscription-bulk-actions replace](beehiiv_subscription-bulk-actions_replace.md)	 - Replace subscription bulk-action settings
+* [beehiiv subscription-bulk-actions update](beehiiv_subscription-bulk-actions_update.md)	 - Update subscription bulk-action settings

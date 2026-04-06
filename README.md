@@ -4,7 +4,7 @@ A simple command-line app for interacting with the [Beehiiv V2 API](https://deve
 
 ## Project Status
 
-This project is ready for early public use and feedback across all major Operating Systems. GitHub releases and Homebrew for MacOS / Linux installs are live today, and winget publication for Windowshas been submitted upstream.
+This project is ready for early public use and feedback across the major operating systems. GitHub releases and Homebrew installs are live today, and winget publication for Windows has been submitted upstream.
 
 ## Quick Start
 
@@ -250,6 +250,14 @@ Inspect automations and their related email activity:
 beehiiv automations list --query expand=stats
 beehiiv automations show aut_123 --query expand=stats
 beehiiv automations emails aut_123
+```
+
+Inspect segments and poll responses:
+
+```bash
+beehiiv segments members segment_123 --query expand=stats,custom_fields
+beehiiv polls show poll_123 --query expand=stats
+beehiiv polls responses poll_123
 ```
 
 Look up a subscriber by email:

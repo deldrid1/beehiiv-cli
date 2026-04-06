@@ -2,10 +2,23 @@
 
 ## beehiiv custom-fields
 
-custom fields commands
+Manage publication custom fields
+
+### Synopsis
+
+Create, inspect, update, replace, and delete custom fields for the active publication.
 
 ```
 beehiiv custom-fields [flags]
+```
+
+### Examples
+
+```
+beehiiv custom-fields list
+beehiiv custom-fields show custom_field_123
+beehiiv custom-fields create --body '{"kind":"string","display":"Favorite Airport"}'
+beehiiv fields add --body @custom-field.json
 ```
 
 ### Options
@@ -34,10 +47,9 @@ beehiiv custom-fields [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv custom-fields create](beehiiv_custom-fields_create.md)	 - Create custom field
-* [beehiiv custom-fields delete](beehiiv_custom-fields_delete.md)	 - Delete custom field
-* [beehiiv custom-fields get](beehiiv_custom-fields_get.md)	 - Get custom field
-* [beehiiv custom-fields list](beehiiv_custom-fields_list.md)	 - List custom fields
-* [beehiiv custom-fields replace](beehiiv_custom-fields_replace.md)	 - Update custom field
-* [beehiiv custom-fields update](beehiiv_custom-fields_update.md)	 - Update custom field
-
+* [beehiiv custom-fields create](beehiiv_custom-fields_create.md)	 - Create a custom field
+* [beehiiv custom-fields delete](beehiiv_custom-fields_delete.md)	 - Delete a custom field
+* [beehiiv custom-fields get](beehiiv_custom-fields_get.md)	 - Show a custom field by ID
+* [beehiiv custom-fields list](beehiiv_custom-fields_list.md)	 - List custom fields for the active publication
+* [beehiiv custom-fields replace](beehiiv_custom-fields_replace.md)	 - Replace a custom field
+* [beehiiv custom-fields update](beehiiv_custom-fields_update.md)	 - Update a custom field

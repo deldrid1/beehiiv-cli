@@ -2,7 +2,7 @@
 
 ## beehiiv advertisement-opportunities list
 
-Get advertisement opportunities <Badge intent="info" minimal outlined>OAuth Scope: posts:read</Badge>
+List advertisement opportunities for the active publication
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/advertisement_opportunities
 
 ```
 beehiiv advertisement-opportunities list [flags]
+```
+
+### Examples
+
+```
+beehiiv advertisement-opportunities list
+beehiiv ad-opps list --query limit=25
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv advertisement-opportunities list [flags]
 
 ### SEE ALSO
 
-* [beehiiv advertisement-opportunities](beehiiv_advertisement-opportunities.md)	 - advertisement opportunities commands
-
+* [beehiiv advertisement-opportunities](beehiiv_advertisement-opportunities.md)	 - List Beehiiv advertisement opportunities

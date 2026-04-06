@@ -2,7 +2,7 @@
 
 ## beehiiv email-blasts get
 
-Get email blast
+Show an email blast by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/email_blasts/{emailBlastId}
 
 ```
 beehiiv email-blasts get <emailBlastId> [flags]
+```
+
+### Examples
+
+```
+beehiiv email-blasts get blast_123
+beehiiv blasts show blast_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv email-blasts get <emailBlastId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv email-blasts](beehiiv_email-blasts.md)	 - email blasts commands
-
+* [beehiiv email-blasts](beehiiv_email-blasts.md)	 - Inspect email blasts

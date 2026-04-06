@@ -2,7 +2,7 @@
 
 ## beehiiv bulk-subscription-updates get
 
-Get subscription update
+Show a bulk subscription update job
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/bulk_subscription_updates/{id}
 
 ```
 beehiiv bulk-subscription-updates get <id> [flags]
+```
+
+### Examples
+
+```
+beehiiv bulk-subscription-updates get bulk_subscription_update_123
+beehiiv bulk-updates show bulk_subscription_update_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv bulk-subscription-updates get <id> [flags]
 
 ### SEE ALSO
 
-* [beehiiv bulk-subscription-updates](beehiiv_bulk-subscription-updates.md)	 - bulk subscription updates commands
-
+* [beehiiv bulk-subscription-updates](beehiiv_bulk-subscription-updates.md)	 - Inspect bulk subscription update jobs

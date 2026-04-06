@@ -2,7 +2,7 @@
 
 ## beehiiv subscription-tags create
 
-Add subscription tag
+Create a subscription tag
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions/{subscriptionId}/tags
 
 ```
 beehiiv subscription-tags create <subscriptionId> [flags]
+```
+
+### Examples
+
+```
+beehiiv subscription-tags create --body '{"name":"vip"}'
+beehiiv tags add --body '{"name":"vip"}'
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv subscription-tags create <subscriptionId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv subscription-tags](beehiiv_subscription-tags.md)	 - subscription tags commands
-
+* [beehiiv subscription-tags](beehiiv_subscription-tags.md)	 - Create subscription tags

@@ -2,10 +2,21 @@
 
 ## beehiiv bulk-subscriptions
 
-bulk subscriptions commands
+Import subscribers in bulk
+
+### Synopsis
+
+Create subscriptions in bulk for the active publication from a JSON request body.
 
 ```
 beehiiv bulk-subscriptions [flags]
+```
+
+### Examples
+
+```
+beehiiv bulk-subscriptions create --body @bulk-subscriptions.json
+beehiiv bulk-imports import --body @bulk-subscriptions.json
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv bulk-subscriptions [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv bulk-subscriptions create](beehiiv_bulk-subscriptions_create.md)	 - Bulk create subscription
-
+* [beehiiv bulk-subscriptions create](beehiiv_bulk-subscriptions_create.md)	 - Create subscriptions in bulk

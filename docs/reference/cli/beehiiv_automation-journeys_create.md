@@ -52,4 +52,3 @@ beehiiv automations enroll aut_123 --body @journey.json
 ### SEE ALSO
 
 * [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - Inspect and manage automation journeys
-

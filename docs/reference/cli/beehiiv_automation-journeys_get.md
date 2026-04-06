@@ -51,4 +51,3 @@ beehiiv automations journey aut_123 journey_123
 ### SEE ALSO
 
 * [beehiiv automation-journeys](beehiiv_automation-journeys.md)	 - Inspect and manage automation journeys
-

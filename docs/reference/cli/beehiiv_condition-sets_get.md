@@ -2,7 +2,7 @@
 
 ## beehiiv condition-sets get
 
-Get condition set <Badge intent="info" minimal outlined>OAuth Scope: condition_sets:read</Badge>
+Show a condition set by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/condition_sets/{conditionSetId}
 
 ```
 beehiiv condition-sets get <conditionSetId> [flags]
+```
+
+### Examples
+
+```
+beehiiv condition-sets get cond_123
+beehiiv conditions show cond_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv condition-sets get <conditionSetId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv condition-sets](beehiiv_condition-sets.md)	 - condition sets commands
-
+* [beehiiv condition-sets](beehiiv_condition-sets.md)	 - Inspect condition sets

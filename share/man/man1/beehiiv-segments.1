@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SEGMENTS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-segments - segments commands
+beehiiv-segments - Inspect and manage publication segments
 
 
 .SH SYNOPSIS
@@ -10,7 +10,7 @@ beehiiv-segments - segments commands
 
 
 .SH DESCRIPTION
-segments commands
+List segments, inspect a single segment, recalculate it, and jump into segment members or lightweight results.
 
 
 .SH OPTIONS
@@ -67,5 +67,14 @@ segments commands
 	Print request and response details to stderr
 
 
+.SH EXAMPLE
+.EX
+beehiiv segments list
+beehiiv segments show segment_123
+beehiiv segments members segment_123 --query expand=stats,custom_fields
+beehiiv segments results segment_123
+.EE
+
+
 .SH SEE ALSO
-\fBbeehiiv(1)\fP, \fBbeehiiv-segments-delete(1)\fP, \fBbeehiiv-segments-get(1)\fP, \fBbeehiiv-segments-list(1)\fP, \fBbeehiiv-segments-recalculate(1)\fP
+\fBbeehiiv(1)\fP, \fBbeehiiv-segments-delete(1)\fP, \fBbeehiiv-segments-get(1)\fP, \fBbeehiiv-segments-list(1)\fP, \fBbeehiiv-segments-members(1)\fP, \fBbeehiiv-segments-recalculate(1)\fP, \fBbeehiiv-segments-results(1)\fP

@@ -2,7 +2,7 @@
 .TH "BEEHIIV-ADVERTISEMENT-OPPORTUNITIES-LIST" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-advertisement-opportunities-list - Get advertisement opportunities OAuth Scope: posts:read
+beehiiv-advertisement-opportunities-list - List advertisement opportunities for the active publication
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/advertisement_opportunities
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv advertisement-opportunities list
+beehiiv ad-opps list --query limit=25
+.EE
 
 
 .SH SEE ALSO

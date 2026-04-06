@@ -34,4 +34,3 @@ beehiiv version [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-

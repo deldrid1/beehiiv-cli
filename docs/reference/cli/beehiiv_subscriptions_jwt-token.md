@@ -2,7 +2,7 @@
 
 ## beehiiv subscriptions jwt-token
 
-Get subscription JWT token
+Fetch a JWT token for a subscription
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions/{subscriptionId}/jwt_token
 
 ```
 beehiiv subscriptions jwt-token <subscriptionId> [flags]
+```
+
+### Examples
+
+```
+beehiiv subscriptions jwt-token sub_123
+beehiiv subscriptions jwt sub_123
 ```
 
 ### Options
@@ -43,4 +50,3 @@ beehiiv subscriptions jwt-token <subscriptionId> [flags]
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

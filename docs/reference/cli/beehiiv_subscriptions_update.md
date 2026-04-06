@@ -2,7 +2,7 @@
 
 ## beehiiv subscriptions update
 
-Update subscription by ID
+Update a subscription by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions/{subscriptionId}
 
 ```
 beehiiv subscriptions update <subscriptionId> [flags]
+```
+
+### Examples
+
+```
+beehiiv subscriptions update sub_123 --body @subscription.json
+beehiiv subs edit sub_123 --body '{"reactivate_existing":true}'
 ```
 
 ### Options
@@ -44,4 +51,3 @@ beehiiv subscriptions update <subscriptionId> [flags]
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

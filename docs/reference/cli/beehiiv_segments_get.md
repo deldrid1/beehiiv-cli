@@ -2,7 +2,7 @@
 
 ## beehiiv segments get
 
-Get segment
+Show a segment by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/segments/{segmentId}
 
 ```
 beehiiv segments get <segmentId> [flags]
+```
+
+### Examples
+
+```
+beehiiv segments get segment_123
+beehiiv segments show segment_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv segments get <segmentId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv segments](beehiiv_segments.md)	 - segments commands
-
+* [beehiiv segments](beehiiv_segments.md)	 - Inspect and manage publication segments

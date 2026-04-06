@@ -45,6 +45,14 @@ beehiiv webhooks test endpoint_123
 beehiiv hooks ping endpoint_123
 `),
 			},
+			"update": {
+				Aliases: []string{"edit"},
+				Short:   "Update a webhook by endpoint ID",
+				Example: strings.TrimSpace(`
+beehiiv webhooks update endpoint_123 --body @webhook.json
+beehiiv hooks edit endpoint_123 --body @webhook.json
+`),
+			},
 			"delete": {
 				Aliases: []string{"remove"},
 				Short:   "Delete a webhook by endpoint ID",

@@ -2,7 +2,7 @@
 
 ## beehiiv authors get
 
-Get author
+Show an author by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/authors/{authorId}
 
 ```
 beehiiv authors get <authorId> [flags]
+```
+
+### Examples
+
+```
+beehiiv authors get author_123
+beehiiv authors show author_123
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv authors get <authorId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv authors](beehiiv_authors.md)	 - authors commands
-
+* [beehiiv authors](beehiiv_authors.md)	 - Inspect publication authors

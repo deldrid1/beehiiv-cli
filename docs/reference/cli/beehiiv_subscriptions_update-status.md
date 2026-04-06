@@ -2,7 +2,7 @@
 
 ## beehiiv subscriptions update-status
 
-Update subscriptions' status
+Update the status of a subscription
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions
 
 ```
 beehiiv subscriptions update-status [flags]
+```
+
+### Examples
+
+```
+beehiiv subscriptions update-status sub_123 --body '{"status":"inactive"}'
+beehiiv subscriptions status sub_123 --body '{"status":"active"}'
 ```
 
 ### Options
@@ -44,4 +51,3 @@ beehiiv subscriptions update-status [flags]
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

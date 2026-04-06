@@ -2,10 +2,21 @@
 
 ## beehiiv workspaces
 
-workspaces commands
+Inspect workspace-level data
+
+### Synopsis
+
+Inspect workspace identity and look up publications by subscriber email across the workspace tied to your API key.
 
 ```
 beehiiv workspaces [flags]
+```
+
+### Examples
+
+```
+beehiiv workspaces identify
+beehiiv workspaces publications person@example.com --query expand=publication,subscription
 ```
 
 ### Options
@@ -34,6 +45,6 @@ beehiiv workspaces [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv workspaces identify](beehiiv_workspaces_identify.md)	 - Identify workspace
-* [beehiiv workspaces publications-by-subscription-email](beehiiv_workspaces_publications-by-subscription-email.md)	 - Get publications by subscription email <Badge intent="info" minimal outlined>OAuth Scope: publications:read</Badge>
-
+* [beehiiv workspaces identify](beehiiv_workspaces_identify.md)	 - Identify the current workspace
+* [beehiiv workspaces publications](beehiiv_workspaces_publications.md)	 - Find publications across the workspace by subscriber email
+* [beehiiv workspaces publications-by-subscription-email](beehiiv_workspaces_publications-by-subscription-email.md)	 - Find workspace publications by subscriber email

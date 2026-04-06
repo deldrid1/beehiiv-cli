@@ -2,7 +2,7 @@
 
 ## beehiiv subscriptions get-by-subscriber-id
 
-Get subscription by subscriber ID
+Find a subscription by subscriber ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions/by_subscriber_id/{subscrib
 
 ```
 beehiiv subscriptions get-by-subscriber-id <subscriberId> [flags]
+```
+
+### Examples
+
+```
+beehiiv subscriptions get-by-subscriber-id subscriber_123
+beehiiv subscriptions subscriber subscriber_123 --query expand=stats,custom_fields
 ```
 
 ### Options
@@ -43,4 +50,3 @@ beehiiv subscriptions get-by-subscriber-id <subscriberId> [flags]
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

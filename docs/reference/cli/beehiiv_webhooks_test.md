@@ -50,4 +50,3 @@ beehiiv hooks ping endpoint_123
 ### SEE ALSO
 
 * [beehiiv webhooks](beehiiv_webhooks.md)	 - Manage publication webhooks
-

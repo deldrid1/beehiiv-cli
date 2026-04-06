@@ -39,4 +39,3 @@ beehiiv auth [flags]
 * [beehiiv auth oauth](beehiiv_auth_oauth.md)	 - OAuth authentication flows
 * [beehiiv auth path](beehiiv_auth_path.md)	 - Print the settings file path
 * [beehiiv auth status](beehiiv_auth_status.md)	 - Show masked auth status without printing live credentials
-

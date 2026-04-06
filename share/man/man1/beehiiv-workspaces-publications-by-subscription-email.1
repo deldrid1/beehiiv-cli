@@ -2,7 +2,7 @@
 .TH "BEEHIIV-WORKSPACES-PUBLICATIONS-BY-SUBSCRIPTION-EMAIL" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-workspaces-publications-by-subscription-email - Get publications by subscription email OAuth Scope: publications:read
+beehiiv-workspaces-publications-by-subscription-email - Find workspace publications by subscriber email
 
 
 .SH SYNOPSIS
@@ -75,6 +75,13 @@ API path: /workspaces/publications/by_subscription_email/{email}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv workspaces publications person@example.com
+beehiiv workspaces lookup person@example.com --query expand=publication,subscription
+.EE
 
 
 .SH SEE ALSO

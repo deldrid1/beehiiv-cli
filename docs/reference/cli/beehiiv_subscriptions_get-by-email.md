@@ -50,4 +50,3 @@ beehiiv subscriptions find person@example.com
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

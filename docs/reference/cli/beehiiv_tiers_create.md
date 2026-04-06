@@ -2,7 +2,7 @@
 
 ## beehiiv tiers create
 
-Create a tier
+Create a premium tier
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/tiers
 
 ```
 beehiiv tiers create [flags]
+```
+
+### Examples
+
+```
+beehiiv tiers create --body @tier.json
+beehiiv tier add --body @tier.json
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv tiers create [flags]
 
 ### SEE ALSO
 
-* [beehiiv tiers](beehiiv_tiers.md)	 - tiers commands
-
+* [beehiiv tiers](beehiiv_tiers.md)	 - Manage premium tiers

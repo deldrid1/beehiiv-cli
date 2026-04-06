@@ -2,7 +2,7 @@
 
 ## beehiiv custom-fields create
 
-Create custom field
+Create a custom field
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/custom_fields
 
 ```
 beehiiv custom-fields create [flags]
+```
+
+### Examples
+
+```
+beehiiv custom-fields create --body '{"kind":"string","display":"Favorite Airport"}'
+beehiiv fields add --body @custom-field.json
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv custom-fields create [flags]
 
 ### SEE ALSO
 
-* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - custom fields commands
-
+* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - Manage publication custom fields

@@ -2,7 +2,7 @@
 
 ## beehiiv segment-results list
 
-List segment subscriber IDs
+List lightweight results for a segment
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/segments/{segmentId}/results
 
 ```
 beehiiv segment-results list <segmentId> [flags]
+```
+
+### Examples
+
+```
+beehiiv segment-results list segment_123
+beehiiv segments results segment_123
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv segment-results list <segmentId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv segment-results](beehiiv_segment-results.md)	 - segment results commands
-
+* [beehiiv segment-results](beehiiv_segment-results.md)	 - List lightweight segment results

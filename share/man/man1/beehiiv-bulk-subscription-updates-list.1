@@ -2,7 +2,7 @@
 .TH "BEEHIIV-BULK-SUBSCRIPTION-UPDATES-LIST" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-bulk-subscription-updates-list - List subscription updates
+beehiiv-bulk-subscription-updates-list - List bulk subscription update jobs
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/bulk_subscription_updates
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv bulk-subscription-updates list
+beehiiv bulk-updates list --output table
+.EE
 
 
 .SH SEE ALSO

@@ -2,7 +2,7 @@
 .TH "BEEHIIV-NEWSLETTER-LISTS-GET" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-newsletter-lists-get - Get newsletter list Beta OAuth Scope: newsletter_lists:read
+beehiiv-newsletter-lists-get - Show a newsletter list by ID
 
 
 .SH SYNOPSIS
@@ -75,6 +75,13 @@ API path: /publications/{publicationId}/newsletter_lists/{newsletterListId}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv newsletter-lists get list_123
+beehiiv nlists show list_123
+.EE
 
 
 .SH SEE ALSO

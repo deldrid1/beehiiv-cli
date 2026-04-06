@@ -2,7 +2,7 @@
 
 ## beehiiv custom-fields update
 
-Update custom field
+Update a custom field
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/custom_fields/{id}
 
 ```
 beehiiv custom-fields update <id> [flags]
+```
+
+### Examples
+
+```
+beehiiv custom-fields update custom_field_123 --body @custom-field.json
+beehiiv fields edit custom_field_123 --body '{"display":"Favorite Airport"}'
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv custom-fields update <id> [flags]
 
 ### SEE ALSO
 
-* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - custom fields commands
-
+* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - Manage publication custom fields

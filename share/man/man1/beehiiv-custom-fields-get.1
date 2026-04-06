@@ -2,7 +2,7 @@
 .TH "BEEHIIV-CUSTOM-FIELDS-GET" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-custom-fields-get - Get custom field
+beehiiv-custom-fields-get - Show a custom field by ID
 
 
 .SH SYNOPSIS
@@ -75,6 +75,13 @@ API path: /publications/{publicationId}/custom_fields/{id}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv custom-fields get custom_field_123
+beehiiv fields show custom_field_123
+.EE
 
 
 .SH SEE ALSO

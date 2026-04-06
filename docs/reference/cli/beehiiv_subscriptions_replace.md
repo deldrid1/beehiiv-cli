@@ -2,7 +2,7 @@
 
 ## beehiiv subscriptions replace
 
-Update subscription by ID
+Replace a subscription by ID
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions/{subscriptionId}
 
 ```
 beehiiv subscriptions replace <subscriptionId> [flags]
+```
+
+### Examples
+
+```
+beehiiv subscriptions replace sub_123 --body @subscription.json
+beehiiv subs set sub_123 --body @subscription.json
 ```
 
 ### Options
@@ -44,4 +51,3 @@ beehiiv subscriptions replace <subscriptionId> [flags]
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

@@ -2,10 +2,21 @@
 
 ## beehiiv post-templates
 
-post templates commands
+List post templates
+
+### Synopsis
+
+Inspect post templates available to the active publication.
 
 ```
 beehiiv post-templates [flags]
+```
+
+### Examples
+
+```
+beehiiv post-templates list
+beehiiv templates list --output table
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv post-templates [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv post-templates list](beehiiv_post-templates_list.md)	 - Get post templates
-
+* [beehiiv post-templates list](beehiiv_post-templates_list.md)	 - List post templates

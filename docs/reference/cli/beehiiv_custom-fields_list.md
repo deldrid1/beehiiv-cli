@@ -2,7 +2,7 @@
 
 ## beehiiv custom-fields list
 
-List custom fields
+List custom fields for the active publication
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/custom_fields
 
 ```
 beehiiv custom-fields list [flags]
+```
+
+### Examples
+
+```
+beehiiv custom-fields list
+beehiiv fields list --output table
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv custom-fields list [flags]
 
 ### SEE ALSO
 
-* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - custom fields commands
-
+* [beehiiv custom-fields](beehiiv_custom-fields.md)	 - Manage publication custom fields

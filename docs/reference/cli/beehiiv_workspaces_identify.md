@@ -2,7 +2,7 @@
 
 ## beehiiv workspaces identify
 
-Identify workspace
+Identify the current workspace
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /workspaces/identify
 
 ```
 beehiiv workspaces identify [flags]
+```
+
+### Examples
+
+```
+beehiiv workspaces identify
+beehiiv workspace whoami
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv workspaces identify [flags]
 
 ### SEE ALSO
 
-* [beehiiv workspaces](beehiiv_workspaces.md)	 - workspaces commands
-
+* [beehiiv workspaces](beehiiv_workspaces.md)	 - Inspect workspace-level data

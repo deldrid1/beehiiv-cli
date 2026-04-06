@@ -2,7 +2,7 @@
 
 ## beehiiv authors list
 
-List authors
+List authors for the active publication
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/authors
 
 ```
 beehiiv authors list [flags]
+```
+
+### Examples
+
+```
+beehiiv authors list
+beehiiv author list --output table
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv authors list [flags]
 
 ### SEE ALSO
 
-* [beehiiv authors](beehiiv_authors.md)	 - authors commands
-
+* [beehiiv authors](beehiiv_authors.md)	 - Inspect publication authors

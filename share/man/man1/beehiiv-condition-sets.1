@@ -2,7 +2,7 @@
 .TH "BEEHIIV-CONDITION-SETS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-condition-sets - condition sets commands
+beehiiv-condition-sets - Inspect condition sets
 
 
 .SH SYNOPSIS
@@ -10,7 +10,7 @@ beehiiv-condition-sets - condition sets commands
 
 
 .SH DESCRIPTION
-condition sets commands
+List condition sets for the active publication and inspect an individual set by ID.
 
 
 .SH OPTIONS
@@ -65,6 +65,13 @@ condition sets commands
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv condition-sets list
+beehiiv condition-sets show cond_123
+.EE
 
 
 .SH SEE ALSO

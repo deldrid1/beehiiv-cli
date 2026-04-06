@@ -2,7 +2,7 @@
 
 ## beehiiv condition-sets list
 
-List condition sets <Badge intent="info" minimal outlined>OAuth Scope: condition_sets:read</Badge>
+List condition sets
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/condition_sets
 
 ```
 beehiiv condition-sets list [flags]
+```
+
+### Examples
+
+```
+beehiiv condition-sets list
+beehiiv conditions list --output table
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv condition-sets list [flags]
 
 ### SEE ALSO
 
-* [beehiiv condition-sets](beehiiv_condition-sets.md)	 - condition sets commands
-
+* [beehiiv condition-sets](beehiiv_condition-sets.md)	 - Inspect condition sets

@@ -49,4 +49,3 @@ beehiiv automations emails aut_123 --all
 ### SEE ALSO
 
 * [beehiiv automations](beehiiv_automations.md)	 - Inspect Beehiiv automations and related workflow activity
-

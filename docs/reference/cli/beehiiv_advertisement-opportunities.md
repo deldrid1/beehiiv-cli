@@ -2,10 +2,21 @@
 
 ## beehiiv advertisement-opportunities
 
-advertisement opportunities commands
+List Beehiiv advertisement opportunities
+
+### Synopsis
+
+Inspect advertisement opportunities available to the active publication.
 
 ```
 beehiiv advertisement-opportunities [flags]
+```
+
+### Examples
+
+```
+beehiiv advertisement-opportunities list
+beehiiv ad-opps list --query limit=25
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv advertisement-opportunities [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv advertisement-opportunities list](beehiiv_advertisement-opportunities_list.md)	 - Get advertisement opportunities <Badge intent="info" minimal outlined>OAuth Scope: posts:read</Badge>
-
+* [beehiiv advertisement-opportunities list](beehiiv_advertisement-opportunities_list.md)	 - List advertisement opportunities for the active publication

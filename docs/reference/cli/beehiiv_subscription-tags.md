@@ -2,10 +2,21 @@
 
 ## beehiiv subscription-tags
 
-subscription tags commands
+Create subscription tags
+
+### Synopsis
+
+Create tags that can be attached to subscriptions in the active publication.
 
 ```
 beehiiv subscription-tags [flags]
+```
+
+### Examples
+
+```
+beehiiv subscription-tags create --body '{"name":"vip"}'
+beehiiv tags add --body '{"name":"vip"}'
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv subscription-tags [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv subscription-tags create](beehiiv_subscription-tags_create.md)	 - Add subscription tag
-
+* [beehiiv subscription-tags create](beehiiv_subscription-tags_create.md)	 - Create a subscription tag

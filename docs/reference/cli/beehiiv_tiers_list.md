@@ -2,7 +2,7 @@
 
 ## beehiiv tiers list
 
-List tiers
+List premium tiers for the active publication
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/tiers
 
 ```
 beehiiv tiers list [flags]
+```
+
+### Examples
+
+```
+beehiiv tiers list
+beehiiv tier list --output table
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv tiers list [flags]
 
 ### SEE ALSO
 
-* [beehiiv tiers](beehiiv_tiers.md)	 - tiers commands
-
+* [beehiiv tiers](beehiiv_tiers.md)	 - Manage premium tiers

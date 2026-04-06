@@ -35,4 +35,3 @@ beehiiv auth oauth [flags]
 
 * [beehiiv auth](beehiiv_auth.md)	 - Authentication and config commands
 * [beehiiv auth oauth login](beehiiv_auth_oauth_login.md)	 - Run the Beehiiv OAuth authorization-code flow with PKCE
-

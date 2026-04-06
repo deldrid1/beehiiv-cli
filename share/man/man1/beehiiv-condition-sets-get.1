@@ -2,7 +2,7 @@
 .TH "BEEHIIV-CONDITION-SETS-GET" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-condition-sets-get - Get condition set OAuth Scope: condition_sets:read
+beehiiv-condition-sets-get - Show a condition set by ID
 
 
 .SH SYNOPSIS
@@ -75,6 +75,13 @@ API path: /publications/{publicationId}/condition_sets/{conditionSetId}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv condition-sets get cond_123
+beehiiv conditions show cond_123
+.EE
 
 
 .SH SEE ALSO

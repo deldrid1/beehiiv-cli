@@ -51,4 +51,3 @@ beehiiv hooks add --body '{"url":"https://example.com/webhook","event_types":["s
 ### SEE ALSO
 
 * [beehiiv webhooks](beehiiv_webhooks.md)	 - Manage publication webhooks
-

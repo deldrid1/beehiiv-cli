@@ -2,10 +2,21 @@
 
 ## beehiiv newsletter-lists
 
-newsletter lists commands
+Inspect newsletter lists
+
+### Synopsis
+
+List newsletter lists for the active publication and inspect a single list by ID.
 
 ```
 beehiiv newsletter-lists [flags]
+```
+
+### Examples
+
+```
+beehiiv newsletter-lists list
+beehiiv newsletter-lists show list_123
 ```
 
 ### Options
@@ -34,6 +45,5 @@ beehiiv newsletter-lists [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv newsletter-lists get](beehiiv_newsletter-lists_get.md)	 - Get newsletter list <Badge intent="warning" minimal outlined>Beta</Badge> <Badge intent="info" minimal outlined>OAuth Scope: newsletter_lists:read</Badge>
-* [beehiiv newsletter-lists list](beehiiv_newsletter-lists_list.md)	 - List newsletter lists <Badge intent="warning" minimal outlined>Beta</Badge> <Badge intent="info" minimal outlined>OAuth Scope: newsletter_lists:read</Badge>
-
+* [beehiiv newsletter-lists get](beehiiv_newsletter-lists_get.md)	 - Show a newsletter list by ID
+* [beehiiv newsletter-lists list](beehiiv_newsletter-lists_list.md)	 - List newsletter lists for the active publication

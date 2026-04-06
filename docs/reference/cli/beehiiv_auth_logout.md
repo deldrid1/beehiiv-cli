@@ -35,4 +35,3 @@ beehiiv auth logout [flags]
 ### SEE ALSO
 
 * [beehiiv auth](beehiiv_auth.md)	 - Authentication and config commands
-

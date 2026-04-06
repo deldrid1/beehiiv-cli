@@ -51,4 +51,3 @@ beehiiv posts add --body '{"title":"Launch update"}'
 ### SEE ALSO
 
 * [beehiiv posts](beehiiv_posts.md)	 - Create and inspect Beehiiv posts
-

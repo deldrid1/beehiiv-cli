@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SUBSCRIPTION-BULK-ACTIONS-REPLACE" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-subscription-bulk-actions-replace - Update subscriptions
+beehiiv-subscription-bulk-actions-replace - Replace subscription bulk-action settings
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/subscriptions/bulk_actions
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv subscription-bulk-actions replace --body @bulk-action.json
+beehiiv subscription-bulk-actions set --body @bulk-action.json
+.EE
 
 
 .SH SEE ALSO

@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SEGMENT-RESULTS-LIST" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-segment-results-list - List segment subscriber IDs
+beehiiv-segment-results-list - List lightweight results for a segment
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/segments/{segmentId}/results
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv segment-results list segment_123
+beehiiv segments results segment_123
+.EE
 
 
 .SH SEE ALSO

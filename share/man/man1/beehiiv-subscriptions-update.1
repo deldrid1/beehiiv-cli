@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SUBSCRIPTIONS-UPDATE" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-subscriptions-update - Update subscription by ID
+beehiiv-subscriptions-update - Update a subscription by ID
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/subscriptions/{subscriptionId}
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv subscriptions update sub_123 --body @subscription.json
+beehiiv subs edit sub_123 --body '{"reactivate_existing":true}'
+.EE
 
 
 .SH SEE ALSO

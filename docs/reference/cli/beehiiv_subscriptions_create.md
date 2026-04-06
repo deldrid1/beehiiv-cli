@@ -51,4 +51,3 @@ beehiiv subs add --body @subscription.json
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

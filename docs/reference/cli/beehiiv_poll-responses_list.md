@@ -2,7 +2,7 @@
 
 ## beehiiv poll-responses list
 
-List poll responses <Badge intent="info" minimal outlined>OAuth Scope: polls:read</Badge>
+List responses for a poll
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/polls/{pollId}/responses
 
 ```
 beehiiv poll-responses list <pollId> [flags]
+```
+
+### Examples
+
+```
+beehiiv poll-responses list poll_123
+beehiiv polls responses poll_123 --query expand=post
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv poll-responses list <pollId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv poll-responses](beehiiv_poll-responses.md)	 - poll responses commands
-
+* [beehiiv poll-responses](beehiiv_poll-responses.md)	 - List individual responses for a Beehiiv poll

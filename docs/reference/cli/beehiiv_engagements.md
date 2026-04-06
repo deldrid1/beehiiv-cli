@@ -2,10 +2,21 @@
 
 ## beehiiv engagements
 
-engagements commands
+Inspect publication engagement events
+
+### Synopsis
+
+List engagement events returned by the Beehiiv API for the active publication.
 
 ```
 beehiiv engagements [flags]
+```
+
+### Examples
+
+```
+beehiiv engagements list
+beehiiv engagement list --query limit=50
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv engagements [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv engagements list](beehiiv_engagements_list.md)	 - Get publication engagements <Badge intent="info" minimal outlined>OAuth Scope: publications:read</Badge>
-
+* [beehiiv engagements list](beehiiv_engagements_list.md)	 - List engagement events

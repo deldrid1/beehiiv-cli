@@ -48,4 +48,3 @@ beehiiv publications show pub_123
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
 * [beehiiv publications get](beehiiv_publications_get.md)	 - Show a publication by ID
 * [beehiiv publications list](beehiiv_publications_list.md)	 - List publications available to the current account
-

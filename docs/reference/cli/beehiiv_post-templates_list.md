@@ -2,7 +2,7 @@
 
 ## beehiiv post-templates list
 
-Get post templates
+List post templates
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/post_templates
 
 ```
 beehiiv post-templates list [flags]
+```
+
+### Examples
+
+```
+beehiiv post-templates list
+beehiiv templates list --output table
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv post-templates list [flags]
 
 ### SEE ALSO
 
-* [beehiiv post-templates](beehiiv_post-templates.md)	 - post templates commands
-
+* [beehiiv post-templates](beehiiv_post-templates.md)	 - List post templates

@@ -50,4 +50,3 @@ beehiiv subscriptions show sub_123 --query expand=stats,custom_fields
 ### SEE ALSO
 
 * [beehiiv subscriptions](beehiiv_subscriptions.md)	 - Manage subscriptions for a publication
-

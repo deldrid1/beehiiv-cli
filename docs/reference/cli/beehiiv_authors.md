@@ -2,10 +2,21 @@
 
 ## beehiiv authors
 
-authors commands
+Inspect publication authors
+
+### Synopsis
+
+List authors for the active publication and show an individual author by ID.
 
 ```
 beehiiv authors [flags]
+```
+
+### Examples
+
+```
+beehiiv authors list
+beehiiv authors show author_123
 ```
 
 ### Options
@@ -34,6 +45,5 @@ beehiiv authors [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv authors get](beehiiv_authors_get.md)	 - Get author
-* [beehiiv authors list](beehiiv_authors_list.md)	 - List authors
-
+* [beehiiv authors get](beehiiv_authors_get.md)	 - Show an author by ID
+* [beehiiv authors list](beehiiv_authors_list.md)	 - List authors for the active publication

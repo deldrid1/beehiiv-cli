@@ -34,4 +34,3 @@ beehiiv completion bash [flags]
 ### SEE ALSO
 
 * [beehiiv completion](beehiiv_completion.md)	 - Generate the autocompletion script for the specified shell
-

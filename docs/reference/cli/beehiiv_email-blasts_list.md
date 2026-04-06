@@ -2,7 +2,7 @@
 
 ## beehiiv email-blasts list
 
-List email blasts
+List email blasts for the active publication
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/email_blasts
 
 ```
 beehiiv email-blasts list [flags]
+```
+
+### Examples
+
+```
+beehiiv email-blasts list
+beehiiv blasts list --query limit=25
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv email-blasts list [flags]
 
 ### SEE ALSO
 
-* [beehiiv email-blasts](beehiiv_email-blasts.md)	 - email blasts commands
-
+* [beehiiv email-blasts](beehiiv_email-blasts.md)	 - Inspect email blasts

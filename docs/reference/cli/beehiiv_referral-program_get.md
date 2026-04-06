@@ -2,7 +2,7 @@
 
 ## beehiiv referral-program get
 
-Get referral program
+Show the referral program
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/referral_program
 
 ```
 beehiiv referral-program get [flags]
+```
+
+### Examples
+
+```
+beehiiv referral-program get
+beehiiv referrals show
 ```
 
 ### Options
@@ -42,5 +49,4 @@ beehiiv referral-program get [flags]
 
 ### SEE ALSO
 
-* [beehiiv referral-program](beehiiv_referral-program.md)	 - referral program commands
-
+* [beehiiv referral-program](beehiiv_referral-program.md)	 - Inspect the publication referral program

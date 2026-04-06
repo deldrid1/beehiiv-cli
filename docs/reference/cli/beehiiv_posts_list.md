@@ -51,4 +51,3 @@ beehiiv post list --output table
 ### SEE ALSO
 
 * [beehiiv posts](beehiiv_posts.md)	 - Create and inspect Beehiiv posts
-

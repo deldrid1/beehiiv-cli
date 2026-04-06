@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SUBSCRIPTIONS-JWT-TOKEN" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-subscriptions-jwt-token - Get subscription JWT token
+beehiiv-subscriptions-jwt-token - Fetch a JWT token for a subscription
 
 
 .SH SYNOPSIS
@@ -75,6 +75,13 @@ API path: /publications/{publicationId}/subscriptions/{subscriptionId}/jwt_token
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv subscriptions jwt-token sub_123
+beehiiv subscriptions jwt sub_123
+.EE
 
 
 .SH SEE ALSO

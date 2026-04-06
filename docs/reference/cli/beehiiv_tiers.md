@@ -2,10 +2,22 @@
 
 ## beehiiv tiers
 
-tiers commands
+Manage premium tiers
+
+### Synopsis
+
+Create, inspect, update, and replace premium tiers for the active publication.
 
 ```
 beehiiv tiers [flags]
+```
+
+### Examples
+
+```
+beehiiv tiers list
+beehiiv tiers show tier_123
+beehiiv tiers create --body @tier.json
 ```
 
 ### Options
@@ -34,9 +46,8 @@ beehiiv tiers [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv tiers create](beehiiv_tiers_create.md)	 - Create a tier
-* [beehiiv tiers get](beehiiv_tiers_get.md)	 - Get tier
-* [beehiiv tiers list](beehiiv_tiers_list.md)	 - List tiers
-* [beehiiv tiers replace](beehiiv_tiers_replace.md)	 - Update a tier
-* [beehiiv tiers update](beehiiv_tiers_update.md)	 - Update a tier
-
+* [beehiiv tiers create](beehiiv_tiers_create.md)	 - Create a premium tier
+* [beehiiv tiers get](beehiiv_tiers_get.md)	 - Show a premium tier by ID
+* [beehiiv tiers list](beehiiv_tiers_list.md)	 - List premium tiers for the active publication
+* [beehiiv tiers replace](beehiiv_tiers_replace.md)	 - Replace a premium tier
+* [beehiiv tiers update](beehiiv_tiers_update.md)	 - Update a premium tier

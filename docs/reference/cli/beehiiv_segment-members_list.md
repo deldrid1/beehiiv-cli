@@ -2,7 +2,7 @@
 
 ## beehiiv segment-members list
 
-List segment subscribers
+List full subscriber records for a segment
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/segments/{segmentId}/members
 
 ```
 beehiiv segment-members list <segmentId> [flags]
+```
+
+### Examples
+
+```
+beehiiv segment-members list segment_123
+beehiiv segments members segment_123 --query expand=stats,custom_fields
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv segment-members list <segmentId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv segment-members](beehiiv_segment-members.md)	 - segment members commands
-
+* [beehiiv segment-members](beehiiv_segment-members.md)	 - List full subscriber records for a segment

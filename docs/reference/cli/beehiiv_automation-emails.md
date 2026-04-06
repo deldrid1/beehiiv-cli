@@ -46,4 +46,3 @@ beehiiv automations emails aut_123
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
 * [beehiiv automation-emails list](beehiiv_automation-emails_list.md)	 - List the emails inside an automation
-

@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SUBSCRIPTION-BULK-ACTIONS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-subscription-bulk-actions - subscription bulk actions commands
+beehiiv-subscription-bulk-actions - Update subscription bulk-action settings
 
 
 .SH SYNOPSIS
@@ -10,7 +10,7 @@ beehiiv-subscription-bulk-actions - subscription bulk actions commands
 
 
 .SH DESCRIPTION
-subscription bulk actions commands
+Update or replace bulk-action settings for subscriptions in the active publication.
 
 
 .SH OPTIONS
@@ -65,6 +65,13 @@ subscription bulk actions commands
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv subscription-bulk-actions update --body @bulk-action.json
+beehiiv subscription-bulk-actions set --body @bulk-action.json
+.EE
 
 
 .SH SEE ALSO

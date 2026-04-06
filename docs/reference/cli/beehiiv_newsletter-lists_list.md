@@ -2,7 +2,7 @@
 
 ## beehiiv newsletter-lists list
 
-List newsletter lists <Badge intent="warning" minimal outlined>Beta</Badge> <Badge intent="info" minimal outlined>OAuth Scope: newsletter_lists:read</Badge>
+List newsletter lists for the active publication
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/newsletter_lists
 
 ```
 beehiiv newsletter-lists list [flags]
+```
+
+### Examples
+
+```
+beehiiv newsletter-lists list
+beehiiv nlists list --output table
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv newsletter-lists list [flags]
 
 ### SEE ALSO
 
-* [beehiiv newsletter-lists](beehiiv_newsletter-lists.md)	 - newsletter lists commands
-
+* [beehiiv newsletter-lists](beehiiv_newsletter-lists.md)	 - Inspect newsletter lists

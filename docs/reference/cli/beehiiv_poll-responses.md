@@ -2,10 +2,21 @@
 
 ## beehiiv poll-responses
 
-poll responses commands
+List individual responses for a Beehiiv poll
+
+### Synopsis
+
+List paginated individual poll responses for a specific poll.
 
 ```
 beehiiv poll-responses [flags]
+```
+
+### Examples
+
+```
+beehiiv poll-responses list poll_123
+beehiiv polls responses poll_123
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv poll-responses [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv poll-responses list](beehiiv_poll-responses_list.md)	 - List poll responses <Badge intent="info" minimal outlined>OAuth Scope: polls:read</Badge>
-
+* [beehiiv poll-responses list](beehiiv_poll-responses_list.md)	 - List responses for a poll

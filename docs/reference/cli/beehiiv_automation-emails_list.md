@@ -51,4 +51,3 @@ beehiiv automations emails aut_123 --all
 ### SEE ALSO
 
 * [beehiiv automation-emails](beehiiv_automation-emails.md)	 - List the emails that belong to a Beehiiv automation
-

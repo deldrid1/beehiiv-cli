@@ -2,10 +2,21 @@
 
 ## beehiiv email-blasts
 
-email blasts commands
+Inspect email blasts
+
+### Synopsis
+
+List email blasts for the active publication and inspect an individual blast by ID.
 
 ```
 beehiiv email-blasts [flags]
+```
+
+### Examples
+
+```
+beehiiv email-blasts list
+beehiiv email-blasts show blast_123
 ```
 
 ### Options
@@ -34,6 +45,5 @@ beehiiv email-blasts [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv email-blasts get](beehiiv_email-blasts_get.md)	 - Get email blast
-* [beehiiv email-blasts list](beehiiv_email-blasts_list.md)	 - List email blasts
-
+* [beehiiv email-blasts get](beehiiv_email-blasts_get.md)	 - Show an email blast by ID
+* [beehiiv email-blasts list](beehiiv_email-blasts_list.md)	 - List email blasts for the active publication

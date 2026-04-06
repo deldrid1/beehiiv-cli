@@ -8,12 +8,18 @@ import (
 
 	"github.com/deldrid1/beehiiv-cli/internal/cmd"
 	"github.com/deldrid1/beehiiv-cli/internal/cmd/workflows"
+	"github.com/deldrid1/beehiiv-cli/internal/commandset"
 )
 
-func TestLookupReturnsCuratedSpecsForPrimaryWorkflowGroups(t *testing.T) {
+func TestLookupReturnsCuratedSpecsForAllCommandGroups(t *testing.T) {
 	t.Parallel()
 
-	for _, group := range []string{"automations", "automation-emails", "automation-journeys", "publications", "subscriptions", "posts", "webhooks"} {
+	groups, err := commandset.Groups()
+	if err != nil {
+		t.Fatalf("commandset.Groups() error = %v", err)
+	}
+
+	for _, group := range groups {
 		group := group
 		t.Run(group, func(t *testing.T) {
 			spec, ok := workflows.Lookup(group)
@@ -78,6 +84,51 @@ func TestAutomationWorkflowExamplesAppearInHelp(t *testing.T) {
 	}
 	if !strings.Contains(stdout.String(), "beehiiv automations emails aut_123") {
 		t.Fatalf("stdout missing automation helper example: %s", stdout.String())
+	}
+}
+
+func TestAdditionalCoreWorkflowExamplesAppearInHelp(t *testing.T) {
+	t.Parallel()
+
+	testCases := []struct {
+		args    []string
+		snippet string
+	}{
+		{
+			args:    []string{"segments", "--help"},
+			snippet: "beehiiv segments members segment_123",
+		},
+		{
+			args:    []string{"polls", "--help"},
+			snippet: "beehiiv polls responses poll_123",
+		},
+		{
+			args:    []string{"workspaces", "--help"},
+			snippet: "beehiiv workspaces publications person@example.com",
+		},
+		{
+			args:    []string{"custom-fields", "--help"},
+			snippet: "beehiiv fields add --body @custom-field.json",
+		},
+	}
+
+	for _, testCase := range testCases {
+		testCase := testCase
+		t.Run(strings.Join(testCase.args, "_"), func(t *testing.T) {
+			var stdout bytes.Buffer
+			var stderr bytes.Buffer
+
+			exitCode := cmd.ExecuteContext(context.Background(), testCase.args, cmd.Options{
+				Stdout: &stdout,
+				Stderr: &stderr,
+			})
+			if exitCode != 0 {
+				t.Fatalf("ExecuteContext exit code = %d, stderr = %s", exitCode, stderr.String())
+			}
+			if !strings.Contains(stdout.String(), testCase.snippet) {
+				t.Fatalf("stdout missing snippet %q: %s", testCase.snippet, stdout.String())
+			}
+		})
 	}
 }
 
@@ -189,6 +240,76 @@ func TestAutomationHelperCommandsResolveToExpectedOperations(t *testing.T) {
 			name:    "automations_enroll",
 			args:    []string{"automations", "enroll", "--help"},
 			snippet: "API path: /publications/{publicationId}/automations/{automationId}/journeys",
+		},
+		{
+			name:    "segments_members",
+			args:    []string{"segments", "members", "--help"},
+			snippet: "API path: /publications/{publicationId}/segments/{segmentId}/members",
+		},
+		{
+			name:    "segments_results",
+			args:    []string{"segments", "results", "--help"},
+			snippet: "API path: /publications/{publicationId}/segments/{segmentId}/results",
+		},
+		{
+			name:    "polls_responses",
+			args:    []string{"polls", "responses", "--help"},
+			snippet: "API path: /publications/{publicationId}/polls/{pollId}/responses",
+		},
+		{
+			name:    "workspaces_publications",
+			args:    []string{"workspaces", "publications", "--help"},
+			snippet: "API path: /workspaces/publications/by_subscription_email/{email}",
+		},
+	}
+
+	for _, testCase := range testCases {
+		testCase := testCase
+		t.Run(testCase.name, func(t *testing.T) {
+			var stdout bytes.Buffer
+			var stderr bytes.Buffer
+
+			exitCode := cmd.ExecuteContext(context.Background(), testCase.args, cmd.Options{
+				Stdout: &stdout,
+				Stderr: &stderr,
+			})
+			if exitCode != 0 {
+				t.Fatalf("ExecuteContext exit code = %d, stderr = %s", exitCode, stderr.String())
+			}
+			if !strings.Contains(stdout.String(), testCase.snippet) {
+				t.Fatalf("stdout missing API path snippet %q: %s", testCase.snippet, stdout.String())
+			}
+		})
+	}
+}
+
+func TestAdditionalActionAliasesResolveToExistingCommands(t *testing.T) {
+	t.Parallel()
+
+	testCases := []struct {
+		name    string
+		args    []string
+		snippet string
+	}{
+		{
+			name:    "subscriptions_jwt",
+			args:    []string{"subscriptions", "jwt", "--help"},
+			snippet: "API path: /publications/{publicationId}/subscriptions/{subscriptionId}/jwt_token",
+		},
+		{
+			name:    "subscriptions_subscriber",
+			args:    []string{"subscriptions", "subscriber", "--help"},
+			snippet: "API path: /publications/{publicationId}/subscriptions/by_subscriber_id/{subscriberId}",
+		},
+		{
+			name:    "custom_fields_show",
+			args:    []string{"fields", "show", "--help"},
+			snippet: "API path: /publications/{publicationId}/custom_fields/{id}",
+		},
+		{
+			name:    "tiers_show",
+			args:    []string{"tier", "show", "--help"},
+			snippet: "API path: /publications/{publicationId}/tiers/{tierId}",
 		},
 	}
 

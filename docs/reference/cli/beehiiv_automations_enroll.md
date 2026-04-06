@@ -49,4 +49,3 @@ beehiiv automations enroll aut_123 --body '{"subscription_id":"sub_123"}'
 ### SEE ALSO
 
 * [beehiiv automations](beehiiv_automations.md)	 - Inspect Beehiiv automations and related workflow activity
-

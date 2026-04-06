@@ -2,7 +2,7 @@
 
 ## beehiiv tiers replace
 
-Update a tier
+Replace a premium tier
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/tiers/{tierId}
 
 ```
 beehiiv tiers replace <tierId> [flags]
+```
+
+### Examples
+
+```
+beehiiv tiers replace tier_123 --body @tier.json
+beehiiv tier set tier_123 --body @tier.json
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv tiers replace <tierId> [flags]
 
 ### SEE ALSO
 
-* [beehiiv tiers](beehiiv_tiers.md)	 - tiers commands
-
+* [beehiiv tiers](beehiiv_tiers.md)	 - Manage premium tiers

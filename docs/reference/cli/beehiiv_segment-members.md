@@ -2,10 +2,21 @@
 
 ## beehiiv segment-members
 
-segment members commands
+List full subscriber records for a segment
+
+### Synopsis
+
+List segment members with full subscription data for a specific segment.
 
 ```
 beehiiv segment-members [flags]
+```
+
+### Examples
+
+```
+beehiiv segment-members list segment_123
+beehiiv segments members segment_123
 ```
 
 ### Options
@@ -34,5 +45,4 @@ beehiiv segment-members [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv segment-members list](beehiiv_segment-members_list.md)	 - List segment subscribers
-
+* [beehiiv segment-members list](beehiiv_segment-members_list.md)	 - List full subscriber records for a segment

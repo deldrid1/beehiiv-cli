@@ -13,6 +13,12 @@ func registerWorkflowHelpers(groupCommand *cobra.Command, group string, executor
 	switch group {
 	case "automations":
 		registerAutomationHelpers(groupCommand, executor)
+	case "polls":
+		registerPollHelpers(groupCommand, executor)
+	case "segments":
+		registerSegmentHelpers(groupCommand, executor)
+	case "workspaces":
+		registerWorkspaceHelpers(groupCommand, executor)
 	}
 }
 
@@ -51,6 +57,47 @@ func registerAutomationHelpers(groupCommand *cobra.Command, executor *cliruntime
 			"active Add by API trigger.\n\nAPI path: /publications/{publicationId}/automations/{automationId}/journeys",
 		Example: "beehiiv automations enroll aut_123 --body '{\"email\":\"person@example.com\"}'\n" +
 			"beehiiv automations enroll aut_123 --body '{\"subscription_id\":\"sub_123\"}'",
+	})
+}
+
+func registerPollHelpers(groupCommand *cobra.Command, executor *cliruntime.Executor) {
+	mustAddOperationAlias(groupCommand, executor, "poll-responses", "list", operationAliasSpec{
+		Use:   "responses <pollId>",
+		Short: "List the responses for a poll",
+		Long: "List individual subscriber responses for a specific poll.\n\n" +
+			"API path: /publications/{publicationId}/polls/{pollId}/responses",
+		Example: "beehiiv polls responses poll_123\n" +
+			"beehiiv polls responses poll_123 --query expand=post",
+	})
+}
+
+func registerSegmentHelpers(groupCommand *cobra.Command, executor *cliruntime.Executor) {
+	mustAddOperationAlias(groupCommand, executor, "segment-members", "list", operationAliasSpec{
+		Use:   "members <segmentId>",
+		Short: "List the full subscriber records for a segment",
+		Long: "List full subscriber records for a specific segment, including optional expansion data.\n\n" +
+			"API path: /publications/{publicationId}/segments/{segmentId}/members",
+		Example: "beehiiv segments members segment_123\n" +
+			"beehiiv segments members segment_123 --query expand=stats,custom_fields",
+	})
+
+	mustAddOperationAlias(groupCommand, executor, "segment-results", "list", operationAliasSpec{
+		Use:   "results <segmentId>",
+		Short: "List the lightweight result set for a segment",
+		Long: "List the lightweight result set for a specific segment when you only need IDs or a smaller response.\n\n" +
+			"API path: /publications/{publicationId}/segments/{segmentId}/results",
+		Example: "beehiiv segments results segment_123",
+	})
+}
+
+func registerWorkspaceHelpers(groupCommand *cobra.Command, executor *cliruntime.Executor) {
+	mustAddOperationAlias(groupCommand, executor, "workspaces", "publications-by-subscription-email", operationAliasSpec{
+		Use:   "publications <email>",
+		Short: "Find publications across the workspace by subscriber email",
+		Long: "Find all publications in the current workspace that have a subscription for the given email address.\n\n" +
+			"API path: /workspaces/publications/by_subscription_email/{email}",
+		Example: "beehiiv workspaces publications person@example.com\n" +
+			"beehiiv workspaces publications person@example.com --query expand=publication,subscription",
 	})
 }
 

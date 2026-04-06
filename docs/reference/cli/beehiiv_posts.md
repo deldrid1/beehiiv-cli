@@ -52,4 +52,3 @@ beehiiv posts create --body @post.json
 * [beehiiv posts delete](beehiiv_posts_delete.md)	 - Delete a post by ID
 * [beehiiv posts get](beehiiv_posts_get.md)	 - Show a post by ID
 * [beehiiv posts list](beehiiv_posts_list.md)	 - List posts for the active publication
-

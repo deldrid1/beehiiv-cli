@@ -2,7 +2,7 @@
 .TH "BEEHIIV-SUBSCRIPTIONS-REPLACE-STATUS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-subscriptions-replace-status - Update subscriptions' status
+beehiiv-subscriptions-replace-status - Replace the status of a subscription
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/subscriptions
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv subscriptions replace-status sub_123 --body '{"status":"inactive"}'
+beehiiv subscriptions set-status sub_123 --body '{"status":"active"}'
+.EE
 
 
 .SH SEE ALSO

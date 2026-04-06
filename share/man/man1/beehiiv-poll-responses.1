@@ -2,7 +2,7 @@
 .TH "BEEHIIV-POLL-RESPONSES" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-poll-responses - poll responses commands
+beehiiv-poll-responses - List individual responses for a Beehiiv poll
 
 
 .SH SYNOPSIS
@@ -10,7 +10,7 @@ beehiiv-poll-responses - poll responses commands
 
 
 .SH DESCRIPTION
-poll responses commands
+List paginated individual poll responses for a specific poll.
 
 
 .SH OPTIONS
@@ -65,6 +65,13 @@ poll responses commands
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv poll-responses list poll_123
+beehiiv polls responses poll_123
+.EE
 
 
 .SH SEE ALSO

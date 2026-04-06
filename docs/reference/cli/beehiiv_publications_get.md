@@ -50,4 +50,3 @@ beehiiv publications show pub_123
 ### SEE ALSO
 
 * [beehiiv publications](beehiiv_publications.md)	 - Work with Beehiiv publications
-

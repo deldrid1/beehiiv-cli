@@ -2,7 +2,7 @@
 .TH "BEEHIIV-ENGAGEMENTS-LIST" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-engagements-list - Get publication engagements OAuth Scope: publications:read
+beehiiv-engagements-list - List engagement events
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/engagements
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv engagements list
+beehiiv engagement list --query limit=50
+.EE
 
 
 .SH SEE ALSO

@@ -2,7 +2,7 @@
 
 ## beehiiv subscription-bulk-actions replace
 
-Update subscriptions
+Replace subscription bulk-action settings
 
 ### Synopsis
 
@@ -14,6 +14,13 @@ API path: /publications/{publicationId}/subscriptions/bulk_actions
 
 ```
 beehiiv subscription-bulk-actions replace [flags]
+```
+
+### Examples
+
+```
+beehiiv subscription-bulk-actions replace --body @bulk-action.json
+beehiiv subscription-bulk-actions set --body @bulk-action.json
 ```
 
 ### Options
@@ -43,5 +50,4 @@ beehiiv subscription-bulk-actions replace [flags]
 
 ### SEE ALSO
 
-* [beehiiv subscription-bulk-actions](beehiiv_subscription-bulk-actions.md)	 - subscription bulk actions commands
-
+* [beehiiv subscription-bulk-actions](beehiiv_subscription-bulk-actions.md)	 - Update subscription bulk-action settings

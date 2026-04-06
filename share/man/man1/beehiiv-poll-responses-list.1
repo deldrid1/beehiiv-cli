@@ -2,7 +2,7 @@
 .TH "BEEHIIV-POLL-RESPONSES-LIST" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-poll-responses-list - List poll responses OAuth Scope: polls:read
+beehiiv-poll-responses-list - List responses for a poll
 
 
 .SH SYNOPSIS
@@ -79,6 +79,13 @@ API path: /publications/{publicationId}/polls/{pollId}/responses
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv poll-responses list poll_123
+beehiiv polls responses poll_123 --query expand=post
+.EE
 
 
 .SH SEE ALSO
