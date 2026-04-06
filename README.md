@@ -1,32 +1,34 @@
-# Beehiiv CLI for Go
+# Beehiiv CLI
 
-Pure Go CLI for the Beehiiv API with no CGO or non-Go system dependencies at build time or runtime. The binary is designed to compile cleanly for macOS and Windows and to work well for both interactive use and JSON-first scripting.
+A simple command-line app for Beehiiv. Use it to sign in once, then work with publications, subscribers, posts, and webhooks from your terminal.
 
 ## Project Status
 
-This project is ready for a public pre-v1 release on GitHub. The CLI has a Cobra-based command surface, generated docs and completions, secure default auth storage, and GitHub Release automation, plus Homebrew and winget publication scaffolding for follow-on distribution.
+This project is ready for early public use on GitHub. GitHub releases are live today, and Homebrew plus winget support are prepared but still need the public package-manager repos configured before those install commands will work for everyone.
+
+## Quick Start
+
+1. Download the latest release for your computer from the [GitHub releases page](https://github.com/deldrid1/beehiiv-cli/releases).
+2. Run `beehiiv auth login`.
+3. Try `beehiiv publications list` or `beehiiv --help`.
 
 ## Features
 
-- Self-documenting command tree with `--help` on every command
-- `auth login` plus `login` alias for secure API key setup
-- `auth oauth login` for Beehiiv OAuth authorization-code flow with PKCE
-- `auth status` to inspect the active session without printing live credentials
-- Structured `config.json` settings plus OS keychain or keyring secret storage
-- Curated workflow aliases like `subs`, `show`, `find`, `stats`, and `ping`
-- Full command coverage for the curated Beehiiv OpenAPI surface in this repo
-- Cursor-aware and offset-aware pagination with `--all`
-- Internal rate limiting plus Beehiiv header-aware backoff for `429` responses
-- JSON-first output by default, with `--compact`, `--raw`, and `--output table`
-- `--verbose` request and response tracing for troubleshooting
+- Friendly `--help` output on every command
+- Simple sign-in with an API key or Beehiiv OAuth
+- Secure credential storage in the macOS Keychain or Windows Credential Manager
+- Handy shortcuts for common subscriber, publication, post, and webhook tasks
+- JSON output for scripts, with table output when you want something easier to read
+- Automatic pagination with `--all`
+- Built-in retry and rate-limit handling
 
 ## Requirements
 
-- Go 1.26 or newer to build from source
-- A Beehiiv API key
-- A Beehiiv publication ID for publication-scoped commands
+- For normal use: a Beehiiv API key or Beehiiv OAuth app
+- To build from source: Go 1.26 or newer
+- For publication-scoped commands: a Beehiiv publication ID
 
-Create [an API key here](https://app.beehiiv.com/settings/workspace/api) as described in the [REST API documentation](https://developers.beehiiv.com/welcome/create-an-api-key)
+See Beehiiv's [Create an API Key](https://developers.beehiiv.com/welcome/create-an-api-key) guide for the current setup steps.
 
 ## Build from Source
 
@@ -44,11 +46,11 @@ CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ./dist/beehiiv-darwin-amd64 .
 CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o ./dist/beehiiv-windows-amd64.exe ./cmd/beehiiv
 ```
 
-## Install from Built Binaries
+## Install from a Release
 
 ### macOS
 
-1. Download the correct binary for your machine, for example `beehiiv-darwin-arm64` on Apple Silicon or `beehiiv-darwin-amd64` on Intel.
+1. Download the correct binary for your machine from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest), for example `beehiiv-darwin-arm64` on Apple Silicon or `beehiiv-darwin-amd64` on Intel.
 2. Make it executable:
 
 ```bash
@@ -77,7 +79,7 @@ Secrets are stored in the macOS Keychain by default.
 
 ### Windows
 
-1. Download `beehiiv-windows-amd64.exe`.
+1. Download `beehiiv-windows-amd64.exe` from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest).
 2. Place it in a stable folder such as `C:\Tools\beehiiv\`.
 3. Add that folder to your `PATH`.
 4. Run:
@@ -107,7 +109,7 @@ brew install beehiiv
 winget install Deldrid1.BeehiivCLI
 ```
 
-Until then, install from the GitHub release assets or build from source. Maintainer setup and publication notes live in [packaging/winget/README.md](/Users/austineldridge/GitRepos/beehiiv-cli/packaging/winget/README.md) and [packaging/homebrew/README.md](/Users/austineldridge/GitRepos/beehiiv-cli/packaging/homebrew/README.md).
+Until then, install from the GitHub release assets or build from source. Maintainer setup and publication notes live in [packaging/winget/README.md](packaging/winget/README.md) and [packaging/homebrew/README.md](packaging/homebrew/README.md).
 
 ## Authentication
 
@@ -129,7 +131,7 @@ You can also provide values directly:
 beehiiv auth login --api-key YOUR_API_KEY --publication-id pub_123
 ```
 
-If `--publication-id` is omitted, the CLI calls `GET /publications`. If your API key sees exactly one publication, it is selected automatically. Otherwise the CLI prompts you to choose from the returned `pub_...` IDs.
+If `--publication-id` is omitted, the CLI looks up your publications. If your API key sees exactly one publication, it is selected automatically. Otherwise the CLI prompts you to choose from the returned `pub_...` IDs.
 
 OAuth login is available for Beehiiv OAuth apps:
 
@@ -151,9 +153,9 @@ beehiiv auth path
 beehiiv auth logout
 ```
 
-## Config Precedence
+## Configuration
 
-The CLI resolves configuration in this order:
+The CLI checks configuration in this order:
 
 1. Command-line flags
 2. Environment variables
@@ -174,7 +176,7 @@ BEEHIIV_OAUTH_REDIRECT_URI
 BEEHIIV_OAUTH_SCOPES
 ```
 
-The CLI stores non-secret settings in `config.json`. Secrets are not written to `config.json`.
+The CLI stores non-secret settings in `config.json`. Secrets are kept out of that file.
 
 Auth status example:
 
@@ -182,9 +184,9 @@ Auth status example:
 beehiiv auth status
 ```
 
-## Usage
+## Common Commands
 
-See the root help:
+Start with help:
 
 ```bash
 beehiiv
@@ -198,13 +200,13 @@ beehiiv publications list
 beehiiv pubs list
 ```
 
-List all subscriptions using cursor pagination when available:
+List all subscribers:
 
 ```bash
 beehiiv subscriptions list --all --query limit=100
 ```
 
-Use repeatable query flags for arrays:
+Use repeatable query flags when an endpoint accepts multiple values:
 
 ```bash
 beehiiv subscriptions list \
@@ -212,13 +214,13 @@ beehiiv subscriptions list \
   --query status=active
 ```
 
-Fetch a subscription by ID:
+Show a subscriber by ID:
 
 ```bash
 beehiiv subscriptions show sub_123
 ```
 
-Look up a subscription by email:
+Look up a subscriber by email:
 
 ```bash
 beehiiv subscriptions find person@example.com
@@ -237,13 +239,13 @@ beehiiv webhooks create --body @webhook.json
 beehiiv hooks ping endpoint_123
 ```
 
-Inspect the current auth session safely:
+Check the current sign-in state safely:
 
 ```bash
 beehiiv auth status
 ```
 
-Print a table instead of JSON:
+Show a table instead of JSON:
 
 ```bash
 beehiiv subscriptions list --output table
@@ -263,9 +265,9 @@ beehiiv subscriptions get sub_123 --verbose
 
 ## Pagination
 
-- List commands return a single page by default.
-- Add `--all` to exhaust every page.
-- For hybrid endpoints like subscriptions, the CLI prefers cursor pagination unless you explicitly pass `--query page=...`.
+- List commands return one page by default.
+- Add `--all` to fetch everything.
+- For endpoints like subscriptions, the CLI prefers cursor pagination unless you explicitly pass `--query page=...`.
 - Aggregated `--all` output looks like:
 
 ```json
@@ -306,7 +308,7 @@ To enable the local pre-commit hook:
 git config core.hooksPath .githooks
 ```
 
-See `CONTRIBUTING.md` for the contributor workflow and `SECURITY.md` for responsible disclosure guidance.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contributor workflow and [SECURITY.md](SECURITY.md) for responsible disclosure guidance.
 
 Override the internal limiter if needed:
 

@@ -24,7 +24,7 @@ Set these repository variables and secrets before enabling public publication:
 5. Review the resulting PR in your fork and the PR opened against `microsoft/winget-pkgs`.
 6. Run the `Package Install` workflow to validate the local-manifest install path against the published release assets if you need an extra manual confirmation.
 
-The current package identifier is `Deldrid1.BeehiivCLI`. If you ever need to change it, update [`.goreleaser.yaml`](/Users/austineldridge/GitRepos/beehiiv-cli/.goreleaser.yaml) and [`.github/workflows/package-install.yml`](/Users/austineldridge/GitRepos/beehiiv-cli/.github/workflows/package-install.yml) together.
+The current package identifier is `Deldrid1.BeehiivCLI`. If you ever need to change it, update [`.goreleaser.yaml`](../../.goreleaser.yaml) and [`.github/workflows/package-install.yml`](../../.github/workflows/package-install.yml) together.
 
 ## Validation notes
 
