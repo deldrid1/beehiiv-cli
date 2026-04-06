@@ -64,6 +64,6 @@ jobs:
         run: ./scripts/release-smoke.sh dist
 
       - name: Attest published artifacts
-        uses: actions/attest-build-provenance@v3
+        uses: actions/attest-build-provenance@v4
         with:
           subject-checksums: dist/checksums.txt
