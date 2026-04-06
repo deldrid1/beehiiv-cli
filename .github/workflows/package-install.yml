@@ -40,6 +40,7 @@ jobs:
         env:
           RELEASE_TAG: ${{ steps.tag.outputs.value }}
           RELEASE_REPOSITORY: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ github.token }}
         shell: bash
         run: ./scripts/install-test.sh homebrew
 
@@ -106,6 +107,7 @@ jobs:
           $installerFile = Join-Path $manifestDir "$packageIdentifier.installer.yaml"
 
           @"
+          # yaml-language-server: `$schema=https://aka.ms/winget-manifest.version.1.12.0.schema.json
           PackageIdentifier: $packageIdentifier
           PackageVersion: $version
           DefaultLocale: en-US
@@ -114,6 +116,7 @@ jobs:
           "@ | Set-Content -Path $versionFile -Encoding utf8NoBOM
 
           @"
+          # yaml-language-server: `$schema=https://aka.ms/winget-manifest.defaultLocale.1.12.0.schema.json
           PackageIdentifier: $packageIdentifier
           PackageVersion: $version
           PackageLocale: en-US
@@ -132,6 +135,7 @@ jobs:
           "@ | Set-Content -Path $localeFile -Encoding utf8NoBOM
 
           @"
+          # yaml-language-server: `$schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
           PackageIdentifier: $packageIdentifier
           PackageVersion: $version
           InstallerType: zip
@@ -149,4 +153,14 @@ jobs:
 
           winget validate $manifestDir
           winget install --manifest $manifestDir --accept-source-agreements --accept-package-agreements --disable-interactivity
-          beehiiv version
+
+          $linkCandidates = @(
+            (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Links\beehiiv.exe'),
+            'C:\Program Files\WinGet\Links\beehiiv.exe',
+            'C:\Program Files (x86)\WinGet\Links\beehiiv.exe'
+          )
+          $installedBinary = $linkCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $installedBinary) {
+            throw 'beehiiv executable link not found after winget install'
+          }
+          & $installedBinary version

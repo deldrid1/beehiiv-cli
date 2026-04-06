@@ -68,10 +68,11 @@ formula_path="${HOMEBREW_TAP_FORMULA_PATH:-Formula/beehiiv.rb}"
 tap_repository="${HOMEBREW_TAP_REPOSITORY:-}"
 tap_branch="${HOMEBREW_TAP_BRANCH:-main}"
 tap_token="${HOMEBREW_TAP_TOKEN:-}"
+api_token="${GITHUB_TOKEN:-${tap_token}}"
 
 api_url="https://api.github.com/repos/${release_repository}/releases/tags/${release_tag}"
-if [[ -n "${tap_token}" ]]; then
-  release_json="$(curl -fsSL -H "Authorization: Bearer ${tap_token}" -H "Accept: application/vnd.github+json" "${api_url}")"
+if [[ -n "${api_token}" ]]; then
+  release_json="$(curl -fsSL -H "Authorization: Bearer ${api_token}" -H "Accept: application/vnd.github+json" "${api_url}")"
 else
   release_json="$(curl -fsSL -H "Accept: application/vnd.github+json" "${api_url}")"
 fi
