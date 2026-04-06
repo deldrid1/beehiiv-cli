@@ -4,7 +4,7 @@ Pure Go CLI for the Beehiiv API with no CGO or non-Go system dependencies at bui
 
 ## Project Status
 
-This project is ready for a public pre-v1 release. The CLI has a Cobra-based command surface, generated docs and completions, secure default auth storage, and GitHub Release automation with Homebrew and winget distribution workflows.
+This project is ready for a public pre-v1 release on GitHub. The CLI has a Cobra-based command surface, generated docs and completions, secure default auth storage, and GitHub Release automation, plus Homebrew and winget publication scaffolding for follow-on distribution.
 
 ## Features
 
@@ -96,7 +96,7 @@ Secrets are stored in the Windows Credential Manager by default.
 
 ## Package Managers
 
-Package-manager installs:
+Package-manager publication is scaffolded but not live until the Homebrew tap and winget submission flow are configured. Once that maintainer setup is done, installs will look like:
 
 ```bash
 brew tap <owner>/<tap>
@@ -107,8 +107,7 @@ brew install beehiiv
 winget install Deldrid1.BeehiivCLI
 ```
 
-Maintainer setup and publication notes live in [packaging/winget/README.md](/Users/austineldridge/GitRepos/beehiiv-cli/packaging/winget/README.md).
-Homebrew maintainer setup lives in [packaging/homebrew/README.md](/Users/austineldridge/GitRepos/beehiiv-cli/packaging/homebrew/README.md).
+Until then, install from the GitHub release assets or build from source. Maintainer setup and publication notes live in [packaging/winget/README.md](/Users/austineldridge/GitRepos/beehiiv-cli/packaging/winget/README.md) and [packaging/homebrew/README.md](/Users/austineldridge/GitRepos/beehiiv-cli/packaging/homebrew/README.md).
 
 ## Authentication
 

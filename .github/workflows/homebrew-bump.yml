@@ -1,9 +1,11 @@
 name: Homebrew Bump
 
 on:
-  release:
+  workflow_run:
+    workflows:
+      - Release
     types:
-      - published
+      - completed
   workflow_dispatch:
     inputs:
       tag:
@@ -15,12 +17,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: homebrew-bump-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.release.tag_name }}
+  group: homebrew-bump-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.workflow_run.head_branch }}
   cancel-in-progress: false
 
 jobs:
   bump:
-    if: ${{ vars.HOMEBREW_TAP_REPOSITORY != '' }}
+    if: ${{ vars.HOMEBREW_TAP_REPOSITORY != '' && (github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_branch, 'v'))) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,7 +36,7 @@ jobs:
           if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
             echo "value=${{ inputs.tag }}" >> "${GITHUB_OUTPUT}"
           else
-            echo "value=${{ github.event.release.tag_name }}" >> "${GITHUB_OUTPUT}"
+            echo "value=${{ github.event.workflow_run.head_branch }}" >> "${GITHUB_OUTPUT}"
           fi
 
       - name: Update Homebrew tap

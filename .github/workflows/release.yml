@@ -55,6 +55,10 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WINGET_REPOSITORY_OWNER: ${{ vars.WINGET_REPOSITORY_OWNER }}
+          WINGET_REPOSITORY_NAME: ${{ vars.WINGET_REPOSITORY_NAME }}
+          WINGET_REPOSITORY_BRANCH: ${{ vars.WINGET_REPOSITORY_BRANCH }}
+          WINGET_PUBLISH_TOKEN: ${{ secrets.WINGET_PUBLISH_TOKEN }}
 
       - name: Smoke check release artifacts
         run: ./scripts/release-smoke.sh dist

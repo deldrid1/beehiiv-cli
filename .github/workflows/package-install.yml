@@ -1,9 +1,11 @@
 name: Package Install
 
 on:
-  release:
+  workflow_run:
+    workflows:
+      - Release
     types:
-      - published
+      - completed
   workflow_dispatch:
     inputs:
       tag:
@@ -15,11 +17,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: package-install-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.release.tag_name }}
+  group: package-install-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.event.workflow_run.head_branch }}
   cancel-in-progress: false
 
 jobs:
   homebrew:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_branch, 'v')) }}
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -33,7 +36,7 @@ jobs:
           if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
             echo "value=${{ inputs.tag }}" >> "${GITHUB_OUTPUT}"
           else
-            echo "value=${{ github.event.release.tag_name }}" >> "${GITHUB_OUTPUT}"
+            echo "value=${{ github.event.workflow_run.head_branch }}" >> "${GITHUB_OUTPUT}"
           fi
 
       - name: Install via Homebrew formula
@@ -45,6 +48,7 @@ jobs:
         run: ./scripts/install-test.sh homebrew
 
   winget:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_branch, 'v')) }}
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -58,7 +62,7 @@ jobs:
           if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
             echo "value=${{ inputs.tag }}" >> "${GITHUB_OUTPUT}"
           else
-            echo "value=${{ github.event.release.tag_name }}" >> "${GITHUB_OUTPUT}"
+            echo "value=${{ github.event.workflow_run.head_branch }}" >> "${GITHUB_OUTPUT}"
           fi
 
       - name: Validate winget install from local manifest
