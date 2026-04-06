@@ -1,16 +1,20 @@
 # Beehiiv CLI
 
-A simple command-line app for Beehiiv. Use it to sign in once, then work with publications, subscribers, posts, and webhooks from your terminal.
+A simple command-line app for interacting with the [Beehiiv V2 API]. Use it (with AI?) to extract data and work with your publications, subscribers, posts, and webhooks from your terminal.
 
 ## Project Status
 
-This project is ready for early public use on GitHub. GitHub releases and Homebrew installs are live today, and winget publication has been submitted upstream.
+This project is ready for early public use and feedback across all major Operating Systems. GitHub releases and Homebrew for MacOS / Linux installs are live today, and winget publication for Windowshas been submitted upstream.
 
 ## Quick Start
 
-1. Download the latest release for your computer from the [GitHub releases page](https://github.com/deldrid1/beehiiv-cli/releases).
-2. Run `beehiiv auth login`.
-3. Try `beehiiv publications list` or `beehiiv --help`.
+1. Download the latest release for your computer from the [GitHub releases page](https://github.com/deldrid1/beehiiv-cli/releases) or via your favorite package manager.
+   - ```bash
+brew tap deldrid1/homebrew-tap
+brew install beehiiv
+     ``` 
+3. Run `beehiiv auth login`.
+4. Try `beehiiv publications list` or `beehiiv --help`.
 
 If you're setting up release publishing with an agent, start with [docs/release-auth-setup.md](docs/release-auth-setup.md).
 
@@ -116,7 +120,7 @@ sudo mv ./beehiiv /usr/local/bin/beehiiv
 
 ## Package Managers
 
-Homebrew is live now:
+Homebrew:
 
 ```bash
 brew tap deldrid1/homebrew-tap
