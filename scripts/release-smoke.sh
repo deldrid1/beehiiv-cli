@@ -27,8 +27,11 @@ done
 archives=()
 while IFS= read -r archive; do
   archives+=("${archive}")
-done < <(find "${dist_dir}" -maxdepth 1 -type f \( -name '*.tar.gz' -o -name '*.zip' \) | sort)
+done < <(find "${dist_dir}" -maxdepth 1 -type f \( -name 'beehiiv_*.tar.gz' -o -name 'beehiiv_*.zip' \) | sort)
 [[ "${#archives[@]}" -gt 0 ]] || fail "no release archives found"
+
+plugin_archive="$(find "${dist_dir}" -maxdepth 1 -type f -name 'beehiiv-codex-plugin_*.zip' | sort | head -n1)"
+[[ -n "${plugin_archive}" ]] || fail "missing Codex plugin archive"
 
 required_patterns=(
   'darwin_arm64'
@@ -88,6 +91,10 @@ if command -v unzip >/dev/null 2>&1; then
   grep -q 'README.md$' <<<"${zip_listing}" || fail "zip archive missing README.md"
   grep -q 'LICENSE$' <<<"${zip_listing}" || fail "zip archive missing LICENSE"
   grep -q 'share/completions/beehiiv.ps1$' <<<"${zip_listing}" || fail "zip archive missing PowerShell completion"
+
+  plugin_listing="$(unzip -Z1 "${plugin_archive}")"
+  grep -q '^beehiiv-codex/.codex-plugin/plugin.json$' <<<"${plugin_listing}" || fail "plugin archive missing plugin manifest"
+  grep -q '^beehiiv-codex/skills/beehiiv-reporting-assistant/SKILL.md$' <<<"${plugin_listing}" || fail "plugin archive missing skill"
 fi
 
 host_os="$(uname -s)"

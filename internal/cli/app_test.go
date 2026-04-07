@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"strings"
@@ -14,6 +13,27 @@ import (
 
 	"github.com/deldrid1/beehiiv-cli/internal/commandset"
 )
+
+type stubHTTPClient func(*http.Request) (*http.Response, error)
+
+func (f stubHTTPClient) Do(req *http.Request) (*http.Response, error) {
+	return f(req)
+}
+
+func jsonResponse(body string, headers http.Header) *http.Response {
+	if headers == nil {
+		headers = http.Header{}
+	}
+	if headers.Get("Content-Type") == "" {
+		headers.Set("Content-Type", "application/json")
+	}
+	return &http.Response{
+		StatusCode: http.StatusOK,
+		Status:     "200 OK",
+		Header:     headers,
+		Body:       io.NopCloser(strings.NewReader(body)),
+	}
+}
 
 func TestRootHelpWhenNoCommandIsProvided(t *testing.T) {
 	t.Parallel()
@@ -84,7 +104,7 @@ func TestSubscriptionsListAllAggregatesPagesAndSerializesArrayQueries(t *testing
 	t.Parallel()
 
 	requests := 0
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	httpClient := stubHTTPClient(func(r *http.Request) (*http.Response, error) {
 		if got := r.Header.Get("Authorization"); got != "Bearer test-token" {
 			t.Fatalf("Authorization header = %q, want Bearer test-token", got)
 		}
@@ -99,26 +119,23 @@ func TestSubscriptionsListAllAggregatesPagesAndSerializesArrayQueries(t *testing
 		}
 
 		requests++
-		w.Header().Set("Content-Type", "application/json")
 		if requests == 1 {
-			io.WriteString(w, `{"data":[{"id":"sub_1"},{"id":"sub_2"}],"pagination":{"has_more":true,"next_cursor":"next"}}`)
-			return
+			return jsonResponse(`{"data":[{"id":"sub_1"},{"id":"sub_2"}],"pagination":{"has_more":true,"next_cursor":"next"}}`, nil), nil
 		}
 		if got := r.URL.Query().Get("cursor"); got != "next" {
 			t.Fatalf("cursor query = %q, want next", got)
 		}
-		io.WriteString(w, `{"data":[{"id":"sub_3"}],"pagination":{"has_more":false,"next_cursor":null}}`)
-	}))
-	defer server.Close()
+		return jsonResponse(`{"data":[{"id":"sub_3"}],"pagination":{"has_more":false,"next_cursor":null}}`, nil), nil
+	})
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	app := NewApp(strings.NewReader(""), &stdout, &stderr, map[string]string{}, server.Client())
+	app := NewApp(strings.NewReader(""), &stdout, &stderr, map[string]string{}, httpClient)
 	exitCode := app.Run(context.Background(), []string{
 		"subscriptions", "list",
 		"--api-key", "test-token",
 		"--publication-id", "pub_test",
-		"--base-url", server.URL,
+		"--base-url", "https://example.test",
 		"--all",
 		"--query", "expand=stats,custom_fields",
 		"--query", "status=active",
@@ -153,7 +170,7 @@ func TestSubscriptionsListAllAggregatesPagesAndSerializesArrayQueries(t *testing
 func TestCreateCustomFieldReadsBodyFromFile(t *testing.T) {
 	t.Parallel()
 
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	httpClient := stubHTTPClient(func(r *http.Request) (*http.Response, error) {
 		if r.Method != http.MethodPost {
 			t.Fatalf("request method = %q, want POST", r.Method)
 		}
@@ -167,10 +184,8 @@ func TestCreateCustomFieldReadsBodyFromFile(t *testing.T) {
 		if string(body) != `{"kind":"string","display":"Codex Test"}` {
 			t.Fatalf("request body = %s", string(body))
 		}
-		w.Header().Set("Content-Type", "application/json")
-		io.WriteString(w, `{"data":{"id":"field_1","kind":"string","display":"Codex Test"}}`)
-	}))
-	defer server.Close()
+		return jsonResponse(`{"data":{"id":"field_1","kind":"string","display":"Codex Test"}}`, nil), nil
+	})
 
 	tempDir := t.TempDir()
 	bodyPath := filepath.Join(tempDir, "body.json")
@@ -180,12 +195,12 @@ func TestCreateCustomFieldReadsBodyFromFile(t *testing.T) {
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	app := NewApp(strings.NewReader(""), &stdout, &stderr, map[string]string{}, server.Client())
+	app := NewApp(strings.NewReader(""), &stdout, &stderr, map[string]string{}, httpClient)
 	exitCode := app.Run(context.Background(), []string{
 		"custom-fields", "create",
 		"--api-key", "test-token",
 		"--publication-id", "pub_test",
-		"--base-url", server.URL,
+		"--base-url", "https://example.test",
 		"--body", "@" + bodyPath,
 	})
 	if exitCode != 0 {
@@ -223,20 +238,18 @@ func TestAuthStatusDoesNotPrintCredentials(t *testing.T) {
 func TestOutputTableRendersTabularView(t *testing.T) {
 	t.Parallel()
 
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		io.WriteString(w, `{"data":[{"id":"sub_1","email":"one@example.com"},{"id":"sub_2","email":"two@example.com"}]}`)
-	}))
-	defer server.Close()
+	httpClient := stubHTTPClient(func(r *http.Request) (*http.Response, error) {
+		return jsonResponse(`{"data":[{"id":"sub_1","email":"one@example.com"},{"id":"sub_2","email":"two@example.com"}]}`, nil), nil
+	})
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	app := NewApp(strings.NewReader(""), &stdout, &stderr, map[string]string{}, server.Client())
+	app := NewApp(strings.NewReader(""), &stdout, &stderr, map[string]string{}, httpClient)
 	exitCode := app.Run(context.Background(), []string{
 		"subscriptions", "list",
 		"--api-key", "test-token",
 		"--publication-id", "pub_test",
-		"--base-url", server.URL,
+		"--base-url", "https://example.test",
 		"--output", "table",
 	})
 	if exitCode != 0 {
@@ -250,21 +263,21 @@ func TestOutputTableRendersTabularView(t *testing.T) {
 func TestVerboseAndRawOutputAidTroubleshooting(t *testing.T) {
 	t.Parallel()
 
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("X-Test-Header", "present")
-		io.WriteString(w, `{"data":[{"id":"sub_1"}]}`)
-	}))
-	defer server.Close()
+	httpClient := stubHTTPClient(func(r *http.Request) (*http.Response, error) {
+		headers := http.Header{}
+		headers.Set("Content-Type", "application/json")
+		headers.Set("X-Test-Header", "present")
+		return jsonResponse(`{"data":[{"id":"sub_1"}]}`, headers), nil
+	})
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	app := NewApp(strings.NewReader(""), &stdout, &stderr, map[string]string{}, server.Client())
+	app := NewApp(strings.NewReader(""), &stdout, &stderr, map[string]string{}, httpClient)
 	exitCode := app.Run(context.Background(), []string{
 		"subscriptions", "list",
 		"--api-key", "test-token",
 		"--publication-id", "pub_test",
-		"--base-url", server.URL,
+		"--base-url", "https://example.test",
 		"--verbose",
 		"--raw",
 	})

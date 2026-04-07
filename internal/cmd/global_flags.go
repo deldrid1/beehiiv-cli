@@ -12,9 +12,10 @@ import (
 )
 
 const (
-	commandGroupCore = "core"
-	commandGroupAuth = "auth"
-	commandGroupAPI  = "api"
+	commandGroupCore     = "core"
+	commandGroupAuth     = "auth"
+	commandGroupWorkflow = "workflow"
+	commandGroupAPI      = "api"
 )
 
 func registerGlobalFlags(root *cobra.Command) {

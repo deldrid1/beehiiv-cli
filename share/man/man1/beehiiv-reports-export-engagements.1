@@ -1,0 +1,94 @@
+.nh
+.TH "BEEHIIV-REPORTS-EXPORT-ENGAGEMENTS" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
+
+.SH NAME
+beehiiv-reports-export-engagements - Export engagement metrics to CSV
+
+
+.SH SYNOPSIS
+\fBbeehiiv reports export engagements [flags]\fP
+
+
+.SH DESCRIPTION
+Export engagement metrics to CSV
+
+
+.SH OPTIONS
+\fB--days\fP=30
+	How many recent days of engagement data to export
+
+.PP
+\fB--email-type\fP="all"
+	Filter engagement metrics by email type: all, post, or message
+
+.PP
+\fB--file\fP=""
+	Write the CSV to this file instead of stdout
+
+.PP
+\fB--granularity\fP="day"
+	Engagement granularity: day, week, or month
+
+.PP
+\fB-h\fP, \fB--help\fP[=false]
+	help for engagements
+
+
+.SH OPTIONS INHERITED FROM PARENT COMMANDS
+\fB--api-key\fP=""
+	Override the Beehiiv API key
+
+.PP
+\fB--base-url\fP=""
+	Override the API base URL
+
+.PP
+\fB--compact\fP[=false]
+	Print compact JSON
+
+.PP
+\fB--config\fP=""
+	Override the settings file location
+
+.PP
+\fB--debug\fP[=false]
+	Print request URLs to stderr
+
+.PP
+\fB--output\fP=""
+	Choose the output format (json, table, raw)
+
+.PP
+\fB--publication-id\fP=""
+	Override the Beehiiv publication ID
+
+.PP
+\fB--rate-limit-rpm\fP=0
+	Override the internal rate limit
+
+.PP
+\fB--raw\fP[=false]
+	Shorthand for --output raw
+
+.PP
+\fB--table\fP[=false]
+	Shorthand for --output table
+
+.PP
+\fB--timeout\fP=""
+	Override the request timeout, e.g. 45s
+
+.PP
+\fB--verbose\fP[=false]
+	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv reports export engagements --file engagements.csv
+beehiiv reports export engagements --days 30 --granularity week
+.EE
+
+
+.SH SEE ALSO
+\fBbeehiiv-reports-export(1)\fP

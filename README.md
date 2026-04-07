@@ -4,7 +4,7 @@ A simple command-line app for interacting with the [Beehiiv V2 API](https://deve
 
 ## Project Status
 
-This project is ready for early public use and feedback across the major operating systems. GitHub releases and Homebrew installs are live today, and winget publication for Windows has been submitted upstream.
+This project is ready for early public use and feedback across the major operating systems. GitHub releases and Homebrew installs are live today, winget publication for Windows has been submitted upstream, and the Codex plugin now ships both in-repo and as a release asset for team installs.
 
 ## Quick Start
 
@@ -18,12 +18,55 @@ brew install beehiiv
 
 If you're setting up release publishing with an agent, start with [docs/release-auth-setup.md](docs/release-auth-setup.md). It includes the current token requirements, including the classic PAT requirement for winget publication.
 
+## Use with Codex
+
+The repo includes a Codex-installable plugin at `plugins/beehiiv-codex` for teammates who would rather ask for outcomes in plain language than memorize CLI commands.
+
+If your team already works in this repo:
+
+1. Pull the latest changes.
+2. Restart Codex.
+3. Open Plugins in Codex, then install `Beehiiv` from the `Beehiiv Local Plugins` marketplace.
+
+If your team just wants the plugin:
+
+1. Download `beehiiv-codex-plugin_VERSION.zip` from the matching [GitHub release](https://github.com/deldrid1/beehiiv-cli/releases).
+2. Extract `beehiiv-codex` into `~/.codex/plugins/` on macOS/Linux or `%USERPROFILE%\\.codex\\plugins\\` on Windows.
+3. Add a personal marketplace file at `~/.agents/plugins/marketplace.json` that points at `./.codex/plugins/beehiiv-codex`.
+4. Restart Codex and install `Beehiiv` from that personal marketplace.
+
+Example personal marketplace file:
+
+```json
+{
+  "name": "beehiiv-personal-plugins",
+  "interface": {
+    "displayName": "Beehiiv Personal Plugins"
+  },
+  "plugins": [
+    {
+      "name": "beehiiv-codex",
+      "source": {
+        "source": "local",
+        "path": "./.codex/plugins/beehiiv-codex"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
+```
+
 ## Features
 
 - Friendly `--help` output on every command
 - Simple sign-in with an API key or Beehiiv OAuth
 - Secure credential storage in the macOS Keychain or Windows Credential Manager
 - Handy shortcuts for common subscriber, publication, post, and webhook tasks
+- Guided `reports` workflows for non-technical stats, charts, and CSV exports
 - JSON output for scripts, with table output when you want something easier to read
 - Automatic pagination with `--all`
 - Built-in retry and rate-limit handling
@@ -289,6 +332,14 @@ Show a table instead of JSON:
 
 ```bash
 beehiiv subscriptions list --output table
+```
+
+Create a friendly publication summary, chart engagement trends, or export a CSV:
+
+```bash
+beehiiv reports summary
+beehiiv reports chart --metric unique_opens --days 14
+beehiiv reports export subscriptions --file subscriptions.csv
 ```
 
 Print the raw API response body:

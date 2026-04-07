@@ -23,6 +23,9 @@ func TestHelpListsCoreCommands(t *testing.T) {
 	if !strings.Contains(stdout.String(), "auth") {
 		t.Fatalf("help output missing auth command: %s", stdout.String())
 	}
+	if !strings.Contains(stdout.String(), "reports") {
+		t.Fatalf("help output missing reports command: %s", stdout.String())
+	}
 	if !strings.Contains(stdout.String(), "publications") {
 		t.Fatalf("help output missing publications group: %s", stdout.String())
 	}

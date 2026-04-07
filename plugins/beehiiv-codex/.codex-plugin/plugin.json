@@ -1,0 +1,36 @@
+{
+  "name": "beehiiv-codex",
+  "version": "0.1.4",
+  "description": "Plain-language Beehiiv reporting, charts, exports, and setup help powered by beehiiv-cli.",
+  "homepage": "https://github.com/deldrid1/beehiiv-cli",
+  "repository": "https://github.com/deldrid1/beehiiv-cli",
+  "license": "MIT",
+  "keywords": [
+    "beehiiv",
+    "newsletter",
+    "analytics",
+    "reporting",
+    "csv",
+    "exports"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Beehiiv",
+    "shortDescription": "Use Beehiiv in plain language for stats, charts, and CSV exports",
+    "longDescription": "Use Beehiiv through Codex without memorizing CLI syntax. This plugin helps non-technical users pull publication stats, create narrative reports, chart engagement trends, export CSVs, and troubleshoot local Beehiiv CLI setup.",
+    "developerName": "beehiiv-cli",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use Beehiiv to summarize my newsletter performance, chart engagement trends, or export subscribers, posts, or engagement data to CSV."
+    ],
+    "brandColor": "#F59E0B",
+    "composerIcon": "./assets/beehiiv-badge.svg",
+    "logo": "./assets/beehiiv-logo.svg",
+    "screenshots": []
+  }
+}

@@ -71,6 +71,7 @@ func NewRoot(options Options) *cobra.Command {
 	root.AddGroup(
 		&cobra.Group{ID: commandGroupCore, Title: "Core Commands"},
 		&cobra.Group{ID: commandGroupAuth, Title: "Auth Commands"},
+		&cobra.Group{ID: commandGroupWorkflow, Title: "Workflow Commands"},
 		&cobra.Group{ID: commandGroupAPI, Title: "API Command Groups"},
 	)
 	registerGlobalFlags(root)
@@ -79,6 +80,7 @@ func NewRoot(options Options) *cobra.Command {
 	root.AddCommand(newCompletionCommand())
 	root.AddCommand(newAuthCommand(options))
 	root.AddCommand(newLoginCommand(options))
+	root.AddCommand(newReportsCommand(options))
 
 	registerOperationGroups(root, executor)
 

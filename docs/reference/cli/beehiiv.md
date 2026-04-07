@@ -53,6 +53,7 @@ beehiiv [flags]
 * [beehiiv posts](beehiiv_posts.md)	 - Create and inspect Beehiiv posts
 * [beehiiv publications](beehiiv_publications.md)	 - Work with Beehiiv publications
 * [beehiiv referral-program](beehiiv_referral-program.md)	 - Inspect the publication referral program
+* [beehiiv reports](beehiiv_reports.md)	 - Guided stats, charts, and CSV exports for a publication
 * [beehiiv segment-members](beehiiv_segment-members.md)	 - List full subscriber records for a segment
 * [beehiiv segment-results](beehiiv_segment-results.md)	 - List lightweight segment results
 * [beehiiv segments](beehiiv_segments.md)	 - Inspect and manage publication segments

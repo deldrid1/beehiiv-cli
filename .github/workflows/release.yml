@@ -57,6 +57,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WINGET_PUBLISH_TOKEN: ${{ secrets.WINGET_PUBLISH_TOKEN }}
 
+      - name: Package Codex plugin
+        run: ./scripts/package-codex-plugin.sh "${GITHUB_REF_NAME}"
+
+      - name: Upload Codex plugin asset
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${GITHUB_REF_NAME}" "dist/beehiiv-codex-plugin_${GITHUB_REF_NAME#v}.zip" --clobber
+
       - name: Close superseded winget PRs
         if: ${{ secrets.WINGET_PUBLISH_TOKEN != '' }}
         env:
