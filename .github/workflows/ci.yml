@@ -90,6 +90,9 @@ jobs:
           version: '~> v2'
           args: release --snapshot --clean
 
+      - name: Package Codex plugin snapshot
+        run: ./scripts/package-codex-plugin.sh snapshot dist
+
       - name: Smoke check release artifacts
         run: ./scripts/release-smoke.sh dist
 

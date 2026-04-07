@@ -1,6 +1,6 @@
 {
   "name": "beehiiv-codex",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Plain-language Beehiiv reporting, charts, exports, and setup help powered by beehiiv-cli.",
   "homepage": "https://github.com/deldrid1/beehiiv-cli",
   "repository": "https://github.com/deldrid1/beehiiv-cli",
