@@ -18,6 +18,8 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      WINGET_PUBLISH_TOKEN: ${{ secrets.WINGET_PUBLISH_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -55,7 +57,7 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WINGET_PUBLISH_TOKEN: ${{ secrets.WINGET_PUBLISH_TOKEN }}
+          WINGET_PUBLISH_TOKEN: ${{ env.WINGET_PUBLISH_TOKEN }}
 
       - name: Package Codex plugin
         run: ./scripts/package-codex-plugin.sh "${GITHUB_REF_NAME}"
@@ -66,9 +68,9 @@ jobs:
         run: gh release upload "${GITHUB_REF_NAME}" "dist/beehiiv-codex-plugin_${GITHUB_REF_NAME#v}.zip" --clobber
 
       - name: Close superseded winget PRs
-        if: ${{ secrets.WINGET_PUBLISH_TOKEN != '' }}
+        if: ${{ env.WINGET_PUBLISH_TOKEN != '' }}
         env:
-          GH_TOKEN: ${{ secrets.WINGET_PUBLISH_TOKEN }}
+          GH_TOKEN: ${{ env.WINGET_PUBLISH_TOKEN }}
         run: ./scripts/cleanup-winget-prs.sh --version "${GITHUB_REF_NAME#v}"
 
       - name: Smoke check release artifacts
