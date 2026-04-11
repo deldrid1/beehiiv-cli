@@ -34,8 +34,9 @@ beehiiv auth [flags]
 ### SEE ALSO
 
 * [beehiiv](beehiiv.md)	 - Cross-platform Beehiiv API CLI
-* [beehiiv auth login](beehiiv_auth_login.md)	 - Save an API key and publication ID securely
+* [beehiiv auth connect](beehiiv_auth_connect.md)	 - Sign in to Beehiiv (alias for login)
+* [beehiiv auth login](beehiiv_auth_login.md)	 - Sign in to Beehiiv
 * [beehiiv auth logout](beehiiv_auth_logout.md)	 - Remove saved Beehiiv credentials and optionally revoke OAuth tokens
-* [beehiiv auth oauth](beehiiv_auth_oauth.md)	 - OAuth authentication flows
+* [beehiiv auth oauth](beehiiv_auth_oauth.md)	 - OAuth authentication for custom Beehiiv OAuth apps
 * [beehiiv auth path](beehiiv_auth_path.md)	 - Print the settings file path
 * [beehiiv auth status](beehiiv_auth_status.md)	 - Show masked auth status without printing live credentials

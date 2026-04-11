@@ -4,8 +4,20 @@
 
 Show masked auth status without printing live credentials
 
+### Synopsis
+
+Display the current authentication state: auth mode, publication ID,
+settings path, and token metadata — without revealing secrets.
+
 ```
 beehiiv auth status [flags]
+```
+
+### Examples
+
+```
+beehiiv auth status
+beehiiv auth status --output table
 ```
 
 ### Options

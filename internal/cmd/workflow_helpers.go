@@ -1,29 +1,26 @@
 package cmd
 
 import (
-	"context"
-
 	"github.com/spf13/cobra"
 
 	"github.com/deldrid1/beehiiv-cli/internal/commandset"
-	cliruntime "github.com/deldrid1/beehiiv-cli/internal/runtime"
 )
 
-func registerWorkflowHelpers(groupCommand *cobra.Command, group string, executor *cliruntime.Executor) {
+func registerWorkflowHelpers(groupCommand *cobra.Command, group string, options Options) {
 	switch group {
 	case "automations":
-		registerAutomationHelpers(groupCommand, executor)
+		registerAutomationHelpers(groupCommand, options)
 	case "polls":
-		registerPollHelpers(groupCommand, executor)
+		registerPollHelpers(groupCommand, options)
 	case "segments":
-		registerSegmentHelpers(groupCommand, executor)
+		registerSegmentHelpers(groupCommand, options)
 	case "workspaces":
-		registerWorkspaceHelpers(groupCommand, executor)
+		registerWorkspaceHelpers(groupCommand, options)
 	}
 }
 
-func registerAutomationHelpers(groupCommand *cobra.Command, executor *cliruntime.Executor) {
-	mustAddOperationAlias(groupCommand, executor, "automation-emails", "list", operationAliasSpec{
+func registerAutomationHelpers(groupCommand *cobra.Command, options Options) {
+	mustAddOperationAlias(groupCommand, options, "automation-emails", "list", operationAliasSpec{
 		Use:   "emails <automationId>",
 		Short: "List the emails inside an automation",
 		Long: "List the emails belonging to a specific automation, including the engagement " +
@@ -32,7 +29,7 @@ func registerAutomationHelpers(groupCommand *cobra.Command, executor *cliruntime
 			"beehiiv automations emails aut_123 --all",
 	})
 
-	mustAddOperationAlias(groupCommand, executor, "automation-journeys", "list", operationAliasSpec{
+	mustAddOperationAlias(groupCommand, options, "automation-journeys", "list", operationAliasSpec{
 		Use:     "journeys <automationId>",
 		Aliases: []string{"runs"},
 		Short:   "List journeys that occurred inside an automation",
@@ -42,7 +39,7 @@ func registerAutomationHelpers(groupCommand *cobra.Command, executor *cliruntime
 			"beehiiv automations journeys aut_123 --all",
 	})
 
-	mustAddOperationAlias(groupCommand, executor, "automation-journeys", "get", operationAliasSpec{
+	mustAddOperationAlias(groupCommand, options, "automation-journeys", "get", operationAliasSpec{
 		Use:   "journey <automationId> <automationJourneyId>",
 		Short: "Show a single automation journey",
 		Long: "Show a single automation journey by automation ID and journey ID.\n\n" +
@@ -50,7 +47,7 @@ func registerAutomationHelpers(groupCommand *cobra.Command, executor *cliruntime
 		Example: "beehiiv automations journey aut_123 journey_123",
 	})
 
-	mustAddOperationAlias(groupCommand, executor, "automation-journeys", "create", operationAliasSpec{
+	mustAddOperationAlias(groupCommand, options, "automation-journeys", "create", operationAliasSpec{
 		Use:   "enroll <automationId>",
 		Short: "Enroll an existing subscriber into an automation",
 		Long: "Enroll an existing subscriber into an automation when that automation has an " +
@@ -60,8 +57,8 @@ func registerAutomationHelpers(groupCommand *cobra.Command, executor *cliruntime
 	})
 }
 
-func registerPollHelpers(groupCommand *cobra.Command, executor *cliruntime.Executor) {
-	mustAddOperationAlias(groupCommand, executor, "poll-responses", "list", operationAliasSpec{
+func registerPollHelpers(groupCommand *cobra.Command, options Options) {
+	mustAddOperationAlias(groupCommand, options, "poll-responses", "list", operationAliasSpec{
 		Use:   "responses <pollId>",
 		Short: "List the responses for a poll",
 		Long: "List individual subscriber responses for a specific poll.\n\n" +
@@ -71,8 +68,8 @@ func registerPollHelpers(groupCommand *cobra.Command, executor *cliruntime.Execu
 	})
 }
 
-func registerSegmentHelpers(groupCommand *cobra.Command, executor *cliruntime.Executor) {
-	mustAddOperationAlias(groupCommand, executor, "segment-members", "list", operationAliasSpec{
+func registerSegmentHelpers(groupCommand *cobra.Command, options Options) {
+	mustAddOperationAlias(groupCommand, options, "segment-members", "list", operationAliasSpec{
 		Use:   "members <segmentId>",
 		Short: "List the full subscriber records for a segment",
 		Long: "List full subscriber records for a specific segment, including optional expansion data.\n\n" +
@@ -81,7 +78,7 @@ func registerSegmentHelpers(groupCommand *cobra.Command, executor *cliruntime.Ex
 			"beehiiv segments members segment_123 --query expand=stats,custom_fields",
 	})
 
-	mustAddOperationAlias(groupCommand, executor, "segment-results", "list", operationAliasSpec{
+	mustAddOperationAlias(groupCommand, options, "segment-results", "list", operationAliasSpec{
 		Use:   "results <segmentId>",
 		Short: "List the lightweight result set for a segment",
 		Long: "List the lightweight result set for a specific segment when you only need IDs or a smaller response.\n\n" +
@@ -90,8 +87,8 @@ func registerSegmentHelpers(groupCommand *cobra.Command, executor *cliruntime.Ex
 	})
 }
 
-func registerWorkspaceHelpers(groupCommand *cobra.Command, executor *cliruntime.Executor) {
-	mustAddOperationAlias(groupCommand, executor, "workspaces", "publications-by-subscription-email", operationAliasSpec{
+func registerWorkspaceHelpers(groupCommand *cobra.Command, options Options) {
+	mustAddOperationAlias(groupCommand, options, "workspaces", "publications-by-subscription-email", operationAliasSpec{
 		Use:   "publications <email>",
 		Short: "Find publications across the workspace by subscriber email",
 		Long: "Find all publications in the current workspace that have a subscription for the given email address.\n\n" +
@@ -109,7 +106,7 @@ type operationAliasSpec struct {
 	Example string
 }
 
-func mustAddOperationAlias(parent *cobra.Command, executor *cliruntime.Executor, targetGroup, targetAction string, spec operationAliasSpec) {
+func mustAddOperationAlias(parent *cobra.Command, options Options, targetGroup, targetAction string, spec operationAliasSpec) {
 	operation, ok, err := commandset.Find(targetGroup, targetAction)
 	if err != nil || !ok {
 		return
@@ -123,28 +120,9 @@ func mustAddOperationAlias(parent *cobra.Command, executor *cliruntime.Executor,
 		Example: spec.Example,
 		Args:    exactPathArgs(operation.PathParams),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return runOperationAlias(cmd.Context(), executor, targetGroup, targetAction, operation, cmd, args)
+			return executeOperation(cmd.Context(), cmd, args, operation, options)
 		},
 	}
 	registerOperationFlags(command, operation)
 	parent.AddCommand(command)
-}
-
-func runOperationAlias(ctx context.Context, executor *cliruntime.Executor, targetGroup, targetAction string, operation commandset.Operation, command *cobra.Command, pathArgs []string) error {
-	legacyArgs, err := appendGlobalFlags(nil, command)
-	if err != nil {
-		return err
-	}
-	legacyArgs = append(legacyArgs, targetGroup, targetAction)
-	legacyArgs = append(legacyArgs, pathArgs...)
-	legacyArgs, err = appendOperationFlags(legacyArgs, command, operation)
-	if err != nil {
-		return err
-	}
-
-	exitCode := executor.Run(ctx, legacyArgs)
-	if exitCode != 0 {
-		return exitError{code: exitCode}
-	}
-	return nil
 }

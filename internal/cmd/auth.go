@@ -27,6 +27,17 @@ import (
 
 const defaultOAuthRedirectURI = "http://localhost:3008/callback"
 
+// Pre-configured OAuth credentials for the DailyDrop beehiiv integration.
+// The callback URL is handled by a Lambda relay at api.dailydrop.com that
+// 302-redirects the browser back to the CLI's loopback server, so the
+// standard local-callback flow works end-to-end without manual copy-paste.
+const (
+	appOAuthClientID     = "5rNfowFO3sSGzqnN9fwGF6HJpSpWyyyu377RYVuf1Y8"
+	appOAuthClientSecret = "kM1zBHK-WMZ3arusicCdXrZzIkKg8VpGGG5R8SnzNPY"
+	appOAuthRedirectURI  = "https://api.dailydrop.com/beehiiv/callback"
+	appOAuthLoopbackURI  = defaultOAuthRedirectURI // local server the relay redirects back to
+)
+
 func newAuthCommand(options Options) *cobra.Command {
 	authCommand := &cobra.Command{
 		Use:     "auth",
@@ -40,79 +51,128 @@ func newAuthCommand(options Options) *cobra.Command {
 
 	authCommand.AddCommand(
 		newAuthLoginCommand(options),
-		newAuthOAuthCommand(options),
 		newAuthStatusCommand(options),
-		newAuthPathCommand(options),
 		newAuthLogoutCommand(options),
+		newAuthPathCommand(options),
+		newAuthOAuthCommand(options),
+		newAuthConnectCommand(options),
 	)
 
 	return authCommand
 }
 
-func newAuthLoginCommand(options Options) *cobra.Command {
-	return &cobra.Command{
+// buildLoginCommand is the canonical sign-in command definition used by both
+// newAuthLoginCommand and newLoginCommand. It defaults to OAuth using the
+// embedded DailyDrop app credentials. Passing --api-key opts into API key auth.
+func buildLoginCommand(options Options) *cobra.Command {
+	cmd := &cobra.Command{
 		Use:   "login",
-		Short: "Save an API key and publication ID securely",
-		Args:  cobra.NoArgs,
+		Short: "Sign in to Beehiiv",
+		Long: strings.TrimSpace(`
+Sign in to Beehiiv using OAuth. Your browser opens the Beehiiv authorization
+page and your credentials are saved securely in the OS keyring automatically.
+No API key or client ID required.
+
+For CI/CD or programmatic use, pass --api-key to authenticate with an API
+key instead of OAuth.`),
+		Example: strings.TrimSpace(`
+beehiiv login
+beehiiv login --no-browser
+beehiiv login --api-key YOUR_API_KEY
+beehiiv login --api-key YOUR_API_KEY --publication-id pub_123`),
+		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			manager := auth.NewManager(options.Env, options.HTTPClient)
 			overrides, err := commandOverrides(cmd)
 			if err != nil {
 				return err
 			}
 
-			runtimeConfig, err := config.LoadRuntime(overrides, options.Env)
-			if err != nil {
-				return err
+			// Only use API key mode when --api-key was explicitly passed on the
+			// command line (overrides.APIKey is set only when the flag Changed).
+			if overrides.APIKey != "" {
+				return runAPIKeyLoginFlow(cmd, options, overrides.APIKey)
 			}
 
-			apiKey := firstNonEmpty(overrides.APIKey, options.Env[config.EnvAPIKey], options.Env[config.EnvBearerToken])
-			if apiKey == "" {
-				cmd.PrintErrln("Enter your Beehiiv API key. Create one as described here: https://developers.beehiiv.com/welcome/create-an-api-key")
-				apiKey, err = promptValue(cmd.InOrStdin(), cmd.ErrOrStderr(), "API key")
-				if err != nil {
-					return err
-				}
-			}
-
-			publicationID := overrides.PublicationID
-			if publicationID == "" {
-				publicationID, err = selectPublicationID(cmd.Context(), options.HTTPClient, cmd.InOrStdin(), cmd.ErrOrStderr(), runtimeConfig, apiKey)
-				if err != nil {
-					return err
-				}
-			}
-
-			if err := manager.SaveAPIKeySession(auth.APIKeyLoginOptions{
-				SettingsPath:  runtimeConfig.ConfigPath,
-				APIKey:        apiKey,
-				PublicationID: publicationID,
-				BaseURL:       runtimeConfig.BaseURL,
-				RateLimitRPM:  runtimeConfig.RateLimitRPM,
-			}); err != nil {
-				return err
-			}
-
-			status, err := manager.Status(overrides)
-			if err != nil {
-				return err
-			}
-			return writeCommandOutput(cmd, options.Env, map[string]any{
-				"message":        "Beehiiv credentials saved in the OS keyring",
-				"auth_mode":      status.AuthMode,
-				"publication_id": status.PublicationID,
-				"settings_path":  status.SettingsPath,
-				"secret_backend": status.SecretBackend,
+			// Default: OAuth with the embedded DailyDrop app credentials.
+			noBrowser, _ := cmd.Flags().GetBool("no-browser")
+			return runOAuthLoginFlow(cmd.Context(), cmd, options, oauthLoginParams{
+				ClientID:     appOAuthClientID,
+				ClientSecret: appOAuthClientSecret,
+				RedirectURI:  appOAuthRedirectURI,
+				ListenURI:    appOAuthLoopbackURI,
+				Scopes:       auth.NormalizeScopes(nil),
+				NoBrowser:    noBrowser,
 			})
 		},
 	}
+	cmd.Flags().Bool("no-browser", false, "Print the authorization URL without opening a browser")
+	return cmd
+}
+
+func newAuthLoginCommand(options Options) *cobra.Command {
+	return buildLoginCommand(options)
+}
+
+// runAPIKeyLoginFlow saves an API key session. If apiKey is empty it prompts
+// the user interactively.
+func runAPIKeyLoginFlow(cmd *cobra.Command, options Options, apiKey string) error {
+	manager := auth.NewManager(options.Env, options.HTTPClient)
+	overrides, err := commandOverrides(cmd)
+	if err != nil {
+		return err
+	}
+
+	runtimeConfig, err := config.LoadRuntime(overrides, options.Env)
+	if err != nil {
+		return err
+	}
+
+	if apiKey == "" {
+		cmd.PrintErrln("Enter your Beehiiv API key. Create one at: https://developers.beehiiv.com/welcome/create-an-api-key")
+		apiKey, err = promptValue(cmd.InOrStdin(), cmd.ErrOrStderr(), "API key")
+		if err != nil {
+			return err
+		}
+	}
+
+	publicationID := overrides.PublicationID
+	if publicationID == "" {
+		publicationID, err = selectPublicationID(cmd.Context(), options.HTTPClient, cmd.InOrStdin(), cmd.ErrOrStderr(), runtimeConfig, apiKey)
+		if err != nil {
+			return err
+		}
+	}
+
+	if err := manager.SaveAPIKeySession(auth.APIKeyLoginOptions{
+		SettingsPath:  runtimeConfig.ConfigPath,
+		APIKey:        apiKey,
+		PublicationID: publicationID,
+		BaseURL:       runtimeConfig.BaseURL,
+		RateLimitRPM:  runtimeConfig.RateLimitRPM,
+	}); err != nil {
+		return err
+	}
+
+	status, err := manager.Status(overrides)
+	if err != nil {
+		return err
+	}
+	return writeCommandOutput(cmd, options.Env, map[string]any{
+		"message":        "Beehiiv credentials saved in the OS keyring",
+		"auth_mode":      status.AuthMode,
+		"publication_id": status.PublicationID,
+		"settings_path":  status.SettingsPath,
+		"secret_backend": status.SecretBackend,
+	})
 }
 
 func newAuthOAuthCommand(options Options) *cobra.Command {
 	oauthCommand := &cobra.Command{
 		Use:   "oauth",
-		Short: "OAuth authentication flows",
-		Args:  cobra.NoArgs,
+		Short: "OAuth authentication for custom Beehiiv OAuth apps",
+		Long: "Advanced OAuth authentication using your own Beehiiv OAuth app.\n\n" +
+			"If you just want to sign in, run `beehiiv login` instead — no client ID needed.",
+		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
@@ -120,19 +180,16 @@ func newAuthOAuthCommand(options Options) *cobra.Command {
 
 	loginCommand := &cobra.Command{
 		Use:   "login",
-		Short: "Run the Beehiiv OAuth authorization-code flow with PKCE",
-		Args:  cobra.NoArgs,
+		Short: "Sign in with a custom Beehiiv OAuth app",
+		Long: "Authorize beehiiv-cli via the OAuth 2.0 authorization-code flow with PKCE\n" +
+			"using a client ID from your own Beehiiv OAuth app.\n\n" +
+			"For the default sign-in experience (no client ID required), use `beehiiv login`.",
+		Example: strings.TrimSpace(`
+beehiiv auth oauth login --client-id <id>
+beehiiv auth oauth login --client-id <id> --scope all
+beehiiv auth oauth login --client-id <id> --manual --no-browser`),
+		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			manager := auth.NewManager(options.Env, options.HTTPClient)
-			overrides, err := commandOverrides(cmd)
-			if err != nil {
-				return err
-			}
-			runtimeConfig, err := config.LoadRuntime(overrides, options.Env)
-			if err != nil {
-				return err
-			}
-
 			clientID, _ := cmd.Flags().GetString("client-id")
 			clientSecret, _ := cmd.Flags().GetString("client-secret")
 			redirectURI, _ := cmd.Flags().GetString("redirect-uri")
@@ -150,105 +207,14 @@ func newAuthOAuthCommand(options Options) *cobra.Command {
 				return errors.New("oauth client id is required; pass --client-id or set BEEHIIV_OAUTH_CLIENT_ID")
 			}
 
-			state, err := auth.GenerateState()
-			if err != nil {
-				return err
-			}
-			verifier, challenge, err := auth.GeneratePKCEVerifier()
-			if err != nil {
-				return err
-			}
-			authorizeURL, err := auth.BuildAuthorizeURL(clientID, redirectURI, state, challenge, scopes)
-			if err != nil {
-				return err
-			}
-
-			cmd.PrintErrf("Open this URL to authorize beehiiv-cli:\n%s\n\n", authorizeURL)
-
-			var callbackURL string
-			if !manual {
-				callbackURL, err = waitForOAuthCallback(cmd.Context(), cmd.InOrStdin(), redirectURI, state, authorizeURL, !noBrowser, cmd.ErrOrStderr())
-				if err != nil {
-					return err
-				}
-			} else {
-				if !noBrowser {
-					_ = openBrowser(authorizeURL)
-				}
-				callbackURL, err = promptValue(cmd.InOrStdin(), cmd.ErrOrStderr(), "Paste the full callback URL")
-				if err != nil {
-					return err
-				}
-			}
-
-			code, returnedState, err := parseCallbackURL(callbackURL)
-			if err != nil {
-				return err
-			}
-			if returnedState != state {
-				return fmt.Errorf("oauth state mismatch; expected %q", state)
-			}
-
-			tokenResponse, err := auth.ExchangeAuthorizationCode(cmd.Context(), options.HTTPClient, auth.TokenExchangeRequest{
+			return runOAuthLoginFlow(cmd.Context(), cmd, options, oauthLoginParams{
 				ClientID:     clientID,
 				ClientSecret: clientSecret,
-				Code:         code,
 				RedirectURI:  redirectURI,
-				CodeVerifier: verifier,
+				Scopes:       scopes,
+				NoBrowser:    noBrowser,
+				Manual:       manual,
 			})
-			if err != nil {
-				return err
-			}
-
-			tokenInfo, tokenInfoErr := auth.GetTokenInfo(cmd.Context(), options.HTTPClient, tokenResponse.AccessToken)
-
-			publicationID := overrides.PublicationID
-			if publicationID == "" && hasScope(scopes, "publications:read") {
-				publicationID, err = selectPublicationID(cmd.Context(), options.HTTPClient, cmd.InOrStdin(), cmd.ErrOrStderr(), runtimeConfig, tokenResponse.AccessToken)
-				if err != nil {
-					return err
-				}
-			}
-
-			saveOptions := auth.OAuthSessionOptions{
-				SettingsPath:    runtimeConfig.ConfigPath,
-				ClientID:        clientID,
-				ClientSecret:    clientSecret,
-				RedirectURI:     redirectURI,
-				PublicationID:   publicationID,
-				BaseURL:         runtimeConfig.BaseURL,
-				RateLimitRPM:    runtimeConfig.RateLimitRPM,
-				RequestedScopes: scopes,
-				TokenResponse:   tokenResponse,
-			}
-			if tokenInfoErr == nil {
-				saveOptions.TokenInfo = &tokenInfo
-			}
-			if err := manager.SaveOAuthSession(saveOptions); err != nil {
-				return err
-			}
-
-			status, err := manager.Status(overrides)
-			if err != nil {
-				return err
-			}
-
-			payload := map[string]any{
-				"message":         "Beehiiv OAuth session saved in the OS keyring",
-				"auth_mode":       status.AuthMode,
-				"publication_id":  status.PublicationID,
-				"settings_path":   status.SettingsPath,
-				"secret_backend":  status.SecretBackend,
-				"oauth_client_id": status.OAuthClientID,
-				"oauth_scopes":    status.OAuthScopes,
-			}
-			if status.TokenExpiresAt != "" {
-				payload["token_expires_at"] = status.TokenExpiresAt
-			}
-			if tokenInfoErr != nil {
-				payload["token_info_warning"] = tokenInfoErr.Error()
-			}
-			return writeCommandOutput(cmd, options.Env, payload)
 		},
 	}
 
@@ -263,11 +229,214 @@ func newAuthOAuthCommand(options Options) *cobra.Command {
 	return oauthCommand
 }
 
+// newAuthConnectCommand is an alias for the login command kept for backward
+// compatibility. Prefer `beehiiv login` for new usage.
+func newAuthConnectCommand(options Options) *cobra.Command {
+	cmd := buildLoginCommand(options)
+	cmd.Use = "connect"
+	cmd.Short = "Sign in to Beehiiv (alias for login)"
+	cmd.Example = strings.TrimSpace(`
+beehiiv connect
+beehiiv auth connect
+beehiiv connect --no-browser
+beehiiv connect --api-key YOUR_API_KEY`)
+	return cmd
+}
+
+// ---------------------------------------------------------------------------
+// Shared OAuth login flow
+// ---------------------------------------------------------------------------
+
+// oauthLoginParams carries the inputs for runOAuthLoginFlow.
+type oauthLoginParams struct {
+	ClientID     string
+	ClientSecret string
+	RedirectURI  string   // URI registered with beehiiv (sent in the authorize URL)
+	ListenURI    string   // Loopback URI to listen on; if empty, uses RedirectURI
+	Scopes       []string
+	NoBrowser    bool
+	Manual       bool
+}
+
+// runOAuthLoginFlow executes the full OAuth authorization-code + PKCE flow:
+// generate PKCE, open browser, wait for callback, exchange code, save session.
+func runOAuthLoginFlow(ctx context.Context, cmd *cobra.Command, options Options, params oauthLoginParams) error {
+	manager := auth.NewManager(options.Env, options.HTTPClient)
+	overrides, err := commandOverrides(cmd)
+	if err != nil {
+		return err
+	}
+	runtimeConfig, err := config.LoadRuntime(overrides, options.Env)
+	if err != nil {
+		return err
+	}
+
+	state, err := auth.GenerateState()
+	if err != nil {
+		return err
+	}
+	verifier, challenge, err := auth.GeneratePKCEVerifier()
+	if err != nil {
+		return err
+	}
+	authorizeURL, err := auth.BuildAuthorizeURL(params.ClientID, params.RedirectURI, state, challenge, params.Scopes)
+	if err != nil {
+		return err
+	}
+
+	// The URI the loopback server actually listens on.  For the relay flow
+	// this differs from RedirectURI (e.g. listen on localhost while beehiiv
+	// redirects to api.dailydrop.com).
+	listenURI := params.ListenURI
+	if listenURI == "" {
+		listenURI = params.RedirectURI
+	}
+	isRelay := listenURI != params.RedirectURI
+
+	if isRelay {
+		cmd.PrintErrf("Opening your browser to authorize beehiiv-cli...\n\nAuthorization URL:\n%s\n\n", authorizeURL)
+	} else {
+		cmd.PrintErrf("Open this URL to authorize beehiiv-cli:\n%s\n\n", authorizeURL)
+	}
+
+	manual := params.Manual
+	// If the listen URI is not localhost the CLI cannot bind a listener.
+	if !manual && !isLocalhostURI(listenURI) {
+		fmt.Fprintln(cmd.ErrOrStderr(), "Note: redirect URI is not localhost — switching to manual mode.")
+		fmt.Fprintln(cmd.ErrOrStderr(), "After authorizing, paste the full callback URL from your browser.")
+		manual = true
+	}
+
+	var callbackURL string
+	if !manual {
+		callbackURL, err = waitForOAuthCallback(ctx, cmd.InOrStdin(), listenURI, state, authorizeURL, !params.NoBrowser, cmd.ErrOrStderr())
+		if err != nil {
+			var portErr *errPortBusy
+			if errors.As(err, &portErr) {
+				if isRelay {
+					return fmt.Errorf("%w\n\nAnother process is using port 3008. Free that port and run `beehiiv connect` again.\n(The authorization URL was never opened, so no credentials were exposed.)", err)
+				}
+				return fmt.Errorf("%w\n\nFree port %s or pass a different --redirect-uri", err, portErr.host)
+			}
+			return err
+		}
+	} else {
+		if !params.NoBrowser {
+			_ = openBrowser(authorizeURL)
+		}
+		callbackURL, err = promptValue(cmd.InOrStdin(), cmd.ErrOrStderr(), "Paste the full callback URL")
+		if err != nil {
+			return err
+		}
+	}
+
+	code, returnedState, err := parseCallbackURL(callbackURL)
+	if err != nil {
+		return err
+	}
+	if returnedState != state {
+		return fmt.Errorf("oauth state mismatch; expected %q", state)
+	}
+
+	tokenResponse, err := auth.ExchangeAuthorizationCode(ctx, options.HTTPClient, auth.TokenExchangeRequest{
+		ClientID:     params.ClientID,
+		ClientSecret: params.ClientSecret,
+		Code:         code,
+		RedirectURI:  params.RedirectURI,
+		CodeVerifier: verifier,
+	})
+	if err != nil {
+		return err
+	}
+
+	tokenInfo, tokenInfoErr := auth.GetTokenInfo(ctx, options.HTTPClient, tokenResponse.AccessToken)
+
+	publicationID := overrides.PublicationID
+	if publicationID == "" && hasScope(params.Scopes, "publications:read") {
+		publicationID, err = selectPublicationID(ctx, options.HTTPClient, cmd.InOrStdin(), cmd.ErrOrStderr(), runtimeConfig, tokenResponse.AccessToken)
+		if err != nil {
+			return err
+		}
+	}
+
+	saveOptions := auth.OAuthSessionOptions{
+		SettingsPath:    runtimeConfig.ConfigPath,
+		ClientID:        params.ClientID,
+		ClientSecret:    params.ClientSecret,
+		RedirectURI:     params.RedirectURI,
+		PublicationID:   publicationID,
+		BaseURL:         runtimeConfig.BaseURL,
+		RateLimitRPM:    runtimeConfig.RateLimitRPM,
+		RequestedScopes: params.Scopes,
+		TokenResponse:   tokenResponse,
+	}
+	if tokenInfoErr == nil {
+		saveOptions.TokenInfo = &tokenInfo
+	}
+	if err := manager.SaveOAuthSession(saveOptions); err != nil {
+		return err
+	}
+
+	status, err := manager.Status(overrides)
+	if err != nil {
+		return err
+	}
+
+	payload := map[string]any{
+		"message":        "Beehiiv OAuth session saved in the OS keyring",
+		"auth_mode":      status.AuthMode,
+		"publication_id": status.PublicationID,
+		"settings_path":  status.SettingsPath,
+		"secret_backend": status.SecretBackend,
+		"oauth_scopes":   status.OAuthScopes,
+	}
+	if status.OAuthClientID != "" {
+		payload["oauth_client_id"] = status.OAuthClientID
+	}
+	if status.TokenExpiresAt != "" {
+		payload["token_expires_at"] = status.TokenExpiresAt
+	}
+	if tokenInfoErr != nil {
+		payload["token_info_warning"] = tokenInfoErr.Error()
+	}
+	return writeCommandOutput(cmd, options.Env, payload)
+}
+
+// errPortBusy is returned by waitForOAuthCallback when the loopback port is
+// already in use.  Callers can detect it with errors.As to emit context-
+// specific advice (e.g. which port to free or which flag to change).
+type errPortBusy struct {
+	host  string
+	cause error
+}
+
+func (e *errPortBusy) Error() string {
+	return fmt.Sprintf("listen for OAuth callback on %s: %s", e.host, e.cause)
+}
+
+func (e *errPortBusy) Unwrap() error { return e.cause }
+
+// isLocalhostURI reports whether rawURL is a loopback address (localhost,
+// 127.0.0.1, or ::1) so the CLI knows it can start a local listener for it.
+func isLocalhostURI(rawURL string) bool {
+	parsed, err := url.Parse(rawURL)
+	if err != nil {
+		return false
+	}
+	h := parsed.Hostname()
+	return h == "localhost" || h == "127.0.0.1" || h == "::1"
+}
+
 func newAuthStatusCommand(options Options) *cobra.Command {
 	return &cobra.Command{
 		Use:   "status",
 		Short: "Show masked auth status without printing live credentials",
-		Args:  cobra.NoArgs,
+		Long: "Display the current authentication state: auth mode, publication ID,\n" +
+			"settings path, and token metadata — without revealing secrets.",
+		Example: strings.TrimSpace(`
+beehiiv auth status
+beehiiv auth status --output table`),
+		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			manager := auth.NewManager(options.Env, options.HTTPClient)
 			overrides, err := commandOverrides(cmd)
@@ -285,9 +454,10 @@ func newAuthStatusCommand(options Options) *cobra.Command {
 
 func newAuthPathCommand(options Options) *cobra.Command {
 	return &cobra.Command{
-		Use:   "path",
-		Short: "Print the settings file path",
-		Args:  cobra.NoArgs,
+		Use:     "path",
+		Short:   "Print the settings file path",
+		Example: "beehiiv auth path",
+		Args:    cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			manager := auth.NewManager(options.Env, options.HTTPClient)
 			overrides, err := commandOverrides(cmd)
@@ -307,7 +477,12 @@ func newAuthLogoutCommand(options Options) *cobra.Command {
 	command := &cobra.Command{
 		Use:   "logout",
 		Short: "Remove saved Beehiiv credentials and optionally revoke OAuth tokens",
-		Args:  cobra.NoArgs,
+		Long: "Delete all stored credentials from the OS keyring and reset the config\n" +
+			"file.  For OAuth sessions, also revokes the token server-side by default.",
+		Example: strings.TrimSpace(`
+beehiiv auth logout
+beehiiv auth logout --revoke=false`),
+		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			manager := auth.NewManager(options.Env, options.HTTPClient)
 			overrides, err := commandOverrides(cmd)
@@ -334,15 +509,9 @@ func newAuthLogoutCommand(options Options) *cobra.Command {
 }
 
 func newLoginCommand(options Options) *cobra.Command {
-	return &cobra.Command{
-		Use:     "login",
-		Short:   "Alias for auth login",
-		Args:    cobra.NoArgs,
-		GroupID: commandGroupAuth,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			return newAuthLoginCommand(options).RunE(cmd, args)
-		},
-	}
+	cmd := buildLoginCommand(options)
+	cmd.GroupID = commandGroupAuth
+	return cmd
 }
 
 func writeCommandOutput(cmd *cobra.Command, env map[string]string, value any) error {
@@ -473,7 +642,7 @@ func waitForOAuthCallback(ctx context.Context, stdin io.Reader, redirectURI, sta
 
 	listener, err := net.Listen("tcp", host)
 	if err != nil {
-		return "", fmt.Errorf("listen for oauth callback on %s: %w; choose a different configured --redirect-uri if this port is already in use", host, err)
+		return "", &errPortBusy{host: host, cause: err}
 	}
 	defer listener.Close()
 

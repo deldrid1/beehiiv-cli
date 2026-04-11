@@ -8,13 +8,16 @@ This project is ready for early public use and feedback across the major operati
 
 ## Quick Start
 
-1. Download the latest release for your computer from the [GitHub releases page](https://github.com/deldrid1/beehiiv-cli/releases) or via your favorite package manager:
+1. Download the latest release from the [GitHub releases page](https://github.com/deldrid1/beehiiv-cli/releases) or install via a package manager:
 ```bash
 brew tap deldrid1/homebrew-tap
 brew install beehiiv
-``` 
-3. Run `beehiiv auth login`.
-4. Try `beehiiv publications list` or `beehiiv --help`.
+```
+2. Sign in — your browser opens automatically:
+```bash
+beehiiv login
+```
+3. Try `beehiiv publications list` or `beehiiv --help`.
 
 If you're setting up release publishing with an agent, start with [docs/release-auth-setup.md](docs/release-auth-setup.md). It includes the current token requirements, including the classic PAT requirement for winget publication.
 
@@ -63,7 +66,7 @@ Example personal marketplace file:
 ## Features
 
 - Friendly `--help` output on every command
-- Simple sign-in with an API key or Beehiiv OAuth
+- One-command sign-in via OAuth — no API key setup required
 - Secure credential storage in the macOS Keychain or Windows Credential Manager
 - Handy shortcuts for common subscriber, publication, post, and webhook tasks
 - Guided `reports` workflows for non-technical stats, charts, and CSV exports
@@ -73,11 +76,11 @@ Example personal marketplace file:
 
 ## Requirements
 
-- For normal use: a Beehiiv API key or Beehiiv OAuth app
+- For normal use: a Beehiiv account (OAuth sign-in is built in — no API key needed)
 - To build from source: Go 1.26 or newer
 - For publication-scoped commands: a Beehiiv publication ID
 
-See Beehiiv's [Create an API Key](https://developers.beehiiv.com/welcome/create-an-api-key) guide for the current setup steps.
+For CI/CD or programmatic use you can also pass an API key directly. See Beehiiv's [Create an API Key](https://developers.beehiiv.com/welcome/create-an-api-key) guide.
 
 ## Build from Source
 
@@ -180,45 +183,50 @@ Until then, install from the GitHub release assets or build from source on Windo
 
 ## Authentication
 
-Run:
-
-```bash
-beehiiv auth login
-```
-
-Or:
+Sign in with a single command — no API key required:
 
 ```bash
 beehiiv login
 ```
 
-You can also provide values directly:
+Your browser opens the Beehiiv authorization page. After you approve, credentials are saved securely in the OS keyring. The OAuth client is pre-configured; nothing extra to set up.
+
+If you prefer not to open a browser automatically:
 
 ```bash
-beehiiv auth login --api-key YOUR_API_KEY --publication-id pub_123
+beehiiv login --no-browser
 ```
 
-If `--publication-id` is omitted, the CLI looks up your publications. If your API key sees exactly one publication, it is selected automatically. Otherwise the CLI prompts you to choose from the returned `pub_...` IDs.
+### API key authentication (CI/CD)
 
-OAuth login is available for Beehiiv OAuth apps:
+For non-interactive environments, pass your API key directly:
 
 ```bash
+beehiiv login --api-key YOUR_API_KEY
+beehiiv login --api-key YOUR_API_KEY --publication-id pub_123
+```
+
+If `--publication-id` is omitted the CLI looks up your publications and selects automatically if there is only one, or prompts you to choose.
+
+### Auth management
+
+```bash
+beehiiv auth status          # show masked credential state
+beehiiv auth logout          # remove saved credentials (revokes OAuth token)
+beehiiv auth path            # print the config file location
+```
+
+### Custom OAuth app (advanced)
+
+If you are building your own Beehiiv OAuth integration:
+
+```bash
+beehiiv auth oauth login --client-id YOUR_CLIENT_ID
 beehiiv auth oauth login --client-id YOUR_CLIENT_ID --scope all
+beehiiv auth oauth login --client-id YOUR_CLIENT_ID --no-browser
 ```
 
-The default redirect URI is `http://localhost:3008/callback`, which must exactly match one of your Beehiiv OAuth app redirect URIs. The CLI uses PKCE for public-client flows and can fall back to manual callback pasting when needed:
-
-```bash
-beehiiv auth oauth login --client-id YOUR_CLIENT_ID --manual --no-browser
-```
-
-Useful auth commands:
-
-```bash
-beehiiv auth status
-beehiiv auth path
-beehiiv auth logout
-```
+The redirect URI defaults to `http://localhost:3008/callback` and must match your Beehiiv OAuth app settings. PKCE is used automatically.
 
 ## Configuration
 

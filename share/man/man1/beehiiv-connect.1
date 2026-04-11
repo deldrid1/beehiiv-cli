@@ -1,12 +1,12 @@
 .nh
-.TH "BEEHIIV-LOGIN" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
+.TH "BEEHIIV-CONNECT" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-login - Sign in to Beehiiv
+beehiiv-connect - Sign in to Beehiiv (alias for login)
 
 
 .SH SYNOPSIS
-\fBbeehiiv login [flags]\fP
+\fBbeehiiv connect [flags]\fP
 
 
 .SH DESCRIPTION
@@ -21,7 +21,7 @@ key instead of OAuth.
 
 .SH OPTIONS
 \fB-h\fP, \fB--help\fP[=false]
-	help for login
+	help for connect
 
 .PP
 \fB--no-browser\fP[=false]
@@ -79,10 +79,9 @@ key instead of OAuth.
 
 .SH EXAMPLE
 .EX
-beehiiv login
-beehiiv login --no-browser
-beehiiv login --api-key YOUR_API_KEY
-beehiiv login --api-key YOUR_API_KEY --publication-id pub_123
+beehiiv connect
+beehiiv connect --no-browser
+beehiiv connect --api-key YOUR_API_KEY
 .EE
 
 

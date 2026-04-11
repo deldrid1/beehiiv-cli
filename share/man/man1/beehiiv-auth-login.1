@@ -2,7 +2,7 @@
 .TH "BEEHIIV-AUTH-LOGIN" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-auth-login - Save an API key and publication ID securely
+beehiiv-auth-login - Sign in to Beehiiv
 
 
 .SH SYNOPSIS
@@ -10,12 +10,22 @@ beehiiv-auth-login - Save an API key and publication ID securely
 
 
 .SH DESCRIPTION
-Save an API key and publication ID securely
+Sign in to Beehiiv using OAuth. Your browser opens the Beehiiv authorization
+page and your credentials are saved securely in the OS keyring automatically.
+No API key or client ID required.
+
+.PP
+For CI/CD or programmatic use, pass --api-key to authenticate with an API
+key instead of OAuth.
 
 
 .SH OPTIONS
 \fB-h\fP, \fB--help\fP[=false]
 	help for login
+
+.PP
+\fB--no-browser\fP[=false]
+	Print the authorization URL without opening a browser
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS
@@ -65,6 +75,15 @@ Save an API key and publication ID securely
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv login
+beehiiv login --no-browser
+beehiiv login --api-key YOUR_API_KEY
+beehiiv login --api-key YOUR_API_KEY --publication-id pub_123
+.EE
 
 
 .SH SEE ALSO

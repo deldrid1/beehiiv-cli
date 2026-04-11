@@ -4,8 +4,20 @@
 
 Remove saved Beehiiv credentials and optionally revoke OAuth tokens
 
+### Synopsis
+
+Delete all stored credentials from the OS keyring and reset the config
+file.  For OAuth sessions, also revokes the token server-side by default.
+
 ```
 beehiiv auth logout [flags]
+```
+
+### Examples
+
+```
+beehiiv auth logout
+beehiiv auth logout --revoke=false
 ```
 
 ### Options

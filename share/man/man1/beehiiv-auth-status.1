@@ -10,7 +10,8 @@ beehiiv-auth-status - Show masked auth status without printing live credentials
 
 
 .SH DESCRIPTION
-Show masked auth status without printing live credentials
+Display the current authentication state: auth mode, publication ID,
+settings path, and token metadata — without revealing secrets.
 
 
 .SH OPTIONS
@@ -65,6 +66,13 @@ Show masked auth status without printing live credentials
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv auth status
+beehiiv auth status --output table
+.EE
 
 
 .SH SEE ALSO

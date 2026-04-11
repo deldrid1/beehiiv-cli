@@ -14,7 +14,6 @@ import (
 	"github.com/deldrid1/beehiiv-cli/internal/client"
 	"github.com/deldrid1/beehiiv-cli/internal/cmd/workflows"
 	"github.com/deldrid1/beehiiv-cli/internal/commandset"
-	cliruntime "github.com/deldrid1/beehiiv-cli/internal/runtime"
 )
 
 type Options struct {
@@ -50,8 +49,6 @@ func ExecuteContext(ctx context.Context, args []string, options Options) int {
 }
 
 func NewRoot(options Options) *cobra.Command {
-	executor := cliruntime.NewExecutor(options.Stdin, options.Stdout, options.Stderr, options.Env, options.HTTPClient)
-
 	root := &cobra.Command{
 		Use:              "beehiiv",
 		Short:            "Cross-platform Beehiiv API CLI",
@@ -80,11 +77,26 @@ func NewRoot(options Options) *cobra.Command {
 	root.AddCommand(newCompletionCommand())
 	root.AddCommand(newAuthCommand(options))
 	root.AddCommand(newLoginCommand(options))
+	root.AddCommand(newConnectCommand(options))
 	root.AddCommand(newReportsCommand(options))
 
-	registerOperationGroups(root, executor)
+	registerOperationGroups(root, options)
 
 	return root
+}
+
+// newConnectCommand exposes `beehiiv connect` as a top-level alias for
+// `beehiiv login`. Both commands run the same OAuth flow.
+func newConnectCommand(options Options) *cobra.Command {
+	cmd := buildLoginCommand(options)
+	cmd.Use = "connect"
+	cmd.Short = "Sign in to Beehiiv (alias for login)"
+	cmd.Example = strings.TrimSpace(`
+beehiiv connect
+beehiiv connect --no-browser
+beehiiv connect --api-key YOUR_API_KEY`)
+	cmd.GroupID = commandGroupAuth
+	return cmd
 }
 
 func newVersionCommand(stdout io.Writer) *cobra.Command {
@@ -100,7 +112,7 @@ func newVersionCommand(stdout io.Writer) *cobra.Command {
 	}
 }
 
-func registerOperationGroups(root *cobra.Command, executor *cliruntime.Executor) {
+func registerOperationGroups(root *cobra.Command, options Options) {
 	groups, err := commandset.Groups()
 	if err != nil {
 		return
@@ -161,24 +173,14 @@ func registerOperationGroups(root *cobra.Command, executor *cliruntime.Executor)
 				Example: actionExample,
 				Args:    exactPathArgs(operation.PathParams),
 				RunE: func(cmd *cobra.Command, args []string) error {
-					legacyArgs, err := appendGlobalFlags(nil, cmd)
-					if err != nil {
-						return err
-					}
-					legacyArgs = append(legacyArgs, group, operation.Command[1])
-					legacyArgs = append(legacyArgs, args...)
-					legacyArgs, err = appendOperationFlags(legacyArgs, cmd, operation)
-					if err != nil {
-						return err
-					}
-					return runLegacy(cmd.Context(), executor, legacyArgs)
+					return executeOperation(cmd.Context(), cmd, args, operation, options)
 				},
 			}
 			registerOperationFlags(actionCommand, operation)
 			groupCommand.AddCommand(actionCommand)
 		}
 
-		registerWorkflowHelpers(groupCommand, group, executor)
+		registerWorkflowHelpers(groupCommand, group, options)
 
 		root.AddCommand(groupCommand)
 	}
@@ -247,14 +249,6 @@ func exactPathArgs(pathParams []string) cobra.PositionalArgs {
 		}
 		return nil
 	}
-}
-
-func runLegacy(ctx context.Context, executor *cliruntime.Executor, args []string) error {
-	exitCode := executor.Run(ctx, args)
-	if exitCode != 0 {
-		return exitError{code: exitCode}
-	}
-	return nil
 }
 
 func defaultWriter(writer io.Writer, fallback *os.File) io.Writer {
