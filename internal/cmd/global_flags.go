@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -50,88 +49,6 @@ func registerOperationFlags(command *cobra.Command, operation commandset.Operati
 	}
 }
 
-func appendGlobalFlags(args []string, command *cobra.Command) ([]string, error) {
-	flags := command.InheritedFlags()
-
-	var err error
-	args, err = appendChangedStringFlag(args, flags, "config")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedStringFlag(args, flags, "api-key")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedStringFlag(args, flags, "publication-id")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedStringFlag(args, flags, "base-url")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedIntFlag(args, flags, "rate-limit-rpm")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedStringFlag(args, flags, "timeout")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedBoolFlag(args, flags, "table")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedBoolFlag(args, flags, "raw")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedStringFlag(args, flags, "output")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedBoolFlag(args, flags, "compact")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedBoolFlag(args, flags, "debug")
-	if err != nil {
-		return nil, err
-	}
-	args, err = appendChangedBoolFlag(args, flags, "verbose")
-	if err != nil {
-		return nil, err
-	}
-
-	return args, nil
-}
-
-func appendOperationFlags(args []string, command *cobra.Command, operation commandset.Operation) ([]string, error) {
-	flags := command.Flags()
-
-	values, err := flags.GetStringArray("query")
-	if err != nil {
-		return nil, err
-	}
-	for _, value := range values {
-		args = append(args, "--query", value)
-	}
-
-	if operation.Body {
-		args, err = appendChangedStringFlag(args, flags, "body")
-		if err != nil {
-			return nil, err
-		}
-	}
-	if operation.List {
-		args, err = appendChangedBoolFlag(args, flags, "all")
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return args, nil
-}
 
 func commandOverrides(command *cobra.Command) (config.Overrides, error) {
 	flags := command.Flags()
@@ -201,36 +118,3 @@ func parseDuration(value string) time.Duration {
 	return parsed
 }
 
-func appendChangedStringFlag(args []string, flags *pflag.FlagSet, name string) ([]string, error) {
-	flag := flags.Lookup(name)
-	if flag == nil || !flag.Changed {
-		return args, nil
-	}
-
-	value, err := flags.GetString(name)
-	if err != nil {
-		return nil, err
-	}
-	return append(args, "--"+name, value), nil
-}
-
-func appendChangedIntFlag(args []string, flags *pflag.FlagSet, name string) ([]string, error) {
-	flag := flags.Lookup(name)
-	if flag == nil || !flag.Changed {
-		return args, nil
-	}
-
-	value, err := flags.GetInt(name)
-	if err != nil {
-		return nil, err
-	}
-	return append(args, "--"+name, strconv.Itoa(value)), nil
-}
-
-func appendChangedBoolFlag(args []string, flags *pflag.FlagSet, name string) ([]string, error) {
-	flag := flags.Lookup(name)
-	if flag == nil || !flag.Changed {
-		return args, nil
-	}
-	return append(args, "--"+name), nil
-}

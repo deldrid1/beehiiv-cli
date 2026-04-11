@@ -2,7 +2,7 @@
 .TH "BEEHIIV-AUTH-OAUTH-LOGIN" "1" "Apr 2026" "beehiiv-cli" "Beehiiv CLI Manual"
 
 .SH NAME
-beehiiv-auth-oauth-login - Run the Beehiiv OAuth authorization-code flow with PKCE
+beehiiv-auth-oauth-login - Sign in with a custom Beehiiv OAuth app
 
 
 .SH SYNOPSIS
@@ -10,7 +10,11 @@ beehiiv-auth-oauth-login - Run the Beehiiv OAuth authorization-code flow with PK
 
 
 .SH DESCRIPTION
-Run the Beehiiv OAuth authorization-code flow with PKCE
+Authorize beehiiv-cli via the OAuth 2.0 authorization-code flow with PKCE
+using a client ID from your own Beehiiv OAuth app.
+
+.PP
+For the default sign-in experience (no client ID required), use \fBbeehiiv login\fR\&.
 
 
 .SH OPTIONS
@@ -89,6 +93,14 @@ Run the Beehiiv OAuth authorization-code flow with PKCE
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv auth oauth login --client-id <id>
+beehiiv auth oauth login --client-id <id> --scope all
+beehiiv auth oauth login --client-id <id> --manual --no-browser
+.EE
 
 
 .SH SEE ALSO

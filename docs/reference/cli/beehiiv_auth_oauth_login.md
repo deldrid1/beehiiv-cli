@@ -2,10 +2,25 @@
 
 ## beehiiv auth oauth login
 
-Run the Beehiiv OAuth authorization-code flow with PKCE
+Sign in with a custom Beehiiv OAuth app
+
+### Synopsis
+
+Authorize beehiiv-cli via the OAuth 2.0 authorization-code flow with PKCE
+using a client ID from your own Beehiiv OAuth app.
+
+For the default sign-in experience (no client ID required), use `beehiiv login`.
 
 ```
 beehiiv auth oauth login [flags]
+```
+
+### Examples
+
+```
+beehiiv auth oauth login --client-id <id>
+beehiiv auth oauth login --client-id <id> --scope all
+beehiiv auth oauth login --client-id <id> --manual --no-browser
 ```
 
 ### Options
@@ -39,4 +54,4 @@ beehiiv auth oauth login [flags]
 
 ### SEE ALSO
 
-* [beehiiv auth oauth](beehiiv_auth_oauth.md)	 - OAuth authentication flows
+* [beehiiv auth oauth](beehiiv_auth_oauth.md)	 - OAuth authentication for custom Beehiiv OAuth apps

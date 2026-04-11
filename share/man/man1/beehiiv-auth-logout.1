@@ -10,7 +10,8 @@ beehiiv-auth-logout - Remove saved Beehiiv credentials and optionally revoke OAu
 
 
 .SH DESCRIPTION
-Remove saved Beehiiv credentials and optionally revoke OAuth tokens
+Delete all stored credentials from the OS keyring and reset the config
+file.  For OAuth sessions, also revokes the token server-side by default.
 
 
 .SH OPTIONS
@@ -69,6 +70,13 @@ Remove saved Beehiiv credentials and optionally revoke OAuth tokens
 .PP
 \fB--verbose\fP[=false]
 	Print request and response details to stderr
+
+
+.SH EXAMPLE
+.EX
+beehiiv auth logout
+beehiiv auth logout --revoke=false
+.EE
 
 
 .SH SEE ALSO

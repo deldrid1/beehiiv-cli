@@ -8,6 +8,12 @@ Print the settings file path
 beehiiv auth path [flags]
 ```
 
+### Examples
+
+```
+beehiiv auth path
+```
+
 ### Options
 
 ```

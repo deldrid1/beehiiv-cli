@@ -2,16 +2,35 @@
 
 ## beehiiv login
 
-Alias for auth login
+Sign in to Beehiiv
+
+### Synopsis
+
+Sign in to Beehiiv using OAuth. Your browser opens the Beehiiv authorization
+page and your credentials are saved securely in the OS keyring automatically.
+No API key or client ID required.
+
+For CI/CD or programmatic use, pass --api-key to authenticate with an API
+key instead of OAuth.
 
 ```
 beehiiv login [flags]
 ```
 
+### Examples
+
+```
+beehiiv login
+beehiiv login --no-browser
+beehiiv login --api-key YOUR_API_KEY
+beehiiv login --api-key YOUR_API_KEY --publication-id pub_123
+```
+
 ### Options
 
 ```
-  -h, --help   help for login
+  -h, --help         help for login
+      --no-browser   Print the authorization URL without opening a browser
 ```
 
 ### Options inherited from parent commands

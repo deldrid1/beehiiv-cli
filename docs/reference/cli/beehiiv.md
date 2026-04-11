@@ -42,10 +42,11 @@ beehiiv [flags]
 * [beehiiv bulk-subscriptions](beehiiv_bulk-subscriptions.md)	 - Import subscribers in bulk
 * [beehiiv completion](beehiiv_completion.md)	 - Generate the autocompletion script for the specified shell
 * [beehiiv condition-sets](beehiiv_condition-sets.md)	 - Inspect condition sets
+* [beehiiv connect](beehiiv_connect.md)	 - Sign in to Beehiiv (alias for login)
 * [beehiiv custom-fields](beehiiv_custom-fields.md)	 - Manage publication custom fields
 * [beehiiv email-blasts](beehiiv_email-blasts.md)	 - Inspect email blasts
 * [beehiiv engagements](beehiiv_engagements.md)	 - Inspect publication engagement events
-* [beehiiv login](beehiiv_login.md)	 - Alias for auth login
+* [beehiiv login](beehiiv_login.md)	 - Sign in to Beehiiv
 * [beehiiv newsletter-lists](beehiiv_newsletter-lists.md)	 - Inspect newsletter lists
 * [beehiiv poll-responses](beehiiv_poll-responses.md)	 - List individual responses for a Beehiiv poll
 * [beehiiv polls](beehiiv_polls.md)	 - Inspect publication polls
