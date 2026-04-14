@@ -29,8 +29,13 @@ beehiiv login --api-key YOUR_API_KEY --publication-id pub_123
 ### Options
 
 ```
-  -h, --help         help for login
-      --no-browser   Print the authorization URL without opening a browser
+      --client-id string       Override the OAuth client ID
+      --client-secret string   Override the OAuth client secret
+  -h, --help                   help for login
+      --manual                 Skip the local callback listener and paste the callback URL manually
+      --no-browser             Print the authorization URL without opening a browser
+      --redirect-uri string    Override the OAuth redirect URI
+      --scope stringArray      Requested OAuth scope; repeat or use 'all'
 ```
 
 ### Options inherited from parent commands

@@ -20,12 +20,32 @@ key instead of OAuth.
 
 
 .SH OPTIONS
+\fB--client-id\fP=""
+	Override the OAuth client ID
+
+.PP
+\fB--client-secret\fP=""
+	Override the OAuth client secret
+
+.PP
 \fB-h\fP, \fB--help\fP[=false]
 	help for login
 
 .PP
+\fB--manual\fP[=false]
+	Skip the local callback listener and paste the callback URL manually
+
+.PP
 \fB--no-browser\fP[=false]
 	Print the authorization URL without opening a browser
+
+.PP
+\fB--redirect-uri\fP=""
+	Override the OAuth redirect URI
+
+.PP
+\fB--scope\fP=[]
+	Requested OAuth scope; repeat or use 'all'
 
 
 .SH OPTIONS INHERITED FROM PARENT COMMANDS

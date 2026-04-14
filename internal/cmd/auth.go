@@ -93,11 +93,17 @@ beehiiv login --api-key YOUR_API_KEY --publication-id pub_123`),
 				return runAPIKeyLoginFlow(cmd, options, overrides.APIKey)
 			}
 
-			// OAuth: env vars override the embedded DailyDrop defaults so the
-			// same command works for local/staging testing.
-			clientID := firstNonEmpty(options.Env[config.EnvOAuthClientID], appOAuthClientID)
-			clientSecret := firstNonEmpty(options.Env[config.EnvOAuthClientSecret], appOAuthClientSecret)
-			redirectURI := firstNonEmpty(options.Env[config.EnvOAuthRedirectURI], appOAuthRedirectURI)
+			// Precedence: flags > env vars > embedded DailyDrop defaults.
+			clientID, _ := cmd.Flags().GetString("client-id")
+			clientSecret, _ := cmd.Flags().GetString("client-secret")
+			redirectURI, _ := cmd.Flags().GetString("redirect-uri")
+			scopes, _ := cmd.Flags().GetStringArray("scope")
+
+			clientID = firstNonEmpty(strings.TrimSpace(clientID), options.Env[config.EnvOAuthClientID], appOAuthClientID)
+			clientSecret = firstNonEmpty(strings.TrimSpace(clientSecret), options.Env[config.EnvOAuthClientSecret], appOAuthClientSecret)
+			redirectURI = firstNonEmpty(strings.TrimSpace(redirectURI), options.Env[config.EnvOAuthRedirectURI], appOAuthRedirectURI)
+			scopes = mergeScopes(scopes, options.Env[config.EnvOAuthScopes])
+			scopes = auth.NormalizeScopes(scopes)
 
 			// If redirect URI is external (relay) the CLI still listens on
 			// localhost for the relay's 302.  If it IS localhost, listen there.
@@ -107,17 +113,24 @@ beehiiv login --api-key YOUR_API_KEY --publication-id pub_123`),
 			}
 
 			noBrowser, _ := cmd.Flags().GetBool("no-browser")
+			manual, _ := cmd.Flags().GetBool("manual")
 			return runOAuthLoginFlow(cmd.Context(), cmd, options, oauthLoginParams{
 				ClientID:     clientID,
 				ClientSecret: clientSecret,
 				RedirectURI:  redirectURI,
 				ListenURI:    listenURI,
-				Scopes:       auth.NormalizeScopes(nil),
+				Scopes:       scopes,
 				NoBrowser:    noBrowser,
+				Manual:       manual,
 			})
 		},
 	}
+	cmd.Flags().String("client-id", "", "Override the OAuth client ID")
+	cmd.Flags().String("client-secret", "", "Override the OAuth client secret")
+	cmd.Flags().String("redirect-uri", "", "Override the OAuth redirect URI")
+	cmd.Flags().StringArray("scope", nil, "Requested OAuth scope; repeat or use 'all'")
 	cmd.Flags().Bool("no-browser", false, "Print the authorization URL without opening a browser")
+	cmd.Flags().Bool("manual", false, "Skip the local callback listener and paste the callback URL manually")
 	return cmd
 }
 
