@@ -93,13 +93,25 @@ beehiiv login --api-key YOUR_API_KEY --publication-id pub_123`),
 				return runAPIKeyLoginFlow(cmd, options, overrides.APIKey)
 			}
 
-			// Default: OAuth with the embedded DailyDrop app credentials.
+			// OAuth: env vars override the embedded DailyDrop defaults so the
+			// same command works for local/staging testing.
+			clientID := firstNonEmpty(options.Env[config.EnvOAuthClientID], appOAuthClientID)
+			clientSecret := firstNonEmpty(options.Env[config.EnvOAuthClientSecret], appOAuthClientSecret)
+			redirectURI := firstNonEmpty(options.Env[config.EnvOAuthRedirectURI], appOAuthRedirectURI)
+
+			// If redirect URI is external (relay) the CLI still listens on
+			// localhost for the relay's 302.  If it IS localhost, listen there.
+			listenURI := ""
+			if !isLocalhostURI(redirectURI) {
+				listenURI = appOAuthLoopbackURI
+			}
+
 			noBrowser, _ := cmd.Flags().GetBool("no-browser")
 			return runOAuthLoginFlow(cmd.Context(), cmd, options, oauthLoginParams{
-				ClientID:     appOAuthClientID,
-				ClientSecret: appOAuthClientSecret,
-				RedirectURI:  appOAuthRedirectURI,
-				ListenURI:    appOAuthLoopbackURI,
+				ClientID:     clientID,
+				ClientSecret: clientSecret,
+				RedirectURI:  redirectURI,
+				ListenURI:    listenURI,
 				Scopes:       auth.NormalizeScopes(nil),
 				NoBrowser:    noBrowser,
 			})
