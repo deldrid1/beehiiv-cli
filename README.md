@@ -132,22 +132,21 @@ Secrets are stored in the macOS Keychain by default.
 
 ### Windows
 
-1. Download the correct archive from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest), for example `beehiiv_VERSION_windows_x86_64.zip`.
-2. Extract it into a stable folder such as `C:\Tools\beehiiv\`.
-3. Add that folder to your `PATH`.
-4. Run:
+Install via [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) (requires Windows 10 1809+ or Windows 11):
 
 ```powershell
-beehiiv.exe auth login
+winget install Deldrid1.BeehiivCLI
 ```
 
-The CLI stores its config at:
+Then sign in:
 
-```text
-%AppData%\beehiiv-cli\config.json
+```powershell
+beehiiv login
 ```
 
-Secrets are stored in the Windows Credential Manager by default.
+If winget is not available, download the correct archive from the [latest release](https://github.com/deldrid1/beehiiv-cli/releases/latest) (e.g. `beehiiv_VERSION_windows_x86_64.zip`), extract it into a folder such as `C:\Tools\beehiiv\`, and add that folder to your `PATH`.
+
+The CLI stores its config at `%AppData%\beehiiv-cli\config.json`. Secrets are stored in the Windows Credential Manager by default.
 
 ### Linux
 
@@ -173,13 +172,13 @@ brew tap deldrid1/homebrew-tap
 brew install beehiiv
 ```
 
-Winget has been submitted upstream in [microsoft/winget-pkgs#355725](https://github.com/microsoft/winget-pkgs/pull/355725). Once that PR is merged, installs will work like this:
+Winget (Windows 10 1809+ or Windows 11):
 
 ```powershell
 winget install Deldrid1.BeehiivCLI
 ```
 
-Until then, install from the GitHub release assets or build from source on Windows. Maintainer setup and publication notes live in [packaging/winget/README.md](packaging/winget/README.md), [packaging/homebrew/README.md](packaging/homebrew/README.md), and [docs/release-auth-setup.md](docs/release-auth-setup.md).
+Maintainer setup and publication notes live in [packaging/winget/README.md](packaging/winget/README.md), [packaging/homebrew/README.md](packaging/homebrew/README.md), and [docs/release-auth-setup.md](docs/release-auth-setup.md).
 
 ## Authentication
 
