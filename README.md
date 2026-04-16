@@ -74,6 +74,81 @@ Example personal marketplace file:
 - Automatic pagination with `--all`
 - Built-in retry and rate-limit handling
 
+## CLI vs Beehiiv MCP Server
+
+Beehiiv ships an [official MCP server](https://www.beehiiv.com/features/mcp) for AI-assisted workflows. The table below compares it with this CLI so you can choose the right tool — or use both.
+
+### Capability coverage
+
+| Resource | CLI | MCP | Notes |
+|---|---|---|---|
+| Publications (list, get, stats) | ✅ | ✅ | |
+| Posts (list, get, stats) | ✅ | ✅ | |
+| Post content (free/paid audience views) | ✅ | ✅ | MCP adds audience-scoped rendering |
+| Post ISP deliverability breakdown | ❌ | ✅ | MCP-only; per-domain metrics for 50+ subscriber domains |
+| Post click tracking (per-link) | ❌ | ✅ | MCP-only; includes per-subscriber click lists |
+| Subscriptions (list, get, filter) | ✅ | ✅ | |
+| Authors | ✅ | ✅ | |
+| Tiers | ✅ | ✅ | |
+| Custom fields | ✅ | ✅ | |
+| Content tags | ❌ | ✅ | MCP-only |
+| Polls + poll responses | ✅ | ✅ | |
+| Surveys + survey responses | ❌ | ✅ | MCP-only |
+| Automations + journeys | ✅ | ✅ | MCP adds per-step subscriber counts |
+| Automation email content | ❌ | ✅ | MCP-only; rendered email from a step |
+| Segments (list, get, recalculate) | ✅ | ❌ | CLI-only |
+| Segment members / results | ✅ | ❌ | CLI-only |
+| Referral program | ✅ | ❌ | CLI-only |
+| Advertisement opportunities | ✅ | ❌ | CLI-only |
+| Webhooks (CRUD + test) | ✅ | ❌ | CLI-only |
+| Email blasts | ✅ | ❌ | CLI-only |
+| Engagements | ✅ | ❌ | CLI-only |
+| Newsletter lists | ✅ | ❌ | CLI-only (Beta) |
+| Workspaces | ✅ | ✅ | |
+| Post templates | ✅ | ❌ | CLI-only |
+| Condition sets | ✅ | ❌ | CLI-only |
+| Beehiiv documentation search | ❌ | ✅ | MCP-only; search and read support articles |
+
+### Write operations
+
+| Operation | CLI | MCP |
+|---|---|---|
+| Create / update / delete posts | ✅ | ❌ |
+| Create / update / delete subscriptions | ✅ | ❌ |
+| Bulk import subscriptions | ✅ | ❌ |
+| Bulk update subscriptions | ✅ | ❌ |
+| Create / update / delete custom fields | ✅ | ❌ |
+| Create / update / delete webhooks | ✅ | ❌ |
+| Create / update tiers | ✅ | ❌ |
+| Create automation journeys | ✅ | ❌ |
+| Delete segments | ✅ | ❌ |
+| Add subscription tags | ✅ | ❌ |
+
+The MCP is **read-only (v1)** — Beehiiv has announced write support for a future v2.
+
+### Cross-cutting features
+
+| Feature | CLI | MCP |
+|---|---|---|
+| Full pagination (`--all` aggregation) | ✅ | Capped at 100/page |
+| CSV export | ✅ | ❌ |
+| ASCII charts in terminal | ✅ | ❌ |
+| Publication summary reports | ✅ | ❌ |
+| Table, JSON, and raw output | ✅ | JSON only |
+| Rate-limit handling + retry | ✅ | Managed server-side |
+| OAuth sign-in (no API key) | ✅ | ✅ (managed auth) |
+| API key auth | ✅ | ❌ |
+| Works on free Beehiiv plan | ✅ | ❌ (paid plans only) |
+| Shell scripting / CI pipelines | ✅ | ❌ |
+| AI agent integration (MCP) | ❌ | ✅ |
+| Verbose request debugging | ✅ | ❌ |
+
+### When to use which
+
+- **CLI** — scripting, bulk operations, CI/CD, CSV exports, anything that writes data, free-tier accounts, or when you need the full API surface (71 operations across 28 resource groups).
+- **MCP** — conversational AI workflows, asking questions about your newsletter in natural language, deliverability analysis (ISP breakdown), and survey data.
+- **Both** — the CLI and MCP complement each other. Use the MCP for exploration and analysis, then use the CLI to act on what you find.
+
 ## Requirements
 
 - For normal use: a Beehiiv account (OAuth sign-in is built in — no API key needed)
