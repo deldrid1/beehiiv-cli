@@ -4,7 +4,7 @@ A simple command-line app for interacting with the [Beehiiv V2 API](https://deve
 
 ## Project Status
 
-This project is ready for early public use and feedback across the major operating systems. GitHub releases and Homebrew installs are live today, winget publication for Windows has been submitted upstream, and the Codex plugin now ships both in-repo and as a release asset for team installs.
+Ready for public use on macOS, Windows, and Linux. Install via Homebrew (macOS/Linux) or winget (Windows), or download a binary from the GitHub releases page. The Codex plugin ships both in-repo and as a release asset for team installs.
 
 ## Quick Start
 
