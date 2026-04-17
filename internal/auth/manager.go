@@ -274,8 +274,8 @@ func (m *Manager) SaveOAuthSession(options OAuthSessionOptions) error {
 		settings.OAuth.ResourceOwnerID = options.TokenInfo.ResourceOwnerID
 		settings.OAuth.ApplicationUID = options.TokenInfo.Application.UID
 		settings.OAuth.ApplicationName = options.TokenInfo.Application.Name
-		if scope := strings.TrimSpace(options.TokenInfo.Scope); scope != "" {
-			settings.OAuth.Scopes = strings.Fields(scope)
+		if len(options.TokenInfo.Scope) > 0 {
+			settings.OAuth.Scopes = append([]string(nil), options.TokenInfo.Scope...)
 		}
 	}
 	if err := config.SaveSettings(configPath, settings); err != nil {

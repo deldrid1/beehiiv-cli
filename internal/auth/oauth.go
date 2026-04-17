@@ -50,14 +50,42 @@ type OAuthTokenResponse struct {
 }
 
 type OAuthTokenInfo struct {
-	ResourceOwnerID  string `json:"resource_owner_id"`
-	Scope            string `json:"scope"`
-	ExpiresInSeconds int    `json:"expires_in_seconds"`
+	ResourceOwnerID  string    `json:"resource_owner_id"`
+	Scope            ScopeList `json:"scope"`
+	ExpiresInSeconds int       `json:"expires_in_seconds"`
 	Application      struct {
 		UID  string `json:"uid"`
 		Name string `json:"name"`
 	} `json:"application"`
 	CreatedAt int64 `json:"created_at"`
+}
+
+// ScopeList accepts the OAuth 2.0 scope field as either a space-separated
+// JSON string (RFC 6749) or a JSON array of strings. Beehiiv's token/info
+// endpoint returns an array even though the authorization response returns
+// a space-separated string.
+type ScopeList []string
+
+func (s *ScopeList) UnmarshalJSON(data []byte) error {
+	trimmed := strings.TrimSpace(string(data))
+	if trimmed == "" || trimmed == "null" {
+		*s = nil
+		return nil
+	}
+	if trimmed[0] == '[' {
+		var arr []string
+		if err := json.Unmarshal(data, &arr); err != nil {
+			return err
+		}
+		*s = arr
+		return nil
+	}
+	var str string
+	if err := json.Unmarshal(data, &str); err != nil {
+		return err
+	}
+	*s = strings.Fields(str)
+	return nil
 }
 
 type OAuthError struct {
