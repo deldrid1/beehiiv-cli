@@ -211,11 +211,16 @@ func RevokeToken(ctx context.Context, httpClient client.HTTPClient, request Revo
 }
 
 func GetTokenInfo(ctx context.Context, httpClient client.HTTPClient, accessToken string) (OAuthTokenInfo, error) {
+	if httpClient == nil {
+		httpClient = http.DefaultClient
+	}
+
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, TokenInfoURL, nil)
 	if err != nil {
 		return OAuthTokenInfo{}, err
 	}
 	req.Header.Set("Authorization", "Bearer "+accessToken)
+	req.Header.Set("Accept", "application/json")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
