@@ -1,0 +1,19 @@
+{
+  "name": "beehiiv-claude",
+  "version": "0.2.1",
+  "description": "Plain-language Beehiiv reporting, charts, exports, and setup help powered by beehiiv-cli.",
+  "author": {
+    "name": "beehiiv-cli"
+  },
+  "homepage": "https://github.com/deldrid1/beehiiv-cli",
+  "repository": "https://github.com/deldrid1/beehiiv-cli",
+  "license": "MIT",
+  "keywords": [
+    "beehiiv",
+    "newsletter",
+    "analytics",
+    "reporting",
+    "csv",
+    "exports"
+  ]
+}

@@ -63,6 +63,32 @@ Example personal marketplace file:
 }
 ```
 
+## Use with Claude Code
+
+The repo includes a Claude Code plugin at `plugins/beehiiv-claude` with a `beehiiv-reporting-assistant` skill that translates plain-language requests ("summarize the last 14 days", "export subscribers to CSV") into the right `beehiiv` commands.
+
+Install from this repo:
+
+```text
+/plugin marketplace add /absolute/path/to/beehiiv-cli
+/plugin install beehiiv-claude@beehiiv-local-plugins
+```
+
+Or install from GitHub:
+
+```text
+/plugin marketplace add deldrid1/beehiiv-cli
+/plugin install beehiiv-claude@beehiiv-local-plugins
+```
+
+If you prefer to use the skill without the plugin wrapper, copy it into your personal skills directory:
+
+```bash
+cp -r plugins/beehiiv-claude/skills/beehiiv-reporting-assistant ~/.claude/skills/
+```
+
+See [plugins/beehiiv-claude/README.md](plugins/beehiiv-claude/README.md) for details and suggested prompts.
+
 ## Features
 
 - Friendly `--help` output on every command
@@ -481,7 +507,7 @@ To enable the local pre-commit hook:
 git config core.hooksPath .githooks
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the contributor workflow and [SECURITY.md](SECURITY.md) for responsible disclosure guidance.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contributor workflow, [SECURITY.md](SECURITY.md) for responsible disclosure guidance, and [CHANGELOG.md](CHANGELOG.md) for release history.
 
 Override the internal limiter if needed:
 

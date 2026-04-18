@@ -1,0 +1,25 @@
+{
+  "name": "beehiiv-local-plugins",
+  "owner": {
+    "name": "beehiiv-cli"
+  },
+  "metadata": {
+    "description": "Local Beehiiv plugins for Claude Code.",
+    "version": "0.2.1"
+  },
+  "plugins": [
+    {
+      "name": "beehiiv-claude",
+      "source": "./plugins/beehiiv-claude",
+      "description": "Plain-language Beehiiv reporting, charts, exports, and setup help powered by beehiiv-cli.",
+      "version": "0.2.1",
+      "category": "productivity",
+      "keywords": [
+        "beehiiv",
+        "newsletter",
+        "analytics",
+        "reporting"
+      ]
+    }
+  ]
+}
